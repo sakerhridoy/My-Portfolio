@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Contact from './Components/Contact';
 import Footer from './Components/Footer';
@@ -7,10 +7,9 @@ import Navbar from './Components/Navbar';
 import Plans from './Components/Plans';
 import Project from './Components/Projects';
 import Service from './Components/Service';
-import ThankYou from './components/ThankYou';
+import ThankYou from './Components/Thankyou';
 
 function App() {
-
   return (
     <>
       <Navbar />
@@ -29,4 +28,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
