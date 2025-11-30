@@ -24,9 +24,8 @@ const Hero = () => {
     >
       {/*BACKGROUND LAYER (stays behind everything) */}
       <HeroBackground />
-
       {/*GLOW BALL + FLOATING 3D OBJECTS (also behind text) */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden z-20 pointer-events-none">
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         {/* Glow Balls */}
         <GlowBall size="300px" color="cyan" top="10%" left="70%" />
         <GlowBall size="250px" color="purple" top="50%" left="20%" />
@@ -71,8 +70,7 @@ const Hero = () => {
         />
       </div>
       {/* 3D TECH LOGO */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden z-20 pointer-events-none">
-
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         {/* Floating Tech Logos */}
         <TechLogo3D
           icon={<SiReact />}
@@ -123,7 +121,6 @@ const Hero = () => {
           floatDelay="0.9s"
         />
       </div>
-
       {/* MAIN CONTENT ABOVE BACKGROUND */}
       <div className="container mx-auto px-6 md:px-12 lg:px-20 py-24 h-full relative z-20">
         <div className="grid md:grid-cols-2 items-center h-full gap-10">
@@ -241,9 +238,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
       {/* BOTTOM SHADOW GRADIENT */}
-      <div className="absolute bottom-0 w-full h-20 bg-linear-to-t from-black/40 to-transparent"></div>
+      <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-black/40 to-transparent"></div>{' '}
     </section>
   );
 };

@@ -40,7 +40,7 @@ const Project = () => {
       id: 4,
       img: homePage,
       title: 'Landing Page Design',
-      link: 'https://github.com/sakerhridoy/ProCleaning-web-Landing-page-design-with-React',
+      link: 'https://github.com/sakerhridoy/react_project_01',
     },
     {
       id: 5,

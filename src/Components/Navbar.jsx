@@ -1,5 +1,5 @@
-import React from 'react'
-import logo from '../assets/logo.png'
+import React from 'react';
+import logo from '../assets/logo.png';
 import resumePdf from '../assets/SakerAhmedHridoy_Full-stackWebDeveloper_CreativeIT.pdf';
 
 const Navbar = () => {
@@ -24,20 +24,21 @@ const Navbar = () => {
             <li>
               <a href="#contact">Contact</a>
             </li>
-            <div className="cv">
+            <li>
               <a
                 href={resumePdf} // Use the imported variable here!
                 target="_blank"
+                rel="noopener noreferrer"
                 className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 rounded-md font-semibold shadow-lg transition"
               >
                 Resume
               </a>
-            </div>
+            </li>{' '}
           </ul>
         </div>
       </nav>
     </>
   );
-}
+};
 
-export default Navbar
+export default Navbar;

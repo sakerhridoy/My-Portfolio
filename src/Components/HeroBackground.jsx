@@ -39,9 +39,11 @@ const ParticleField = () => {
     for (let i = 0; i < p.count; i++) {
       const ix = i * 3;
       const iy = i * 3 + 1;
+      const iz = i * 3 + 2;
 
       p.array[iy] += simplex(ix * 0.02, iy * 0.02, t * 0.15) * 0.003;
       p.array[ix] += simplex(ix * 0.03, iy * 0.03, t * 0.12) * 0.003;
+      p.array[iz] += simplex(ix * 0.04, iy * 0.0, t * 0.12) * 0.003;
 
       p.array[ix] += mx * 0.005;
       p.array[iy] += my * 0.005;

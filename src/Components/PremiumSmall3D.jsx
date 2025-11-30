@@ -7,6 +7,7 @@ const PremiumSmall3D = ({ size, opacity, initialX, initialY, floatDelay }) => {
   useEffect(() => {
     const el = ref.current;
     const handleMove = e => {
+      if (!el) return;
       const x = (e.clientX / window.innerWidth - 0.5) * 20;
       const y = (e.clientY / window.innerHeight - 0.5) * 20;
 
@@ -16,7 +17,6 @@ const PremiumSmall3D = ({ size, opacity, initialX, initialY, floatDelay }) => {
     window.addEventListener('mousemove', handleMove);
     return () => window.removeEventListener('mousemove', handleMove);
   }, []);
-
   return (
     <div
       ref={ref}
