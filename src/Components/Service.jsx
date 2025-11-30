@@ -10,7 +10,6 @@ const Service = () => {
       title: 'JavaScript Development',
       desc: 'ES6+, DOM, API Integration'
     },
-    ,
   ];
   return (
     <>

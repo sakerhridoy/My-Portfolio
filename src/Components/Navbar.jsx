@@ -1,12 +1,14 @@
 import React from 'react'
+import logo from '../assets/logo.png'
+import resumePdf from '../assets/SakerAhmedHridoy_Full-stackWebDeveloper_CreativeIT.pdf';
 
 const Navbar = () => {
   return (
     <>
       <nav className="fixed top-0 w-full bg-[#072135]/70 backdrop-blur-md shadow z-50">
         <div className="container mx-auto flex justify-between items-center py-4 px-2">
-          <h1 className="text-white text-xl font-semibold">Saker Hridoy</h1>
-          <ul className="flex gap-6 text-white text-sm">
+          <img src={logo} alt="logo" className="w-[210px]" />
+          <ul className="flex gap-6 text-white text-sm justify-end">
             <li>
               <a href="#home">Home</a>
             </li>
@@ -22,6 +24,15 @@ const Navbar = () => {
             <li>
               <a href="#contact">Contact</a>
             </li>
+            <div className="cv">
+              <a
+                href={resumePdf} // Use the imported variable here!
+                target="_blank"
+                className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 rounded-md font-semibold shadow-lg transition"
+              >
+                Resume
+              </a>
+            </div>
           </ul>
         </div>
       </nav>
