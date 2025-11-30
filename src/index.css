@@ -1,0 +1,21 @@
+@import "tailwindcss";
+.container{
+  @apply max-w-[1240px] mx-auto;
+}
+@layer{
+  .byliner{
+    background: linear-gradient(90deg,rgba(15, 53, 74, 1) 1%, rgba(25, 61, 71, 1) 35%, rgba(57, 116, 128, 1) 100%);
+  }
+  @keyframes floating {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-floating {
+  animation: floating 4s ease-in-out infinite;
+}
+}
