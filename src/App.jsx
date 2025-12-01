@@ -11,20 +11,20 @@ import ThankYou from './Components/Thankyou';
 
 function App() {
   return (
-    <>
+    <Router>
       <Navbar />
       <Hero />
       <Service />
       <Project />
       <Plans />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Contact />} />
-          <Route path="/thankyou" element={<ThankYou />} />
-        </Routes>
-      </Router>
+
+      <Routes>
+        <Route path="/" element={<Contact />} />
+        <Route path="/thankyou" element={<ThankYou />} />
+      </Routes>
+
       <Footer />
-    </>
+    </Router>
   );
 }
 

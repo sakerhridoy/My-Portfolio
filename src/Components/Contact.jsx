@@ -1,7 +1,50 @@
 import React from 'react';
 import ThankYou from './Thankyou';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setLoading(true);
+
+    const data = {
+      access_key: 'b3594110-667a-4be1-9940-35893c4b5cc2',
+      ...formData,
+    };
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        navigate('/thankyou'); // React Router redirect
+      } else {
+        alert('Something went wrong! Please try again.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error submitting form!');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section id="contact" className="py-20 bg-black text-white">
       <div className="container mx-auto">
@@ -11,63 +54,35 @@ const Contact = () => {
           <p className="mb-3">Email: sakerahmedhridoy@gmail.com</p>
 
           <form
-            className="grid gap-4 mt-4"
             action="https://api.web3forms.com/submit"
             method="POST"
-          >
-            {/* 1️⃣ API Key */}
+            className="flex flex-col gap-4" >
             <input
               type="hidden"
               name="access_key"
-              value="b3594110-667a-4be1-9940-35893c4b5cc2"
-            />
-
+              value="b3594110-667a-4be1-9940-35893c4b5cc2" />
             <input
-              type="hidden"
-              name="email_to"
-              value="sakerahmedhridoy@gmail.com"
-            />
-
-            {/* 3️⃣ Optional: Success redirect */}
-            <input
-              type="hidden"
-              name="redirect"
-              value="http://localhost:5173/thankyou"
-            />
-
-            {/* Visible Input Fields */}
-            <input
-              className="p-3 bg-gray-700 rounded"
+              type="text"
               name="name"
               placeholder="Your Name"
-              required
-            />
-            <input
               className="p-3 bg-gray-700 rounded"
-              name="email"
+              required />
+            <input
               type="email"
+              name="email"
               placeholder="Your Email"
-              required
-            />
+              className="p-3 bg-gray-700 rounded"
+              required />
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              className="p-3 bg-gray-700 rounded"
+              rows="4" required>
+            </textarea>
             <input
               type="hidden"
               name="redirect"
-              value="https://my-portfolio-nine-mauve.vercel.app/thankyou"
-            />
-            <textarea
-              className="p-3 bg-gray-700 rounded"
-              name="message"
-              rows="4"
-              placeholder="Your Message"
-              required
-            ></textarea>
-            <button
-              type="submit"
-              className="p-3 text-center bg-cyan-400 hover:bg-cyan-600 rounded font-semibold"
-            >
-              Send
-            </button>
-          </form>
+              value="http://localhost:5173/thankyou" /> <button type="submit" className="p-3 bg-cyan-400 rounded hover:bg-cyan-500 transition"> Send </button> </form>
         </div>
       </div>
     </section>
