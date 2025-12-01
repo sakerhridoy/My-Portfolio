@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 
 const useGithubCounts = (projects = [], options = {}) => {
+  const { token } = options;
   const [counts, setCounts] = useState({});
   useEffect(() => {
     let mounted = true;
@@ -17,13 +18,12 @@ const useGithubCounts = (projects = [], options = {}) => {
           const repo = parts[1];
           const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
           const headers = {};
-          if (options.token) headers.Authorization = `token ${options.token}`;
+          if (token) headers.Authorization = `token ${token}`;
           const res = await fetch(apiUrl, { headers });
           if (!res.ok) continue;
           const json = await res.json();
           map[p.id] = { stars: json.stargazers_count, forks: json.forks_count };
-        } catch (err) {
-        }
+        } catch (err) {}
       }
       if (mounted) setCounts(map);
     }
@@ -31,7 +31,7 @@ const useGithubCounts = (projects = [], options = {}) => {
     return () => {
       mounted = false;
     };
-  }, [projects, options.token])
+  }, [projects, token]);
   return counts;
 };
 

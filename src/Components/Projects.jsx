@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
@@ -173,8 +172,11 @@ const Projects = () => {
               <FaTimes />
             </button>
 
-            <img src={selected.img} className="w-full rounded mb-4" />
-
+            <img
+              src={selected.img}
+              alt={selected.title}
+              className="w-full rounded mb-4"
+            />
             <h2 className="text-center text-xl text-gray-400 mb-6">
               Total GitHub Projects: {profile?.public_repos}
             </h2>
@@ -246,16 +248,14 @@ const Projects = () => {
           </div>
 
           {/* ---------------- VIEW ALL BUTTON ---------------- */}
-          {!showAll && (
-            <div className="flex justify-center mt-10">
-              <button
-                onClick={() => setShowAll(true)}
-                className="px-6 py-3 bg-cyan-400 text-white rounded-md font-semibold hover:bg-cyan-600"
-              >
-                View All Projects
-              </button>
-            </div>
-          )}
+          <div className="flex justify-center mt-10">
+            <a
+              onClick={() => setShowAll(!showAll)}
+              className="px-6 py-3 bg-cyan-400 text-white rounded-md font-semibold hover:bg-cyan-600 cursor-pointer"
+            >
+              {showAll ? 'Show Less' : 'View All Project'}
+            </a>
+          </div>
         </div>
       </section>
     </>
@@ -263,4 +263,3 @@ const Projects = () => {
 };
 
 export default Projects;
-

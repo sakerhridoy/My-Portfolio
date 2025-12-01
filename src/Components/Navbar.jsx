@@ -16,13 +16,15 @@ const Navbar = () => {
             <img src={logo} alt="logo" className="w-[180px] lg:w-[210px]" />
 
             {/* Hamburger for Mobile */}
-            <div
-              className="text-white md:hidden text-3xl cursor-pointer"
+            <button
+              type="button"
+              aria-label="Toggle navigation menu"
+              aria-expanded={open}
+              className="text-white md:hidden text-3xl cursor-pointer bg-transparent border-none"
               onClick={() => setOpen(!open)}
             >
               {open ? <HiX /> : <HiMenu />}
-            </div>
-
+            </button>
             {/* NAV ITEMS */}
             <ul
               className={`md:flex md:items-center md:static absolute left-0 w-full bg-[#072135] md:bg-transparent md:w-auto transition-all duration-400 ease-in-out text-center py-21 md:py-0 ${

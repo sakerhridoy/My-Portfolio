@@ -125,7 +125,7 @@ const Hero = () => {
       </div>
       {/* MAIN CONTENT ABOVE BACKGROUND */}
       <div className="container mx-auto px-6 lg:px-12 py-24 md:pt-40 h-full relative z-20">
-        <div className="grid md:grid-cols-2 items-center h-full gap-10 md:gap-0 lg:gap-10">
+        <div className="grid md:grid-cols-2 items-center h-full gap-10 md:gap-0 lg:gap">
           {/* TEXT SECTION */}
           <div className="text-white space-y-6 z-20">
             <h1 className="text-5xl sm:text-7xl md:text-[50px] lg:text-6xl font-bold leading-tight">
