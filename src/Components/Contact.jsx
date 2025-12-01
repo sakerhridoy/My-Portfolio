@@ -1,4 +1,5 @@
 import React from 'react';
+import ThankYou from './Thankyou';
 
 const Contact = () => {
   return (
@@ -48,6 +49,11 @@ const Contact = () => {
               placeholder="Your Email"
               required
             />
+            <input
+              type="hidden"
+              name="redirect"
+              value="https://my-portfolio-nine-mauve.vercel.app/thankyou"
+            />
             <textarea
               className="p-3 bg-gray-700 rounded"
               name="message"
@@ -55,7 +61,10 @@ const Contact = () => {
               placeholder="Your Message"
               required
             ></textarea>
-            <button className="p-3 bg-cyan-400 hover:bg-cyan-600 rounded" type="submit">
+            <button
+              type="submit"
+              className="p-3 text-center bg-cyan-400 hover:bg-cyan-600 rounded font-semibold"
+            >
               Send
             </button>
           </form>
