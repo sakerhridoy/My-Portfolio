@@ -7,7 +7,7 @@ import { SlSocialLinkedin } from 'react-icons/sl';
 import PremiumSmall3D from './PremiumSmall3D';
 import GlowBall from './GlowBall';
 import TechLogo3D from './TechLogo3D';
-import profilePic from '../assets/profile.png'
+import profilePic from '../assets/profile.png';
 import {
   SiReact,
   SiNextdotjs,
@@ -18,7 +18,7 @@ import {
 } from 'react-icons/si';
 
 const Hero = () => {
-   const { profile, loading } = useGithubData('sakerhridoy');
+  const { profile, loading } = useGithubData('sakerhridoy');
   return (
     <section
       id="home"
@@ -125,7 +125,8 @@ const Hero = () => {
       </div>
       {/* MAIN CONTENT ABOVE BACKGROUND */}
       <div className="container mx-auto px-6 lg:px-12 py-24 md:pt-40 h-full relative z-20">
-        <div className="grid md:grid-cols-2 items-center h-full gap-10 md:gap-0 lg:gap">
+        <div className="grid md:grid-cols-2 items-center h-full gap-10 md:gap-0 lg:gap-10">
+          {' '}
           {/* TEXT SECTION */}
           <div className="text-white space-y-6 z-20">
             <h1 className="text-5xl sm:text-7xl md:text-[50px] lg:text-6xl font-bold leading-tight">
@@ -212,7 +213,6 @@ const Hero = () => {
               </a>
             </div>
           </div>
-
           {/* RIGHT SECTION: PROFILE + MAIN 3D */}
           <div className="relative flex justify-center md:justify-end items-center z-20">
             {/* PROFILE IMAGE */}

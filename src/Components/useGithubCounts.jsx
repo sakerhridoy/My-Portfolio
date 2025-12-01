@@ -23,7 +23,12 @@ const useGithubCounts = (projects = [], options = {}) => {
           if (!res.ok) continue;
           const json = await res.json();
           map[p.id] = { stars: json.stargazers_count, forks: json.forks_count };
-        } catch (err) {}
+        } catch (err) {
+          console.error(
+            `Failed to fetch GitHub data for project ${p.id}:`,
+            err
+          );
+        }
       }
       if (mounted) setCounts(map);
     }

@@ -197,7 +197,6 @@ const Projects = () => {
       <section id="projects" className="py-20 bg-black text-white">
         <div className="container mx-4 md:mx-auto">
           <h2 className="text-3xl font-bold mb-10 text-center">Projects</h2>
-
           {/* ---------------- FILTER BUTTONS ---------------- */}
           <div className="flex justify-center gap-3 mb-10 flex-wrap mx-2 md:mx-0">
             {categories.map(cat => (
@@ -219,7 +218,6 @@ const Projects = () => {
               </button>
             ))}
           </div>
-
           {/* ---------------- PROJECT GRID ---------------- */}
           <div className="grid lg:grid-cols-3 gap-6 mx-4 xl:mx-0">
             {visibleProjects.map(p => (
@@ -246,16 +244,15 @@ const Projects = () => {
               </Tilt>
             ))}
           </div>
-
           {/* ---------------- VIEW ALL BUTTON ---------------- */}
           <div className="flex justify-center mt-10">
-            <a
+            <button
               onClick={() => setShowAll(!showAll)}
               className="px-6 py-3 bg-cyan-400 text-white rounded-md font-semibold hover:bg-cyan-600 cursor-pointer"
             >
-              {showAll ? 'Show Less' : 'View All Project'}
-            </a>
-          </div>
+              {showAll ? 'Show Less' : 'View All Projects'}
+            </button>
+          </div>{' '}
         </div>
       </section>
     </>
