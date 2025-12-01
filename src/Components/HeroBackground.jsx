@@ -35,6 +35,7 @@ const ParticleField = () => {
     // Mouse smoothing
     const mx = THREE.MathUtils.lerp(0, mouse.x, 0.25);
     const my = THREE.MathUtils.lerp(0, mouse.y, 0.25);
+    const mz = THREE.MathUtils.lerp(0, mouse.z, 0.25);
 
     for (let i = 0; i < p.count; i++) {
       const ix = i * 3;
@@ -43,10 +44,11 @@ const ParticleField = () => {
 
       p.array[iy] += simplex(ix * 0.02, iy * 0.02, t * 0.15) * 0.003;
       p.array[ix] += simplex(ix * 0.03, iy * 0.03, t * 0.12) * 0.003;
-      p.array[iz] += simplex(ix * 0.04, iy * 0.0, t * 0.12) * 0.003;
+      p.array[iz] += simplex(ix * 0.04, iy * 0.04, t * 0.14) * 0.003;
 
       p.array[ix] += mx * 0.005;
       p.array[iy] += my * 0.005;
+      p.array[iz] += mz * 0.005;
     }
 
     p.needsUpdate = true;
@@ -55,6 +57,7 @@ const ParticleField = () => {
     if (light.current) {
       light.current.position.x = mx * 6;
       light.current.position.y = -my * 6;
+      light.current.position.z = -mz * 6;
     }
   });
 

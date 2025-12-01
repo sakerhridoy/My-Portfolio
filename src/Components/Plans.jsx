@@ -12,7 +12,7 @@ const Plans = () => {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-10 text-center">Plans</h2>
 
-          <div className="grid md:grid-cols-3 gap-6 text-center">
+          <div className="grid md:grid-cols-3 gap-6 text-center mx-4 xl:mx-0">
             {plans.map((p, i) => (
               <div key={i} className="bg-gray-800 p-6 rounded shadow">
                 <h3 className="text-xl font-semibold">{p.title}</h3>

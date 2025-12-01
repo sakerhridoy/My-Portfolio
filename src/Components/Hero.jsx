@@ -1,12 +1,13 @@
 import React from 'react';
 import Hero3D from './Hero3D';
+import useGithubData from './useGithubData';
 import HeroBackground from './HeroBackground';
-import profile from '../assets/profile.png';
 import { FiFacebook, FiGithub, FiInstagram, FiTwitter } from 'react-icons/fi';
 import { SlSocialLinkedin } from 'react-icons/sl';
 import PremiumSmall3D from './PremiumSmall3D';
 import GlowBall from './GlowBall';
 import TechLogo3D from './TechLogo3D';
+import profilePic from '../assets/profile.png'
 import {
   SiReact,
   SiNextdotjs,
@@ -17,6 +18,7 @@ import {
 } from 'react-icons/si';
 
 const Hero = () => {
+   const { profile, loading } = useGithubData('sakerhridoy');
   return (
     <section
       id="home"
@@ -122,20 +124,33 @@ const Hero = () => {
         />
       </div>
       {/* MAIN CONTENT ABOVE BACKGROUND */}
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 py-24 h-full relative z-20">
-        <div className="grid md:grid-cols-2 items-center h-full gap-10">
+      <div className="container mx-auto px-6 lg:px-12 py-24 md:pt-40 h-full relative z-20">
+        <div className="grid md:grid-cols-2 items-center h-full gap-10 md:gap-0 lg:gap-10">
           {/* TEXT SECTION */}
           <div className="text-white space-y-6 z-20">
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Hi, I'm <span className="text-cyan-400">Saker Ahmed Hridoy</span>
+            <h1 className="text-5xl sm:text-7xl md:text-[50px] lg:text-6xl font-bold leading-tight">
+              Hi, I'm
+              <span className="text-cyan-400">
+                {' '}
+                {loading ? 'Loading...' : profile?.name || 'Saker Ahmed Hridoy'}
+              </span>
             </h1>
 
             <p className="text-gray-300 text-lg md:text-xl max-w-md">
-              Aspiring Frontend Web Developer | AI & Web Solutions Enthusiast |
-              Lifelong Learner. I create modern, smooth, animated & fully
-              responsive websites using React, Tailwind CSS, and Artificial
-              Intelligence.
+              {loading
+                ? 'Loading information...'
+                : profile?.bio ||
+                  'Aspiring Frontend Developer | I create modern, smooth, animated & fully responsive websites using React, Tailwind CSS, and AI.'}
             </p>
+
+            {/* GITHUB STATS */}
+            {!loading && profile && (
+              <div className="flex gap-5 text-gray-300 pt-2">
+                <p>Followers: {profile.followers}</p>
+                <p>Following: {profile.following}</p>
+                <p>Projects: {profile.public_repos}</p>
+              </div>
+            )}
 
             <div className="flex gap-4 pt-4">
               <a
@@ -220,7 +235,8 @@ const Hero = () => {
                   "
                 >
                   <img
-                    src={profile}
+                    // src={profile?.avatar_url}
+                    src={profilePic}
                     alt="profile-photo"
                     className="
                       w-[90%] h-[90%] object-cover
@@ -229,11 +245,6 @@ const Hero = () => {
                   />
                 </div>
               </div>
-            </div>
-
-            {/* MAIN 3D MODEL */}
-            <div className="absolute w-full h-[350px] md:h-[500px] lg:h-[600px] bottom-0 right-0 opacity-70">
-              <Hero3D />
             </div>
           </div>
         </div>

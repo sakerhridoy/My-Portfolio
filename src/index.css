@@ -14,7 +14,10 @@
     transform: translateY(-15px);
   }
 }
-
+.nav-active a {
+  color: #22d3ee;
+  font-weight: 600;
+}
 .animate-floating {
   animation: floating 4s ease-in-out infinite;
 }

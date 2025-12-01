@@ -5,7 +5,7 @@ const Contact = () => {
     <section id="contact" className="py-20 bg-black text-white">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold mb-10 text-center">Contact</h2>
-        <div className="max-w-md mx-auto bg-gray-800 p-6 rounded shadow">
+        <div className="max-w-md mx-4 sm:mx-auto bg-gray-800 p-6 rounded shadow">
           <p className="mb-3">Phone: +8801743202274</p>
           <p className="mb-3">Email: sakerahmedhridoy@gmail.com</p>
 
@@ -55,7 +55,7 @@ const Contact = () => {
               placeholder="Your Message"
               required
             ></textarea>
-            <button className="p-3 bg-blue-600 rounded" type="submit">
+            <button className="p-3 bg-cyan-400 hover:bg-cyan-600 rounded" type="submit">
               Send
             </button>
           </form>

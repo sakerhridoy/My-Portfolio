@@ -1,0 +1,38 @@
+import React from 'react'
+import { useEffect, useState } from 'react';
+
+const useGithubCounts = (projects = [], options = {}) => {
+  const [counts, setCounts] = useState({});
+  useEffect(() => {
+    let mounted = true;
+    async function fetchCounts() {
+      const map = {};
+      for (const p of projects) {
+        try {
+          const url = new URL(p.link);
+          if (!url.hostname.includes('github.com')) continue;
+          const parts = url.pathname.split('/').filter(Boolean);
+          if (parts.length < 2) continue;
+          const owner = parts[0];
+          const repo = parts[1];
+          const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
+          const headers = {};
+          if (options.token) headers.Authorization = `token ${options.token}`;
+          const res = await fetch(apiUrl, { headers });
+          if (!res.ok) continue;
+          const json = await res.json();
+          map[p.id] = { stars: json.stargazers_count, forks: json.forks_count };
+        } catch (err) {
+        }
+      }
+      if (mounted) setCounts(map);
+    }
+    fetchCounts();
+    return () => {
+      mounted = false;
+    };
+  }, [projects, options.token])
+  return counts;
+};
+
+export default useGithubCounts
