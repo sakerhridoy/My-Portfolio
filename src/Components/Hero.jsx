@@ -2,10 +2,12 @@ import React from 'react';
 import Hero3D from './Hero3D';
 import useGithubData from './useGithubData';
 import HeroBackground from './HeroBackground';
-import { FiFacebook, FiGithub, FiInstagram, FiTwitter } from 'react-icons/fi';
+import { BsTwitterX } from 'react-icons/bs';
+import { FiFacebook, FiGithub, FiInstagram } from 'react-icons/fi';
 import { SlSocialLinkedin } from 'react-icons/sl';
 import PremiumSmall3D from './PremiumSmall3D';
 import GlowBall from './GlowBall';
+import { motion } from 'framer-motion';
 import TechLogo3D from './TechLogo3D';
 import profilePic from '../assets/profile.png';
 import {
@@ -128,7 +130,11 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 items-center h-full gap-10 md:gap-0 lg:gap-10">
           {' '}
           {/* TEXT SECTION */}
-          <div className="text-white space-y-6 z-20">
+          <motion.div
+  initial={{ opacity: 0, x: -50 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 1 }}
+            className="text-white space-y-6 z-20">
             <h1 className="text-5xl sm:text-7xl md:text-[50px] lg:text-6xl font-bold leading-tight">
               Hi, I'm
               <span className="text-cyan-400">
@@ -209,15 +215,16 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FiTwitter />
+                <BsTwitterX />
               </a>
             </div>
-          </div>
+          </motion.div>
           {/* RIGHT SECTION: PROFILE + MAIN 3D */}
           <div className="relative flex justify-center md:justify-end items-center z-20">
             {/* PROFILE IMAGE */}
             <div className="relative z-20">
               <div
+                
                 className="
                   w-[260px] md:w-[330px] lg:w-[400px]
                   aspect-square rounded-full

@@ -12,17 +12,29 @@ import ThankYou from './Components/Thankyou';
 function App() {
   return (
     <Router>
+      {/* Navbar always visible */}
       <Navbar />
-      <Hero />
-      <Service />
-      <Project />
-      <Plans />
 
       <Routes>
-        <Route path="/" element={<Contact />} />
+        {/* Main Home Page */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero />
+              <Service />
+              <Project />
+              <Plans />
+              <Contact />
+            </>
+          }
+        />
+
+        {/* Thank you redirect page */}
         <Route path="/thankyou" element={<ThankYou />} />
       </Routes>
 
+      {/* Footer always visible */}
       <Footer />
     </Router>
   );

@@ -196,7 +196,14 @@ const Projects = () => {
       {/* ---------------- PROJECT SECTION ---------------- */}
       <section id="projects" className="py-20 bg-black text-white">
         <div className="container mx-4 md:mx-auto">
-          <h2 className="text-3xl font-bold mb-10 text-center">Projects</h2>
+           <motion.h2
+                    initial={{ opacity: 0, y: -30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-4xl font-bold text-center mb-14"
+                  >
+                    My <span className="text-cyan-400">Projects</span>
+                  </motion.h2>
           {/* ---------------- FILTER BUTTONS ---------------- */}
           <div className="flex justify-center gap-3 mb-10 flex-wrap mx-2 md:mx-0">
             {categories.map(cat => (
