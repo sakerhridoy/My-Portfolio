@@ -77,7 +77,7 @@ const Footer = () => {
         {/* Scroll to Top Button */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="absolute right-6 bottom-6 bg-cyan-500 hover:bg-cyan-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          className="absolute right-6 bottom-6 bg-cyan-400 hover:bg-cyan-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
         >
           <FaArrowUp size={20} />
         </button>

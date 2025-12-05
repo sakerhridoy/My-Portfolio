@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import useGithubData from './useGithubData';
 import { FaTimes } from 'react-icons/fa';
+import ProjectsSlider from './ProjectsSlider';
 
 // ---------------- YOUR IMAGES IMPORT ----------------
 import eCommerceProject from '../assets/eCommerceProject02.png';
@@ -196,23 +197,21 @@ const Projects = () => {
       {/* ---------------- PROJECT SECTION ---------------- */}
       <section id="projects" className="py-20 bg-black text-white">
         <div className="container mx-4 md:mx-auto">
-           <motion.h2
-                    initial={{ opacity: 0, y: -30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-4xl font-bold text-center mb-14"
-                  >
-                    My <span className="text-cyan-400">Projects</span>
-                  </motion.h2>
+          <motion.h2
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl font-bold text-center mb-14"
+          >
+            My <span className="text-cyan-400">Projects</span>
+          </motion.h2>
+
           {/* ---------------- FILTER BUTTONS ---------------- */}
           <div className="flex justify-center gap-3 mb-10 flex-wrap mx-2 md:mx-0">
             {categories.map(cat => (
               <button
                 key={cat}
-                onClick={() => {
-                  setFilter(cat);
-                  setShowAll(false);
-                }}
+                onClick={() => setFilter(cat)}
                 className={`px-4 py-2 rounded-full border transition
                   ${
                     filter === cat
@@ -225,41 +224,9 @@ const Projects = () => {
               </button>
             ))}
           </div>
-          {/* ---------------- PROJECT GRID ---------------- */}
-          <div className="grid lg:grid-cols-3 gap-6 mx-4 xl:mx-0">
-            {visibleProjects.map(p => (
-              <Tilt
-                glareEnable={true}
-                glareColor="#ffffff"
-                scale={1.05}
-                key={p.id}
-              >
-                <motion.div
-                  onClick={() => setSelected(p)}
-                  whileHover={{ scale: 1.03 }}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="bg-gray-800 rounded overflow-hidden cursor-pointer shadow-lg"
-                >
-                  <img src={p.img} className="w-full h-48 object-cover" />
-                  <div className="p-4 text-center">
-                    <p className="text-lg font-semibold">{p.title}</p>
-                    <span className="text-sm text-gray-400">{p.category}</span>
-                  </div>
-                </motion.div>
-              </Tilt>
-            ))}
-          </div>
-          {/* ---------------- VIEW ALL BUTTON ---------------- */}
-          <div className="flex justify-center mt-10">
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="px-6 py-3 bg-cyan-400 text-white rounded-md font-semibold hover:bg-cyan-600 cursor-pointer"
-            >
-              {showAll ? 'Show Less' : 'View All Projects'}
-            </button>
-          </div>{' '}
+
+          {/* ---------------- SWIPER SLIDER ---------------- */}
+          <ProjectsSlider projects={filtered} setSelected={setSelected} />
         </div>
       </section>
     </>
