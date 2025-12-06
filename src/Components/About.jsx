@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import profile from '../assets/about3.png';
+import profile from '../assets/about2.png';
 
 const About = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -72,7 +72,7 @@ const About = () => {
               <img
                 src={profile}
                 alt="Profile"
-                className="relative w-80 h-80 rounded-3xl object-cover shadow-2xl border border-white/10"
+                className="relative w-80 h-full rounded-3xl object-cover shadow-2xl border border-white/10"
               />
             </motion.div>
           </motion.div>
