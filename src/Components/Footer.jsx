@@ -70,7 +70,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-center text-white/50 tracking-wide animate-fadeIn">
-            © 2025 Saker Ahmed Hridoy. All Rights Reserved.
+            © 2025 Saker Ahmed Hridoy. <span className='inline-block sm:inline'>All Rights Reserved.</span>
           </p>
         </div>
 

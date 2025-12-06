@@ -19,6 +19,31 @@ import {
   SiCss3,
 } from 'react-icons/si';
 
+const TypingText = ({ text, speed = 50 }) => {
+  const [displayedText, setDisplayedText] = React.useState('');
+  const [index, setIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!text) return;
+
+    if (index < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(prev => prev + text[index]);
+        setIndex(index + 1);
+      }, speed);
+      return () => clearTimeout(timeout);
+    }
+  }, [index, text, speed]);
+
+  return (
+    <span className="whitespace-pre-line">
+      {displayedText}
+      <span className="animate-pulse">|</span>
+    </span>
+  );
+};
+
+
 const Hero = () => {
   const { profile, loading } = useGithubData('sakerhridoy');
   return (
@@ -131,10 +156,11 @@ const Hero = () => {
           {' '}
           {/* TEXT SECTION */}
           <motion.div
-  initial={{ opacity: 0, x: -50 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ duration: 1 }}
-            className="text-white space-y-6 z-20">
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className="text-white space-y-6 z-20 order-2 md:order-1"
+          >
             <h1 className="text-5xl sm:text-7xl md:text-[50px] lg:text-6xl font-bold leading-tight">
               Hi, I'm
               <span className="text-cyan-400">
@@ -143,11 +169,18 @@ const Hero = () => {
               </span>
             </h1>
 
-            <p className="text-gray-300 text-lg md:text-xl max-w-md">
-              {loading
-                ? 'Loading information...'
-                : profile?.bio ||
-                  'Aspiring Frontend Developer | I create modern, smooth, animated & fully responsive websites using React, Tailwind CSS, and AI.'}
+            <p className="text-gray-300 text-lg md:text-xl max-w-md min-h-[90px]">
+              {loading ? (
+                'Loading information...'
+              ) : (
+                <TypingText
+                  text={
+                    profile?.bio ||
+                    'Aspiring Frontend Developer | I create modern, smooth, animated & fully responsive websites using React, Tailwind CSS, and AI.'
+                  }
+                  speed={40}
+                />
+              )}
             </p>
 
             {/* GITHUB STATS */}
@@ -220,11 +253,10 @@ const Hero = () => {
             </div>
           </motion.div>
           {/* RIGHT SECTION: PROFILE + MAIN 3D */}
-          <div className="relative flex justify-center md:justify-end items-center z-20">
+          <div className="order-1 md:order-2 relative flex justify-center md:justify-end items-center z-20">
             {/* PROFILE IMAGE */}
             <div className="relative z-20">
               <div
-                
                 className="
                   w-[260px] md:w-[330px] lg:w-[400px]
                   aspect-square rounded-full
@@ -257,7 +289,7 @@ const Hero = () => {
         </div>
       </div>
       {/* BOTTOM SHADOW GRADIENT */}
-      <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-black/40 to-transparent"></div>{' '}
+      <div className="absolute bottom-0 w-full h-20 bg-linear-to-t from-black/40 to-transparent"></div>{' '}
     </section>
   );
 };

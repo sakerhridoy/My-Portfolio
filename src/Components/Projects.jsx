@@ -197,14 +197,18 @@ const Projects = () => {
       {/* ---------------- PROJECT SECTION ---------------- */}
       <section id="projects" className="py-20 bg-black text-white">
         <div className="container mx-4 md:mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: -30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl font-bold text-center mb-14"
-          >
-            My <span className="text-cyan-400">Projects</span>
-          </motion.h2>
+         <motion.h2
+                   initial={{ opacity: 0, y: -40 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 0.7 }}
+                   viewport={{ once: true }}
+                   className="text-6xl font-extrabold text-center mb-16 tracking-wide"
+                 >
+                   My{' '}
+                   <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
+                     Projects
+                   </span>
+                 </motion.h2>
 
           {/* ---------------- FILTER BUTTONS ---------------- */}
           <div className="flex justify-center gap-3 mb-10 flex-wrap mx-2 md:mx-0">

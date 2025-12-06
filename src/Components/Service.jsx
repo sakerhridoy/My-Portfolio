@@ -40,13 +40,17 @@ const Service = () => {
       <div className="container mx-auto px-6">
         {/* SECTION TITLE */}
         <motion.h2
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-center mb-14"
-        >
-          My <span className="text-cyan-400">Services</span>
-        </motion.h2>
+                  initial={{ opacity: 0, y: -40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7 }}
+                  viewport={{ once: true }}
+                  className="text-6xl font-extrabold text-center mb-16 tracking-wide"
+                >
+                  My{' '}
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
+                    Services
+                  </span>
+                </motion.h2>
 
         {/* SERVICE CARDS */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">

@@ -8,6 +8,12 @@ import Plans from './Components/Plans';
 import Project from './Components/Projects';
 import Service from './Components/Service';
 import ThankYou from './Components/Thankyou';
+import About from './Components/about';
+import Experience from './Components/Experience';
+import Timeline from './Components/Timeline';
+import Testimonials from './Components/Testimonials';
+import FAQ from './Components/FAQ';
+import Resume from './Components/Resume';
 
 function App() {
   return (
@@ -22,9 +28,15 @@ function App() {
           element={
             <>
               <Hero />
+              <About />
+              <Experience />
+              <Timeline/>
               <Service />
               <Project />
+              <Testimonials />
+              <FAQ/>
               <Plans />
+              <Resume/>
               <Contact />
             </>
           }

@@ -42,6 +42,24 @@ const Navbar = () => {
                   Home
                 </a>
               </li>
+              <li className="mx-4 lg:mx-5 my-4 md:my-0">
+                <a
+                  href="#about"
+                  onClick={() => setOpen(false)}
+                  className="text-white hover:text-cyan-400"
+                >
+                  About
+                </a>
+              </li>
+              <li className="mx-4 lg:mx-5 my-4 md:my-0">
+                <a
+                  href="#experience"
+                  onClick={() => setOpen(false)}
+                  className="text-white hover:text-cyan-400"
+                >
+                  Experience
+                </a>
+              </li>
 
               <li className="mx-4 lg:mx-5 my-4 md:my-0">
                 <a
