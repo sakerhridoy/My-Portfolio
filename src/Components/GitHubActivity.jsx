@@ -110,9 +110,9 @@ const GitHubActivity = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-16"
         >
-          <h3 className="text-2xl font-semibold mb-6">Contribution Activity</h3>
+          <h3 className="text-2xl font-semibold mb-6 hidden">Contribution Activity</h3>
 
-          <div className="overflow-x-auto py-4">
+          <div className="overflow-x-auto py-4 hidden">
             <div className="grid grid-cols-20 gap-1">
               {grid.map((col, colIdx) => (
                 <div key={colIdx} className="flex flex-col gap-1">

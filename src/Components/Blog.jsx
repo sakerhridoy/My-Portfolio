@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaTimes } from 'react-icons/fa';
+import react from '../assets/react.webp'
+import uiux from '../assets/uiux.png'
+import tailwind from '../assets/tailwind.webp'
 
 // ---------------- BLOG DATA ----------------
 const blogData = [
@@ -9,7 +12,7 @@ const blogData = [
     title: 'How I Build Modern React Websites',
     category: 'React',
     date: 'Jan 2025',
-    img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80',
+    img: react,
     content:
       'In this article, I break down the steps and architecture behind creating a clean, scalable, and animated React portfolio website. Includes Framer Motion, optimized components, reusable UI, and best practices.',
   },
@@ -18,7 +21,7 @@ const blogData = [
     title: 'Frontend Design Principles for Developers',
     category: 'UI/UX',
     date: 'Dec 2024',
-    img: 'https://images.unsplash.com/photo-1581276879432-15a19d654956?auto=format&fit=crop&q=80',
+    img: uiux ,
     content:
       'Learn essential design rules as a developer: spacing, color theory, typography, contrast, layout structure, and how to avoid common UI mistakes.',
   },
@@ -27,7 +30,7 @@ const blogData = [
     title: 'Why Tailwind CSS Makes You a Faster Developer',
     category: 'Tailwind',
     date: 'Nov 2024',
-    img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&q=80',
+    img: tailwind,
     content:
       'Tailwind CSS allows developers to build professional, responsive, modern layouts without writing custom CSS. Here’s how I use it in my workflow.',
   },
@@ -73,7 +76,7 @@ const Blog = () => {
               alt={active.title}
             />
 
-            <h2 className="text-2xl font-bold mb-3">{active.title}</h2>
+            <h2 className="text-2xl font-bold mb-3 text-white/80">{active.title}</h2>
             <p className="text-gray-400 mb-2">{active.date}</p>
             <p className="text-gray-300 leading-relaxed">{active.content}</p>
           </motion.div>

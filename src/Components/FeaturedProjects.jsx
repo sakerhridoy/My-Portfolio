@@ -1,30 +1,34 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
+import portfolio from '../assets/portfolioProject.png'
+import fulleCommerce from '../assets/fulleComerce.png'
+import landingPage from '../assets/landingPage.png';
 
 const projects = [
   {
     title: 'Modern Portfolio Website',
     desc: 'A fully responsive portfolio built with React, Tailwind, and Framer Motion. Includes dark mode, smooth animations, and reusable UI components.',
     tech: ['React', 'Tailwind', 'Framer Motion'],
-    img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
-    live: 'https://example.com',
-    github: 'https://github.com',
+    img: portfolio,
+    live: 'https://my-portfolio-nine-mauve.vercel.app/',
+    github: 'https://github.com/sakerhridoy/My-Portfolio',
   },
   {
-    title: 'E-Commerce Web App',
-    desc: 'Full-stack MERN e-commerce platform with cart system, product filtering, admin panel & JWT authentication.',
-    tech: ['MERN', 'Redux', 'Stripe'],
-    img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30',
-    live: 'https://example.com',
-    github: 'https://github.com',
+    title: 'E-Commerce Website',
+    desc: 'React e-commerce platform with cart system, product filtering & JWT authentication.',
+    tech: ['React', 'Tailwind', 'Redux'],
+    img: fulleCommerce,
+    live: '',
+    github: 'https://github.com/sakerhridoy/Full-E-commerce-Website---React',
   },
   {
-    title: 'AI SaaS Tool',
-    desc: 'SaaS application featuring AI-powered tools like text generation, image generation & speech-to-text built using OpenAI API.',
-    tech: ['Next.js', 'OpenAI', 'Stripe Billing'],
-    img: 'https://images.unsplash.com/photo-1535223289827-42f1e9919769',
-    live: 'https://example.com',
-    github: 'https://github.com',
+    title: 'Landing Page Design',
+    desc: 'A sleek, fully responsive, and professionally crafted landing page for cleaning services. Built using React, Tailwind CSS, and Swiper.js.',
+    tech: ['React', 'Tailwind', 'Swiper'],
+    img: landingPage,
+    live: 'https://pro-cleaning-web-landing-page-desig.vercel.app/',
+    github:
+      'https://github.com/sakerhridoy/ProCleaning-web-Landing-page-design-with-React',
   },
 ];
 
@@ -39,16 +43,17 @@ const FeaturedProjects = () => {
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
         <motion.h2
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-5xl md:text-6xl font-extrabold text-center mb-12"
-        >
-          Featured{' '}
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600">
-            Projects
-          </span>
-        </motion.h2>
+                  initial={{ opacity: 0, y: -40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7 }}
+                  viewport={{ once: true }}
+                  className="text-6xl font-extrabold text-center mb-16 tracking-wide text-white"
+                >
+                  Featured{' '}
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
+                    Projects
+                  </span>
+                </motion.h2>
         {/* Projects Grid */}
         <motion.div
           initial="hidden"

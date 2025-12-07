@@ -4,27 +4,9 @@ import { Award, Target, Trophy, Star } from 'lucide-react';
 const achievements = [
   {
     icon: <Award size={38} className="text-cyan-400" />,
-    title: 'Dean’s List Award',
-    desc: 'Earned for consistent academic excellence and high GPA performance.',
-    year: '2023',
-  },
-  {
-    icon: <Target size={38} className="text-purple-400" />,
-    title: 'Top 1% Performer',
-    desc: 'Recognized among the highest achieving students in the department.',
-    year: '2022',
-  },
-  {
-    icon: <Trophy size={38} className="text-yellow-400" />,
-    title: 'Hackathon Winner',
-    desc: 'Won national-level coding competition for innovative UI/UX project.',
-    year: '2024',
-  },
-  {
-    icon: <Star size={38} className="text-pink-400" />,
-    title: 'Best Project Award',
-    desc: 'Awarded for building a full-stack MERN application with modern UI.',
-    year: '2024',
+    title: 'English Business Language',
+    desc: 'Proficient in professional business English for clear communication and effective collaboration.',
+    year: '2025',
   },
 ];
 
