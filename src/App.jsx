@@ -8,7 +8,7 @@ import Plans from './Components/Plans';
 import Project from './Components/Projects';
 import Service from './Components/Service';
 import ThankYou from './Components/Thankyou';
-import About from './Components/about';
+import About from './Components/About';
 import Experience from './Components/Experience';
 import Timeline from './Components/Timeline';
 import Testimonials from './Components/Testimonials';
