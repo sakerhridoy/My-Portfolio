@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 
-const useGithubCounts = (projects = [], options = {}) => {
+const UseGithubCounts = (projects = [], options = {}) => {
   const { token } = options;
   const [counts, setCounts] = useState({});
   useEffect(() => {
@@ -40,4 +40,4 @@ const useGithubCounts = (projects = [], options = {}) => {
   return counts;
 };
 
-export default useGithubCounts
+export default UseGithubCounts

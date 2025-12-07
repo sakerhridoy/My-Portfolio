@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-const useGithubData = username => {
+const UseGithubData = username => {
   const [profile, setProfile] = useState(null);
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,4 +44,4 @@ const useGithubData = username => {
   return { profile, repos, loading, error };
 };
 
-export default useGithubData;
+export default UseGithubData;

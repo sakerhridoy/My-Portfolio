@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Tilt from 'react-parallax-tilt';
-import useGithubData from './useGithubData';
 import { FaTimes } from 'react-icons/fa';
 import ProjectsSlider from './ProjectsSlider';
 
@@ -22,6 +20,7 @@ import portfolio02 from '../assets/portfolio02.png';
 import studentsPortal from '../assets/studentPortal.png';
 import moonAnimation from '../assets/moonAnimation.png';
 import registrationForm from '../assets/registrationForm.png';
+import UseGithubData from './UseGithubData';
 
 // ---------------- PROJECT DATA ----------------
 const allProjects = [
@@ -140,7 +139,7 @@ const allProjects = [
 ];
 
 const Projects = () => {
-  const { profile } = useGithubData('sakerhridoy');
+  const { profile } = UseGithubData('sakerhridoy');
   const [filter, setFilter] = useState('All');
   const [showAll, setShowAll] = useState(false);
   const [selected, setSelected] = useState(null);
