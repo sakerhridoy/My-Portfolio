@@ -32,10 +32,9 @@ const ParticleField = () => {
     if (!mesh.current || !mesh.current.geometry) return;
     const p = mesh.current.geometry.attributes.position;
 
-    // Mouse smoothing
+    // Mouse smoothing (react-three-fiber provides mouse as a 2D vector)
     const mx = THREE.MathUtils.lerp(0, mouse.x, 0.25);
     const my = THREE.MathUtils.lerp(0, mouse.y, 0.25);
-    const mz = THREE.MathUtils.lerp(0, mouse.z, 0.25);
 
     for (let i = 0; i < p.count; i++) {
       const ix = i * 3;
@@ -48,7 +47,6 @@ const ParticleField = () => {
 
       p.array[ix] += mx * 0.005;
       p.array[iy] += my * 0.005;
-      p.array[iz] += mz * 0.005;
     }
 
     p.needsUpdate = true;
@@ -57,7 +55,6 @@ const ParticleField = () => {
     if (light.current) {
       light.current.position.x = mx * 6;
       light.current.position.y = -my * 6;
-      light.current.position.z = -mz * 6;
     }
   });
 

@@ -35,18 +35,20 @@ const cardVariants = {
 
 const FeaturedProjects = () => {
   return (
-    <section id="projects" className="py-24 bg-black">
+    <section id="Featuredprojects" className="py-24 bg-black">
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
         <motion.h2
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-white text-center mb-14"
+          transition={{ duration: 0.7 }}
+          className="text-5xl md:text-6xl font-extrabold text-center mb-12"
         >
-          Featured Projects
+          Featured{' '}
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600">
+            Projects
+          </span>
         </motion.h2>
-
         {/* Projects Grid */}
         <motion.div
           initial="hidden"
@@ -108,9 +110,11 @@ const FeaturedProjects = () => {
                   <a
                     href={project.github}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-2 text-gray-300 hover:text-white transition"
                   >
-                    <Github size={20} /> GitHub
+                    <Github size={20} />
+                    <span>GitHub</span>
                   </a>
                 </div>
               </div>

@@ -16,10 +16,14 @@ const GitHubActivity = () => {
   const recentRepos = repos.slice(0, 6);
 
   // Fake 7×20 grid to simulate contribution graph
-  const grid = Array.from({ length: 7 }).map(() =>
-    Array.from({ length: 20 }).map(
-      () => `bg-[rgba(0,255,200,${Math.random().toFixed(2)})]`
-    )
+  const grid = React.useMemo(
+    () =>
+      Array.from({ length: 7 }).map(() =>
+        Array.from({ length: 20 }).map(
+          () => `bg-[rgba(0,255,200,${Math.random().toFixed(2)})]`
+        )
+      ),
+    []
   );
 
   return (
@@ -109,9 +113,9 @@ const GitHubActivity = () => {
           <h3 className="text-2xl font-semibold mb-6">Contribution Activity</h3>
 
           <div className="overflow-x-auto py-4">
-            <div className="grid grid-cols-20 gap-[4px]">
+            <div className="grid grid-cols-20 gap-1">
               {grid.map((col, colIdx) => (
-                <div key={colIdx} className="flex flex-col gap-[4px]">
+                <div key={colIdx} className="flex flex-col gap-1">
                   {col.map((shade, rowIdx) => (
                     <div
                       key={rowIdx}
