@@ -20,7 +20,7 @@ import portfolio02 from '../assets/portfolio02.png';
 import studentsPortal from '../assets/studentPortal.png';
 import moonAnimation from '../assets/moonAnimation.png';
 import registrationForm from '../assets/registrationForm.png';
-import UseGithubData from './UseGithubData';
+import useGithubData from './useGithubData';
 
 // ---------------- PROJECT DATA ----------------
 const allProjects = [
@@ -139,7 +139,7 @@ const allProjects = [
 ];
 
 const Projects = () => {
-  const { profile } = UseGithubData('sakerhridoy');
+  const { profile } = useGithubData('sakerhridoy');
   const [filter, setFilter] = useState('All');
   const [showAll, setShowAll] = useState(false);
   const [selected, setSelected] = useState(null);
