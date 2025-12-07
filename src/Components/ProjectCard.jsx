@@ -1,4 +1,3 @@
-import React from 'react'
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 
@@ -78,4 +77,4 @@ const ProjectCard = ({ project, onOpen, repoStats }) => {
   );
 };
 
-export default ProjectCard
+export default ProjectCard;

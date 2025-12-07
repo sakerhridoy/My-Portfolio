@@ -1,47 +1,59 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
 
-const UseGithubData = username => {
+const useGithubData = username => {
   const [profile, setProfile] = useState(null);
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const userRes = await fetch(`https://api.github.com/users/${username}`);
-        const repoRes = await fetch(
-          `https://api.github.com/users/${username}/repos?sort=updated`
-        );
+    if (!username) return;
 
-        if (!userRes.ok) {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const fetchGithubData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const [userRes, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${username}`, { signal }),
+          fetch(`https://api.github.com/users/${username}/repos?sort=updated`, {
+            signal,
+          }),
+        ]);
+
+        if (!userRes.ok)
           throw new Error(
-            `Failed to fetch user: ${userRes.status} ${userRes.statusText}`
+            `User fetch failed: ${userRes.status} ${userRes.statusText}`
           );
-        }
-        if (!repoRes.ok) {
+
+        if (!reposRes.ok)
           throw new Error(
-            `Failed to fetch repos: ${repoRes.status} ${repoRes.statusText}`
+            `Repos fetch failed: ${reposRes.status} ${reposRes.statusText}`
           );
-        }
 
         const userData = await userRes.json();
-        const repoData = await repoRes.json();
+        const repoData = await reposRes.json();
+
         setProfile(userData);
         setRepos(repoData);
-      } catch (error) {
-        console.error('GitHub API Error:', error);
-        setError(error.message || 'Failed to fetch GitHub data');
+      } catch (err) {
+        if (err.name === 'AbortError') return; // ignore component unmount errors
+        console.error('GitHub API Error:', err);
+        setError(err.message || 'Unable to load GitHub data');
       } finally {
         setLoading(false);
       }
     };
 
-    getData();
+    fetchGithubData();
+
+    return () => controller.abort();
   }, [username]);
 
   return { profile, repos, loading, error };
 };
 
-export default UseGithubData;
+export default useGithubData;

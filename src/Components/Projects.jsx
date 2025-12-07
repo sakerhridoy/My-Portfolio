@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+// Projects.jsx
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { FaTimes } from 'react-icons/fa';
 import ProjectsSlider from './ProjectsSlider';
+import useGithubData from './useGithubData';
 
-// ---------------- YOUR IMAGES IMPORT ----------------
+// images imports (keep your existing imports or adjust paths)
 import eCommerceProject from '../assets/eCommerceProject02.png';
 import portfolioProject from '../assets/portfolioProject.png';
 import landingPage from '../assets/landingPage.png';
@@ -20,9 +21,8 @@ import portfolio02 from '../assets/portfolio02.png';
 import studentsPortal from '../assets/studentPortal.png';
 import moonAnimation from '../assets/moonAnimation.png';
 import registrationForm from '../assets/registrationForm.png';
-import useGithubData from './useGithubData';
 
-// ---------------- PROJECT DATA ----------------
+// Projects data
 const allProjects = [
   {
     id: 1,
@@ -62,28 +62,28 @@ const allProjects = [
   {
     id: 6,
     img: ludo,
-    title: 'Ludo Disc Roll',
+    title: 'Ludo Dice Roll',
     link: 'https://github.com/sakerhridoy/Ludo-Dice-Roll',
     category: 'JavaScript',
   },
   {
     id: 7,
     img: landingPage02,
-    title: 'Landing Page Design',
+    title: 'Landing Page (Tailwind)',
     link: 'https://github.com/sakerhridoy/Nexcent---tailwind-Project',
     category: 'Tailwind',
   },
   {
     id: 8,
     img: portfolio02,
-    title: 'Portfolio Website',
+    title: 'Portfolio (Bootstrap)',
     link: 'https://github.com/sakerhridoy/Portfolio',
     category: 'Bootstrap',
   },
   {
     id: 9,
     img: studentsPortal,
-    title: 'Students Portal Website',
+    title: 'Students Portal',
     link: 'https://github.com/sakerhridoy/Student-Portal-React-Tailwind-CSS',
     category: 'React',
   },
@@ -104,132 +104,162 @@ const allProjects = [
   {
     id: 12,
     img: landingPage03,
-    title: 'Landing Page Design',
+    title: 'Landing Page (Bootstrap)',
     link: 'https://github.com/sakerhridoy/Bootstrap-Project-3',
     category: 'Bootstrap',
   },
   {
     id: 13,
     img: landingPage04,
-    title: 'Landing Page Design',
+    title: 'Landing Page (Bootstrap 2)',
     link: 'https://github.com/sakerhridoy/Bootstrap-Project-2',
     category: 'Bootstrap',
   },
   {
     id: 14,
     img: landingPage05,
-    title: 'Landing Page Design',
+    title: 'Landing Page (Bootstrap 1)',
     link: 'https://github.com/sakerhridoy/Bootstrap-Project',
     category: 'Bootstrap',
   },
   {
     id: 15,
     img: landingPage06,
-    title: 'Landing Page Design',
+    title: 'Landing Page (HTML/CSS)',
     link: 'https://github.com/sakerhridoy/html-and-css-2',
     category: 'HTML/CSS',
   },
   {
     id: 16,
     img: landingPage07,
-    title: 'Landing Page Design',
+    title: 'Landing Page (HTML Only)',
     link: 'https://github.com/sakerhridoy/html-and-css-only',
     category: 'HTML/CSS',
   },
 ];
 
 const Projects = () => {
-  const { profile } = useGithubData('sakerhridoy');
+  const { profile } = useGithubData('sakerhridoy'); // optional; hook returns { profile, loading }
   const [filter, setFilter] = useState('All');
-  const [showAll, setShowAll] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(null); // selected project for modal
 
-  const categories = ['All', ...new Set(allProjects.map(p => p.category))];
+  const categories = useMemo(
+    () => ['All', ...Array.from(new Set(allProjects.map(p => p.category)))],
+    []
+  );
 
   const filtered =
     filter === 'All'
       ? allProjects
       : allProjects.filter(p => p.category === filter);
 
-  const visibleProjects = showAll ? filtered : filtered.slice(0, 3);
-
   return (
     <>
-      {/* ---------------- MODAL ---------------- */}
+      {/* Modal */}
       {selected && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 px-4"
-          onClick={() => setSelected(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+          role="dialog"
+          aria-modal="true"
         >
-          <div
-            className="bg-gray-900 p-5 rounded-lg max-w-lg w-full relative"
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
+            className="w-full max-w-3xl bg-[#0b0f14] rounded-2xl p-6 border border-white/10 shadow-xl"
             onClick={e => e.stopPropagation()}
           >
             <button
+              aria-label="Close modal"
+              className="text-gray-300 float-right text-xl"
               onClick={() => setSelected(null)}
-              className="absolute top-2 right-2 text-white text-xl"
             >
-              <FaTimes />
+              ✕
             </button>
 
-            <img
-              src={selected.img}
-              alt={selected.title}
-              className="w-full rounded mb-4"
-            />
-            <h2 className="text-center text-xl text-gray-400 mb-6">
-              Total GitHub Projects: {profile?.public_repos}
-            </h2>
+            <div className="mt-4 grid md:grid-cols-2 gap-6 items-start">
+              <img
+                src={selected.img}
+                alt={selected.title}
+                className="w-full rounded-lg object-cover"
+              />
+              <div>
+                <h3 className="text-2xl font-bold text-white">
+                  {selected.title}
+                </h3>
+                <p className="text-gray-300 mt-3">
+                  {selected.category} • Project showcase
+                </p>
 
-            <a
-              href={selected.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-400 underline"
-            >
-              View GitHub Repo
-            </a>
-          </div>
+                <p className="text-gray-300 mt-4">
+                  Total GitHub Projects:{' '}
+                  <span className="text-cyan-400 font-semibold">
+                    {profile?.public_repos ?? '—'}
+                  </span>
+                </p>
+
+                <div className="mt-6 flex gap-3">
+                  <a
+                    href={selected.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-4 py-2 bg-cyan-400 text-black rounded-lg font-semibold"
+                  >
+                    View Repo
+                  </a>
+                  <button
+                    onClick={() => setSelected(null)}
+                    className="px-4 py-2 border border-white/10 rounded-lg text-white"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       )}
 
-      {/* ---------------- PROJECT SECTION ---------------- */}
+      {/* Projects Section */}
       <section id="projects" className="py-20 bg-black text-white">
-        <div className="container mx-4 md:mx-auto">
-         <motion.h2
-                   initial={{ opacity: 0, y: -40 }}
-                   whileInView={{ opacity: 1, y: 0 }}
-                   transition={{ duration: 0.7 }}
-                   viewport={{ once: true }}
-                   className="text-6xl font-extrabold text-center mb-16 tracking-wide"
-                 >
-                   My{' '}
-                   <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
-                     Projects
-                   </span>
-                 </motion.h2>
+        <div className="container mx-auto px-6 max-w-7xl">
+          <motion.h2
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-5xl md:text-6xl font-extrabold text-center mb-12"
+          >
+            My{' '}
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600">
+              Projects
+            </span>
+          </motion.h2>
 
-          {/* ---------------- FILTER BUTTONS ---------------- */}
-          <div className="flex justify-center gap-3 mb-10 flex-wrap mx-2 md:mx-0">
+          {/* Filters */}
+          <div className="flex justify-center gap-3 mb-8 flex-wrap">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-full border transition
-                  ${
-                    filter === cat
-                      ? 'bg-cyan-400 text-white'
-                      : 'border-gray-500'
-                  }
-                `}
+                className={`px-4 py-2 rounded-full transition-colors border ${
+                  filter === cat
+                    ? 'bg-cyan-400 text-black border-cyan-400'
+                    : 'border-white/10 text-white/60'
+                }`}
+                aria-pressed={filter === cat}
               >
                 {cat}
               </button>
             ))}
           </div>
 
-          {/* ---------------- SWIPER SLIDER ---------------- */}
-          <ProjectsSlider projects={filtered} setSelected={setSelected} />
+          {/* Slider */}
+          <ProjectsSlider projects={filtered} onSelectProject={setSelected} />
+
+          {/* small note */}
+          <p className="text-center text-gray-400 mt-8">
+            Tip: drag the slider or use arrow buttons / keyboard ← →
+          </p>
         </div>
       </section>
     </>

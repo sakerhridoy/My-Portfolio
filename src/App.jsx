@@ -14,6 +14,10 @@ import Timeline from './Components/Timeline';
 import Testimonials from './Components/Testimonials';
 import FAQ from './Components/FAQ';
 import Resume from './Components/Resume';
+import Achievements from './Components/Achievements';
+import FeaturedProjects from './Components/FeaturedProjects';
+import GitHubActivity from './Components/GitHubActivity';
+import Blog from './Components/Blog';
 
 function App() {
   return (
@@ -30,9 +34,13 @@ function App() {
               <Hero />
               <About />
               <Experience />
-              <Timeline/>
+              <Timeline />
+              <Achievements />
+              <FeaturedProjects/>
               <Service />
               <Project />
+              <GitHubActivity />
+              <Blog/>
               <Testimonials />
               <FAQ/>
               <Plans />
