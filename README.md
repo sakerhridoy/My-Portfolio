@@ -1,5 +1,5 @@
 
-<h1 align="center">🚀 Saker Ahmed Hridoy</h1>
+<h1 align="center"> Saker Ahmed Hridoy</h1>
 <h3 align="center">Full-Stack Web Developer | React & JavaScript Enthusiast</h3>
 
 ---
