@@ -1,12 +1,29 @@
 import { motion } from 'framer-motion';
-import { Award, Target, Trophy, Star } from 'lucide-react';
+import { LiaCertificateSolid } from 'react-icons/lia';
+import { GiDiamondTrophy } from 'react-icons/gi';
+import { PiGlobeStand } from 'react-icons/pi';
 
 const achievements = [
   {
-    icon: <Award size={38} className="text-cyan-400" />,
-    title: 'English Business Language',
+    icon: <LiaCertificateSolid size={38} className="text-cyan-400" />,
+    title: 'English Business Certificate',
+    inst: 'Creative IT Institute',
     desc: 'Proficient in professional business English for clear communication and effective collaboration.',
     year: '2025',
+  },
+  {
+    icon: <GiDiamondTrophy size={38} className="text-cyan-400" />,
+    title: 'Best Marshal',
+    inst: 'Bangladesh Biking Community',
+    desc: 'Recognized for outstanding skill, discipline, and exceptional performance throughout Moto Madness BD Season 1.',
+    year: '2024',
+  },
+  {
+    icon: <PiGlobeStand size={38} className="text-cyan-400" />,
+    title: 'Team Leadership',
+    inst: 'NST Biker Bangladesh',
+    desc: 'Demonstrated effective team leadership by guiding members with clarity, coordination, and confident decision-making.',
+    year: '2023',
   },
 ];
 
@@ -52,6 +69,9 @@ const Achievements = () => {
                 {item.title}
               </h3>
 
+              <p className="text-white/80 mt-2 text-lg leading-relaxed">
+                {item.inst}
+              </p>
               <p className="text-gray-300 mt-2 text-sm leading-relaxed">
                 {item.desc}
               </p>
