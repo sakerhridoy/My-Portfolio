@@ -9,7 +9,7 @@ const faqData = [
   },
   {
     q: 'Which technologies do you work with?',
-    a: 'React.js, Next.js, Tailwind CSS, GSAP, Framer Motion, Firebase, Node.js basics, and modern frontend tools.',
+    a: 'React.js, Next.js, Tailwind CSS, Framer Motion, Firebase, Node.js basics, and modern frontend tools.',
   },
   {
     q: 'Do you work with international clients?',
@@ -37,23 +37,23 @@ const FAQ = () => {
       id="faq"
       className="relative py-24 bg-linear-to-b from-black via-gray-900 to-black text-white overflow-hidden"
     >
-      {/* Background Floating Glow */}
+      {/* Floating Glow Layer */}
       <motion.div
-        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        animate={{ opacity: [0.3, 0.6, 0.3] }}
         transition={{ repeat: Infinity, duration: 6 }}
-        className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.08),transparent_70%)] pointer-events-none"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.07),transparent_70%)] pointer-events-none"
       />
 
       {/* Floating Blobs */}
       <motion.div
         animate={{ y: [0, -30, 0] }}
         transition={{ repeat: Infinity, duration: 6 }}
-        className="absolute top-24 left-10 w-56 h-56 bg-cyan-500/10 rounded-full blur-3xl"
+        className="absolute top-24 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl"
       />
       <motion.div
         animate={{ y: [0, 35, 0] }}
         transition={{ repeat: Infinity, duration: 8 }}
-        className="absolute bottom-20 right-16 w-60 h-60 bg-purple-500/10 rounded-full blur-3xl"
+        className="absolute bottom-20 right-16 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"
       />
 
       <div className="container mx-auto px-6 lg:px-16 relative z-10">
@@ -71,7 +71,7 @@ const FAQ = () => {
           </span>
         </motion.h2>
 
-        {/* FAQ List */}
+        {/* FAQ */}
         <div className="max-w-3xl mx-auto space-y-6">
           {faqData.map((item, index) => (
             <motion.div
@@ -80,12 +80,12 @@ const FAQ = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-xl hover:shadow-cyan-400/30 transition"
+              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-lg hover:shadow-cyan-400/20 transition-all duration-300"
             >
               {/* Question */}
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center text-left"
+                className="w-full flex justify-between items-center"
               >
                 <h3 className="text-lg font-semibold text-gray-200">
                   {item.q}
@@ -93,6 +93,7 @@ const FAQ = () => {
 
                 <motion.div
                   animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
                 >
                   <FaChevronDown className="text-cyan-400 text-lg" />
                 </motion.div>
@@ -114,6 +115,19 @@ const FAQ = () => {
               </AnimatePresence>
             </motion.div>
           ))}
+        </div>
+
+        {/* CTA: Contact Link */}
+        <div className="text-center mt-14">
+          <motion.a
+            href="#contact"
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="px-8 py-3 bg-linear-to-r from-cyan-500 to-blue-600 text-black font-semibold rounded-xl shadow-lg hover:shadow-cyan-400/40 hover:-translate-y-1 transition-all"
+          >
+            Still Have a Question? Contact Me →
+          </motion.a>
         </div>
       </div>
     </section>

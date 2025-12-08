@@ -41,7 +41,7 @@ function App() {
               <Project />
               <GitHubActivity />
               <Blog/>
-              {/* <Testimonials /> */}
+              <Testimonials />
               <FAQ/>
               <Plans />
               <Resume/>

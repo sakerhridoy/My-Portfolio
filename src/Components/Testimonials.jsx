@@ -1,28 +1,31 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaQuoteLeft, FaQuoteRight, FaStar } from 'react-icons/fa';
+import mahdiTahsan from '../assets/MahdiTahsan.jpg'
+import sumaiya from '../assets/sumaiya.jpg'
+import sifatUllah from '../assets/sifatUllah.jpg'
 
 const testimonials = [
   {
-    name: 'John Carter',
-    role: 'CEO, TechNova',
-    image: 'https://i.ibb.co/4W6m6gb/user1.jpg',
+    name: 'Mahadi Tahsan',
+    role: 'Sr faculty , Creative IT Institute',
+    image: mahdiTahsan,
     review:
       'Working with Saker was an incredible experience. His attention to detail, creativity, and problem-solving skills brought our product to life beautifully.',
     rating: 5,
   },
   {
-    name: 'Emily Brown',
-    role: 'Founder, CreativeX',
-    image: 'https://i.ibb.co/ZdR2Ttj/user2.jpg',
+    name: 'Sumaiya Tazeen',
+    role: 'Ui/Ux Designer, Cleverlyy and Edupy Academy',
+    image: sumaiya,
     review:
       'The animations, UI design, and overall quality exceeded our expectations. Highly recommended for front-end development.',
     rating: 5,
   },
   {
-    name: 'Michael Smith',
-    role: 'Product Manager, BuildSoft',
-    image: 'https://i.ibb.co/ZN1X8Q6/user3.jpg',
+    name: 'Md Sifat Ullah',
+    role: "Founder & CEO, Touter's Home Tuition Media",
+    image: sifatUllah,
     review:
       'Super smooth communication and fast delivery. Saker transformed our ideas into a modern, elegant and high-performing user interface.',
     rating: 5,
