@@ -36,15 +36,15 @@ function App() {
               <Experience />
               <Timeline />
               <Achievements />
-              <FeaturedProjects/>
+              <FeaturedProjects />
               <Service />
               <Project />
               <GitHubActivity />
-              <Blog/>
+              <Blog />
               <Testimonials />
-              <FAQ/>
+              <FAQ />
               <Plans />
-              <Resume/>
+              <Resume />
               <Contact />
             </>
           }

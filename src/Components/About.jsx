@@ -86,7 +86,7 @@ const About = () => {
             className="bg-white/5 backdrop-blur-2xl p-10 rounded-3xl border border-white/10 shadow-xl hover:shadow-cyan-400/30 transition"
           >
             <h3 className="text-4xl font-semibold mb-4">
-              I'm <span className="text-cyan-400">Saker Ahmed</span>
+              I'm <span className="text-cyan-400">Saker Ahmed Hridoy</span>
             </h3>
 
             <p className="text-gray-300 leading-7">
