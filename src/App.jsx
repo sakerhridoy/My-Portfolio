@@ -53,7 +53,6 @@ function App() {
         {/* Thank you redirect page */}
         <Route path="/thankyou" element={<ThankYou />} />
       </Routes>
-
       {/* Footer always visible */}
       <Footer />
     </Router>
