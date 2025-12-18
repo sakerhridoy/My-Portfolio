@@ -23,8 +23,6 @@ const About = () => {
           background: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, rgba(0,255,255,0.12), transparent 70%)`,
         }}
       ></div>
-
-      {/* Floating Shapes */}
       <motion.div
         animate={{ y: [0, -20, 0] }}
         transition={{ repeat: Infinity, duration: 6 }}
@@ -38,7 +36,6 @@ const About = () => {
       ></motion.div>
 
       <div className="container mx-auto px-6 lg:px-16 relative z-20">
-        {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -53,7 +50,6 @@ const About = () => {
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          {/* Left Image Box with Parallax Hover */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -66,7 +62,6 @@ const About = () => {
               transition={{ type: 'spring', stiffness: 150 }}
               className="relative group"
             >
-              {/* Animated Gradient Border */}
               <div className="absolute -inset-1 bg-linear-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-3xl blur-xl opacity-60 group-hover:opacity-100 transition duration-500"></div>
 
               <img
@@ -103,8 +98,6 @@ const About = () => {
               apps, and build real-world scalable solutions. I always push my
               limits to produce visually stunning and functional products.
             </p>
-
-            {/* Stats */}
             <div className="mt-8 grid grid-cols-3 gap-5 text-center">
               {[
                 { count: '1+', title: 'Years Experience' },
@@ -123,8 +116,6 @@ const About = () => {
                 </motion.div>
               ))}
             </div>
-
-            {/* Button */}
             <div className="mt-10">
               <motion.a
                 whileHover={{ scale: 1.07 }}

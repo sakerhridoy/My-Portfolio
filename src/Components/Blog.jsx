@@ -5,7 +5,6 @@ import react from '../assets/react.webp'
 import uiux from '../assets/uiux.png'
 import tailwind from '../assets/tailwind.webp'
 
-// ---------------- BLOG DATA ----------------
 const blogData = [
   {
     id: 1,
@@ -97,8 +96,6 @@ const Blog = () => {
           >
             Featured <span className="text-cyan-400">Blogs</span>
           </motion.h2>
-
-          {/* Categories */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -120,8 +117,6 @@ const Blog = () => {
               </button>
             ))}
           </motion.div>
-
-          {/* Blog Cards */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {filtered.map((post, i) => (
               <motion.div

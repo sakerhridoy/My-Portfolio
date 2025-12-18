@@ -21,7 +21,7 @@ const Plans = () => {
       title: 'Standard',
       icon: <FaStar className="text-yellow-400 text-4xl mb-3" />,
       price: '$120',
-      highlight: true, // Highlight
+      highlight: true,
       features: [
         '3 Pages Website',
         'Full Responsiveness',
@@ -50,7 +50,6 @@ const Plans = () => {
       id="plans"
       className="relative py-24 bg-linear-to-b from-black via-gray-900 to-black text-white overflow-hidden"
     >
-      {/* Floating Glow Background */}
       <motion.div
         animate={{ y: [0, -25, 0] }}
         transition={{ repeat: Infinity, duration: 7 }}
@@ -63,7 +62,6 @@ const Plans = () => {
       ></motion.div>
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -77,7 +75,6 @@ const Plans = () => {
           </span>
         </motion.h2>
 
-        {/* Plans Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
           {plans.map((plan, index) => (
             <Tilt
@@ -101,23 +98,19 @@ const Plans = () => {
                   }
                   hover:border-cyan-400 hover:shadow-cyan-300/40 transition-all duration-300 shadow-xl`}
               >
-                {/* Highlight Badge */}
                 {plan.highlight && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-cyan-500 text-black px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
                     Most Popular
                   </div>
                 )}
 
-                {/* Icon */}
                 <div className="flex justify-center">{plan.icon}</div>
 
-                {/* Title & Price */}
                 <h3 className="text-3xl font-bold text-center">{plan.title}</h3>
                 <p className="text-5xl font-extrabold text-center my-4 text-cyan-400">
                   {plan.price}
                 </p>
 
-                {/* Features */}
                 <ul className="space-y-3 my-6">
                   {plan.features.map((feature, i) => (
                     <li
@@ -130,7 +123,6 @@ const Plans = () => {
                   ))}
                 </ul>
 
-                {/* Button */}
                 <div className="flex justify-center mt-6">
                   <a
                     href="#contact"

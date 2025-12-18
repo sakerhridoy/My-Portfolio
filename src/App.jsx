@@ -22,11 +22,9 @@ import Blog from './Components/Blog';
 function App() {
   return (
     <Router>
-      {/* Navbar always visible */}
       <Navbar />
 
       <Routes>
-        {/* Main Home Page */}
         <Route
           path="/"
           element={
@@ -49,11 +47,8 @@ function App() {
             </>
           }
         />
-
-        {/* Thank you redirect page */}
         <Route path="/thankyou" element={<ThankYou />} />
       </Routes>
-      {/* Footer always visible */}
       <Footer />
     </Router>
   );

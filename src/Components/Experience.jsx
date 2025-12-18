@@ -35,7 +35,6 @@ const Experience = () => {
       id="experience"
       className="relative py-28 bg-linear-to-b from-black via-gray-900 to-black text-white overflow-hidden"
     >
-      {/* Floating background glows */}
       <motion.div
         animate={{ y: [0, -25, 0] }}
         transition={{ repeat: Infinity, duration: 7 }}
@@ -48,7 +47,6 @@ const Experience = () => {
       />
 
       <div className="container mx-auto px-6 lg:px-16 relative z-20">
-        {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -62,7 +60,6 @@ const Experience = () => {
           </span>
         </motion.h2>
 
-        {/* Experience Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-12">
           {items.map((exp, index) => (
             <motion.div
@@ -75,7 +72,6 @@ const Experience = () => {
               className="p-8 bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl 
                 border border-white/10 hover:border-cyan-400 transition duration-300"
             >
-              {/* ICON */}
               <div className="text-5xl text-cyan-400 mb-5">{exp.icon}</div>
 
               <h3 className="text-2xl font-semibold mb-2">{exp.title}</h3>
@@ -88,8 +84,6 @@ const Experience = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Button */}
         <div className="text-center mt-14">
           <motion.a
             whileHover={{ scale: 1.07 }}

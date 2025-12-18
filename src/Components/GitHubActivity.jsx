@@ -12,10 +12,8 @@ const GitHubActivity = () => {
     show: { opacity: 1, y: 0 },
   };
 
-  // Recent 6 updated repos
   const recentRepos = repos.slice(0, 6);
 
-  // Fake 7×20 grid to simulate contribution graph
   const grid = React.useMemo(
     () =>
       Array.from({ length: 7 }).map(() =>
@@ -29,7 +27,6 @@ const GitHubActivity = () => {
   return (
     <section className="py-24 bg-black text-white" id="github">
       <div className="container mx-auto px-4">
-        {/* Section Title */}
         <motion.h2
           variants={fadeUp}
           initial="hidden"
@@ -41,19 +38,16 @@ const GitHubActivity = () => {
           GitHub <span className="text-cyan-400">Activity</span>
         </motion.h2>
 
-        {/* Loading */}
         {loading && (
           <p className="text-center text-gray-400">
             Fetching GitHub activity...
           </p>
         )}
 
-        {/* Error */}
         {error && (
           <p className="text-center text-red-400 text-lg mt-4">{error}</p>
         )}
 
-        {/* Profile Stats */}
         {profile && (
           <motion.div
             variants={fadeUp}

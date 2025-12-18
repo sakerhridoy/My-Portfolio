@@ -56,7 +56,6 @@ const Navbar = () => {
     `}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        {/* LOGO */}
         <img src={logo} alt="logo" className="w-[170px] md:w-[200px]" />
 
         {/* DESKTOP MENU */}

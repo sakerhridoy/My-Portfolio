@@ -2,19 +2,14 @@ import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-// The 'simplex-noise' package exposes a default class in ESM builds.
-// Import it as the default export to ensure we get a constructor in both ESM and CJS interop.
 import { createNoise3D } from 'simplex-noise';
 
 const ParticleField = () => {
   const count = 500; // slight boost
   const mesh = useRef();
   const light = useRef();
-  // simplex-noise v2+ exports factory functions for noise generators.
-  // createNoise3D() returns a function (x,y,z) => value in [-1,1]
   const simplex = useMemo(() => createNoise3D(), []);
 
-  // Generate stable positions
   const positions = useMemo(() => {
     const posArray = new Float32Array(count * 3);
     for (let i = 0; i < count * 3; i += 3) {
@@ -32,7 +27,6 @@ const ParticleField = () => {
     if (!mesh.current || !mesh.current.geometry) return;
     const p = mesh.current.geometry.attributes.position;
 
-    // Mouse smoothing (react-three-fiber provides mouse as a 2D vector)
     const mx = THREE.MathUtils.lerp(0, mouse.x, 0.25);
     const my = THREE.MathUtils.lerp(0, mouse.y, 0.25);
 

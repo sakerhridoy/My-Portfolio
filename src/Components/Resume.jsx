@@ -1,4 +1,3 @@
-// Resume.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap, Award } from 'lucide-react';
@@ -10,7 +9,6 @@ const Resume = () => {
       className="py-24 bg-black text-white relative overflow-hidden"
     >
       <div className="container max-w-6xl mx-auto px-6">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -29,7 +27,6 @@ const Resume = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Experience */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -61,7 +58,6 @@ const Resume = () => {
             </div>
           </motion.div>
 
-          {/* Education */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -96,7 +92,6 @@ const Resume = () => {
           </motion.div>
         </div>
 
-        {/* Achievements */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}

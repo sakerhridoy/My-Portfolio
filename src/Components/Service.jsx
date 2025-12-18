@@ -33,12 +33,10 @@ const Service = () => {
       id="services"
       className="py-24 bg-[#020617] text-white relative overflow-hidden"
     >
-      {/* BACKGROUND GRADIENTS */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/20 blur-[120px] rounded-full"></div>
       <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-500/20 blur-[120px] rounded-full"></div>
 
       <div className="container mx-auto px-6">
-        {/* SECTION TITLE */}
         <motion.h2
                   initial={{ opacity: 0, y: -40 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +50,6 @@ const Service = () => {
                   </span>
                 </motion.h2>
 
-        {/* SERVICE CARDS */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {services.map((service, index) => (
             <Tilt

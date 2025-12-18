@@ -31,7 +31,6 @@ const Achievements = () => {
   return (
     <section id="achievements" className="py-24 bg-black">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,8 +39,6 @@ const Achievements = () => {
         >
           Achievements
         </motion.h2>
-
-        {/* Cards Container */}
         <motion.div
           initial="hidden"
           whileInView="show"

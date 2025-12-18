@@ -50,7 +50,7 @@ const Contact = () => {
     setLoading(true);
 
     const data = {
-      access_key: 'b3594110-667a-4be1-9940-35893c4b5cc2', // your key
+      access_key: 'b3594110-667a-4be1-9940-35893c4b5cc2',
       ...formData,
     };
 

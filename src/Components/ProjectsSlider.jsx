@@ -1,9 +1,8 @@
-// ProjectsSlider.jsx
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 
-const AUTOPLAY_DELAY = 3000; // ms
+const AUTOPLAY_DELAY = 3000; 
 
 const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
   const trackRef = useRef(null);
@@ -11,10 +10,8 @@ const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
   const [autoplay, setAutoplay] = useState(true);
   const [index, setIndex] = useState(0);
 
-  // ensure at least 1 item
   const items = projects.length ? projects : [];
 
-  // number of visible cards based on container width (responsive)
   const getVisibleCount = () => {
     if (!trackRef.current) return 1;
     const w = window.innerWidth;
@@ -131,7 +128,6 @@ const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
     return () => window.removeEventListener('keydown', onKey);
   }, [index, items.length, goTo]);
 
-  // track manual scroll to update index
   useEffect(() => {
     const container = trackRef.current;
     if (!container) return;
@@ -150,7 +146,6 @@ const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
 
   return (
     <div className="relative">
-      {/* Nav controls */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex gap-3 items-center">
           <button
@@ -214,7 +209,6 @@ const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
               style={{ scrollSnapAlign: 'start' }}
               onClick={() => onSelectProject(project)}
             >
-              {/* Image */}
               <div className="h-44 overflow-hidden">
                 <img
                   src={project.img}
@@ -223,7 +217,6 @@ const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
                 />
               </div>
 
-              {/* Content */}
               <div className="p-4">
                 <h4 className="text-lg font-semibold text-white">
                   {project.title}
@@ -253,7 +246,6 @@ const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
         </div>
       </div>
 
-      {/* Dots */}
       <div className="flex gap-2 justify-center mt-6">
         {items.map((_, i) => (
           <button

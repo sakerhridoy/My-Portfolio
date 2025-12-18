@@ -38,14 +38,12 @@ const Testimonials = () => {
       id="testimonials"
       className="relative py-24 bg-linear-to-b from-black via-gray-900 to-black text-white overflow-hidden"
     >
-      {/* Background Glow Follow Effect */}
       <motion.div
         animate={{ opacity: [0.4, 0.7, 0.4] }}
         transition={{ repeat: Infinity, duration: 6 }}
         className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.12),transparent_70%)] pointer-events-none"
       />
 
-      {/* Floating Blobs */}
       <motion.div
         animate={{ y: [0, -25, 0] }}
         transition={{ repeat: Infinity, duration: 7 }}
@@ -58,7 +56,6 @@ const Testimonials = () => {
       />
 
       <div className="container mx-auto px-6 lg:px-16 relative z-10">
-        {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -72,7 +69,6 @@ const Testimonials = () => {
           </span>
         </motion.h2>
 
-        {/* Testimonials Grid */}
         <div className="grid md:grid-cols-3 gap-10">
           {testimonials.map((item, index) => (
             <motion.div
@@ -84,11 +80,9 @@ const Testimonials = () => {
               whileHover={{ scale: 1.03 }}
               className="relative bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-xl hover:shadow-cyan-400/30 transition cursor-pointer"
             >
-              {/* Quotation Icons */}
               <FaQuoteLeft className="absolute top-6 left-6 text-cyan-400 text-xl opacity-60" />
               <FaQuoteRight className="absolute bottom-6 right-6 text-cyan-400 text-xl opacity-60" />
 
-              {/* Reviewer Image */}
               <div className="flex justify-center mb-5">
                 <img
                   src={item.image}
@@ -97,18 +91,15 @@ const Testimonials = () => {
                 />
               </div>
 
-              {/* Review Text */}
               <p className="text-gray-300 text-center leading-relaxed mb-6">
                 {item.review}
               </p>
 
-              {/* Name + Role */}
               <h3 className="text-xl text-center font-semibold text-cyan-400">
                 {item.name}
               </h3>
               <p className="text-sm text-center text-gray-400">{item.role}</p>
 
-              {/* Rating Stars */}
               <div className="flex justify-center mt-4">
                 {[...Array(item.rating)].map((_, i) => (
                   <FaStar key={i} className="text-yellow-400" />

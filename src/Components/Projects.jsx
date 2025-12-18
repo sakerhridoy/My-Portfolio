@@ -1,10 +1,8 @@
-// Projects.jsx
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import ProjectsSlider from './ProjectsSlider';
 import useGithubData from './useGithubData';
 
-// images imports (keep your existing imports or adjust paths)
 import eCommerceProject from '../assets/eCommerceProject02.png';
 import portfolioProject from '../assets/portfolioProject.png';
 import landingPage from '../assets/landingPage.png';
@@ -22,7 +20,6 @@ import studentsPortal from '../assets/studentPortal.png';
 import moonAnimation from '../assets/moonAnimation.png';
 import registrationForm from '../assets/registrationForm.png';
 
-// Projects data
 const allProjects = [
   {
     id: 1,
@@ -139,9 +136,9 @@ const allProjects = [
 ];
 
 const Projects = () => {
-  const { profile } = useGithubData('sakerhridoy'); // optional; hook returns { profile, loading }
+  const { profile } = useGithubData('sakerhridoy'); 
   const [filter, setFilter] = useState('All');
-  const [selected, setSelected] = useState(null); // selected project for modal
+  const [selected, setSelected] = useState(null); 
 
   const categories = useMemo(
     () => ['All', ...Array.from(new Set(allProjects.map(p => p.category)))],
@@ -257,7 +254,7 @@ const Projects = () => {
           <ProjectsSlider projects={filtered} onSelectProject={setSelected} />
 
           {/* small note */}
-          <p className="text-center text-gray-400 mt-8">
+          <p className="text-center text-gray-400 mt-8 hidden md:block">
             Tip: drag the slider or use arrow buttons / keyboard ← →
           </p>
         </div>

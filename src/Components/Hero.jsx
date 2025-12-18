@@ -51,17 +51,13 @@ const Hero = () => {
       id="home"
       className="relative w-full min-h-screen bg-linear-to-br from-[#020617] via-[#0c1b33] to-[#041022] overflow-hidden"
     >
-      {/*BACKGROUND LAYER (stays behind everything) */}
       <HeroBackground />
-      {/*GLOW BALL + FLOATING 3D OBJECTS (also behind text) */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        {/* Glow Balls */}
         <GlowBall size="300px" color="cyan" top="10%" left="70%" />
         <GlowBall size="250px" color="purple" top="50%" left="20%" />
         <GlowBall size="200px" color="blue" top="75%" left="55%" />
         <GlowBall size="280px" color="#00ffff" top="25%" left="40%" />
 
-        {/* Floating 3D Small Objects */}
         <PremiumSmall3D
           size="140px"
           opacity={0.35}
@@ -98,9 +94,7 @@ const Hero = () => {
           floatDelay="0.7s"
         />
       </div>
-      {/* 3D TECH LOGO */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        {/* Floating Tech Logos */}
         <TechLogo3D
           icon={<SiReact />}
           size="140px"
@@ -150,11 +144,9 @@ const Hero = () => {
           floatDelay="0.9s"
         />
       </div>
-      {/* MAIN CONTENT ABOVE BACKGROUND */}
       <div className="container mx-auto px-6 lg:px-12 py-24 md:pt-40 h-full relative z-20">
         <div className="grid md:grid-cols-2 items-center h-full gap-10 md:gap-0 lg:gap-10">
           {' '}
-          {/* TEXT SECTION */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -183,7 +175,6 @@ const Hero = () => {
               )}
             </p>
 
-            {/* GITHUB STATS */}
             {!loading && profile && (
               <div className="flex gap-5 text-gray-300 pt-2">
                 <p>Followers: {profile.followers}</p>
@@ -208,7 +199,6 @@ const Hero = () => {
               </a>
             </div>
 
-            {/* SOCIAL LINKS */}
             <div className="flex items-center gap-5 pt-6 text-xl">
               <a
                 className="hover:text-cyan-400 transition"
@@ -252,7 +242,6 @@ const Hero = () => {
               </a>
             </div>
           </motion.div>
-          {/* RIGHT SECTION: PROFILE + MAIN 3D */}
           <div className="order-1 md:order-2 relative flex justify-center md:justify-end items-center z-20">
             {/* PROFILE IMAGE */}
             <div className="relative z-20">
@@ -288,7 +277,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      {/* BOTTOM SHADOW GRADIENT */}
       <div className="absolute bottom-0 w-full h-20 bg-linear-to-t from-black/40 to-transparent"></div>{' '}
     </section>
   );

@@ -54,7 +54,6 @@ const FeaturedProjects = () => {
                     Projects
                   </span>
                 </motion.h2>
-        {/* Projects Grid */}
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -71,7 +70,6 @@ const FeaturedProjects = () => {
               border border-white/20 hover:border-cyan-400/40 hover:shadow-cyan-500/20 
               hover:shadow-xl transition-all duration-300"
             >
-              {/* Image */}
               <div className="h-52 overflow-hidden">
                 <img
                   src={project.img}
@@ -79,8 +77,6 @@ const FeaturedProjects = () => {
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 />
               </div>
-
-              {/* Content */}
               <div className="p-6">
                 <h3 className="text-white text-2xl font-semibold">
                   {project.title}
@@ -89,8 +85,6 @@ const FeaturedProjects = () => {
                 <p className="text-gray-300 mt-2 text-sm leading-relaxed">
                   {project.desc}
                 </p>
-
-                {/* Tech Badges */}
                 <div className="flex flex-wrap gap-2 mt-4">
                   {project.tech.map((t, i) => (
                     <span
@@ -102,8 +96,6 @@ const FeaturedProjects = () => {
                     </span>
                   ))}
                 </div>
-
-                {/* Buttons */}
                 <div className="flex items-center gap-4 mt-6">
                   <a
                     href={project.live}

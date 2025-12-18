@@ -38,14 +38,11 @@ const FAQ = () => {
       id="faq"
       className="relative py-24 bg-linear-to-b from-black via-gray-900 to-black text-white overflow-hidden"
     >
-      {/* Floating Glow Layer */}
       <motion.div
         animate={{ opacity: [0.3, 0.6, 0.3] }}
         transition={{ repeat: Infinity, duration: 6 }}
         className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.07),transparent_70%)] pointer-events-none"
       />
-
-      {/* Floating Blobs */}
       <motion.div
         animate={{ y: [0, -30, 0] }}
         transition={{ repeat: Infinity, duration: 6 }}
@@ -58,7 +55,6 @@ const FAQ = () => {
       />
 
       <div className="container mx-auto px-6 lg:px-16 relative z-10">
-        {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -71,8 +67,6 @@ const FAQ = () => {
             Questions
           </span>
         </motion.h2>
-
-        {/* FAQ */}
         <div className="max-w-3xl mx-auto space-y-6">
           {faqData.map((item, index) => (
             <motion.div
@@ -83,7 +77,6 @@ const FAQ = () => {
               viewport={{ once: true }}
               className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-lg hover:shadow-cyan-400/20 transition-all duration-300"
             >
-              {/* Question */}
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full flex justify-between items-center"
@@ -117,8 +110,6 @@ const FAQ = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* CTA: Contact Link */}
         <div className="text-center mt-14">
           <motion.a
             href="#contact"

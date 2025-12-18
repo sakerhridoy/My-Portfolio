@@ -6,11 +6,11 @@ const ProjectCard = ({ project, onOpen, repoStats }) => {
   function handleMouseMove(e) {
     const el = ref.current;
     const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left; // x position within element
+    const x = e.clientX - rect.left; 
     const y = e.clientY - rect.top;
     const cx = rect.width / 2;
     const cy = rect.height / 2;
-    const dx = (x - cx) / cx; // -1 .. 1
+    const dx = (x - cx) / cx; 
     const dy = (y - cy) / cy;
     const rx = -dy * 8; // rotateX
     const ry = dx * 8; // rotateY
@@ -66,7 +66,7 @@ const ProjectCard = ({ project, onOpen, repoStats }) => {
             href={project.link}
             target="_blank"
             rel="noreferrer"
-            onClick={e => e.stopPropagation()} // so clicking link doesn't open modal
+            onClick={e => e.stopPropagation()}
             className="underline"
           >
             Code / Live
