@@ -1,122 +1,143 @@
-import React, { useState } from 'react';
-import logo from '../assets/logo.png';
-import ScrollSpy from 'react-scrollspy-navigation';
-import resumePdf from '../assets/SakerAhmedHridoy_Full-stackWebDeveloper_CreativeIT.pdf';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
+import logo from '../assets/logo.png';
+import resumePdf from '../assets/SakerAhmedHridoy_Full-stackWebDeveloper_CreativeIT.pdf';
+
+const navItems = [
+  { label: 'Home', id: 'home' },
+  { label: 'About', id: 'about' },
+  { label: 'Experience', id: 'experience' },
+  { label: 'Services', id: 'services' },
+  { label: 'Projects', id: 'projects' },
+  { label: 'Plans', id: 'plans' },
+  { label: 'Contact', id: 'contact' },
+];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('home');
+  const [shrink, setShrink] = useState(false);
+
+  /* ================= Scroll Spy ================= */
+  useEffect(() => {
+    const onScroll = () => {
+      setShrink(window.scrollY > 80);
+
+      navItems.forEach(item => {
+        const section = document.getElementById(item.id);
+        if (section) {
+          const top = section.offsetTop - 150;
+          const height = section.offsetHeight;
+          if (window.scrollY >= top && window.scrollY < top + height) {
+            setActive(item.id);
+          }
+        }
+      });
+    };
+
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const scrollTo = id => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setOpen(false);
+  };
 
   return (
-    <>
-      <ScrollSpy activeClass="nav-active">
-        <nav className="fixed top-0 w-full bg-[#072135]/70 backdrop-blur-md shadow z-50">
-          <div className="container mx-auto flex justify-between items-center py-4 px-4">
-            {/* LOGO */}
-            <img src={logo} alt="logo" className="w-[180px] lg:w-[210px]" />
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
+      ${
+        shrink
+          ? 'py-3 bg-[#072135]/90 backdrop-blur-lg shadow-lg'
+          : 'py-5 bg-[#072135]/70 backdrop-blur-md'
+      }
+    `}
+    >
+      <div className="container mx-auto px-6 flex justify-between items-center">
+        {/* LOGO */}
+        <img src={logo} alt="logo" className="w-[170px] md:w-[200px]" />
 
-            {/* Hamburger for Mobile */}
-            <button
-              type="button"
-              aria-label="Toggle navigation menu"
-              aria-expanded={open}
-              className="text-white md:hidden text-3xl cursor-pointer bg-transparent border-none"
-              onClick={() => setOpen(!open)}
+        {/* DESKTOP MENU */}
+        <ul className="hidden md:flex items-center gap-8 text-white font-medium">
+          {navItems.map(item => (
+            <li key={item.id} className="relative">
+              <button
+                onClick={() => scrollTo(item.id)}
+                className={`relative ${
+                  active === item.id ? 'text-cyan-400' : 'hover:text-cyan-400'
+                } transition`}
+              >
+                {item.label}
+
+                {active === item.id && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute left-0 -bottom-1 w-full h-[2px] bg-cyan-400"
+                  />
+                )}
+              </button>
+            </li>
+          ))}
+
+          {/* RESUME */}
+          <li>
+            <a
+              href={resumePdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-4 px-6 py-2 rounded-md bg-cyan-500 hover:bg-cyan-600 text-black font-semibold shadow-lg transition"
             >
-              {open ? <HiX /> : <HiMenu />}
-            </button>
-            {/* NAV ITEMS */}
-            <ul
-              className={`md:flex md:items-center md:static absolute left-0 w-full bg-[#072135] md:bg-transparent md:w-auto transition-all duration-400 ease-in-out text-center py-21 md:py-0 ${
-                open
-                  ? 'top-[70px] opacity-100'
-                  : 'top-[-500px] opacity-0 md:opacity-100'
-              }`}
+              Resume
+            </a>
+          </li>
+        </ul>
+
+        {/* MOBILE BUTTON */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden text-white text-3xl"
+        >
+          {open ? <HiX /> : <HiMenu />}
+        </button>
+      </div>
+
+      {/* MOBILE MENU */}
+      <motion.div
+        initial={{ y: -300 }}
+        animate={{ y: open ? 0 : -300 }}
+        transition={{ duration: 0.35 }}
+        className="md:hidden absolute w-full bg-[#072135]"
+      >
+        <ul className="flex flex-col items-center gap-6 py-8 text-white text-lg">
+          {navItems.map(item => (
+            <li key={item.id}>
+              <button
+                onClick={() => scrollTo(item.id)}
+                className={`${
+                  active === item.id ? 'text-cyan-400' : ''
+                } hover:text-cyan-400`}
+              >
+                {item.label}
+              </button>
+            </li>
+          ))}
+
+          {/* MOBILE RESUME */}
+          <li className="pt-4">
+            <a
+              href={resumePdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-md shadow"
             >
-              <li className="mx-4 lg:mx-5 my-4 md:my-0">
-                <a
-                  href="#home"
-                  onClick={() => setOpen(false)}
-                  className="text-white hover:text-cyan-400"
-                >
-                  Home
-                </a>
-              </li>
-              <li className="mx-4 lg:mx-5 my-4 md:my-0">
-                <a
-                  href="#about"
-                  onClick={() => setOpen(false)}
-                  className="text-white hover:text-cyan-400"
-                >
-                  About
-                </a>
-              </li>
-              <li className="mx-4 lg:mx-5 my-4 md:my-0">
-                <a
-                  href="#experience"
-                  onClick={() => setOpen(false)}
-                  className="text-white hover:text-cyan-400"
-                >
-                  Experience
-                </a>
-              </li>
-
-              <li className="mx-4 lg:mx-5 my-4 md:my-0">
-                <a
-                  href="#services"
-                  onClick={() => setOpen(false)}
-                  className="text-white hover:text-cyan-400"
-                >
-                  Services
-                </a>
-              </li>
-
-              <li className="mx-4 lg:mx-5 my-4 md:my-0">
-                <a
-                  href="#projects"
-                  onClick={() => setOpen(false)}
-                  className="text-white hover:text-cyan-400"
-                >
-                  Projects
-                </a>
-              </li>
-
-              <li className="mx-4 lg:mx-5 my-4 md:my-0">
-                <a
-                  href="#plans"
-                  onClick={() => setOpen(false)}
-                  className="text-white hover:text-cyan-400"
-                >
-                  Plans
-                </a>
-              </li>
-
-              <li className="mx-4 lg:mx-5 my-4 md:my-0">
-                <a
-                  href="#contact"
-                  onClick={() => setOpen(false)}
-                  className="text-white hover:text-cyan-400"
-                >
-                  Contact
-                </a>
-              </li>
-
-              {/* Resume Button */}
-              <li className="mx-5 pt-4 md:pt-0 md:my-0">
-                <a
-                  href={resumePdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-2 text-white bg-cyan-500 hover:bg-cyan-600 rounded-md font-semibold shadow-lg transition inline-block"
-                >
-                  Resume
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </ScrollSpy>
-    </>
+              Resume
+            </a>
+          </li>
+        </ul>
+      </motion.div>
+    </nav>
   );
 };
 

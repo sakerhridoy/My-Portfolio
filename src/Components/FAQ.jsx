@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
+import { TbHandClick } from 'react-icons/tb';
 
 const faqData = [
   {
@@ -126,7 +127,10 @@ const FAQ = () => {
             transition={{ duration: 0.6 }}
             className="px-8 py-3 bg-linear-to-r from-cyan-500 to-blue-600 text-black font-semibold rounded-xl shadow-lg hover:shadow-cyan-400/40 hover:-translate-y-1 transition-all"
           >
-            Still Have a Question? Contact Me →
+            <span> Still Have a Question?</span>{' '}
+            <span>
+              <TbHandClick className='inline-block text-lg'/>
+            </span>
           </motion.a>
         </div>
       </div>

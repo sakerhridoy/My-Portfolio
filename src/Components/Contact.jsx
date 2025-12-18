@@ -79,9 +79,8 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative py-28 bg-black text-white overflow-hidden"
+      className="relative py-28 bg-black text-white overflow-hidden scroll-mt-28"
     >
-      {/* Background Glow */}
       <div className="absolute top-20 left-20 w-80 h-80 bg-cyan-500/10 blur-[150px] rounded-full"></div>
       <div className="absolute bottom-20 right-20 w-80 h-80 bg-purple-500/10 blur-[150px] rounded-full"></div>
 
@@ -97,7 +96,6 @@ const Contact = () => {
             <h3 className="text-sm uppercase tracking-widest text-cyan-300">
               Get in touch
             </h3>
-
             <motion.h2
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -114,7 +112,7 @@ const Contact = () => {
 
             {/* Social Icons Card */}
             <div className="p-1 rounded-2xl bg-linear-to-r from-cyan-500/40 to-blue-500/40">
-              <div className="backdrop-blur-xl rounded-2xl px-8 py-6 bg-black/40">
+              <div className="order-1 md:order-2 backdrop-blur-xl rounded-2xl px-8 py-6 bg-black/40">
                 <p className="text-gray-300 mb-4">
                   Connect with me on socials:
                 </p>
@@ -179,7 +177,7 @@ const Contact = () => {
             initial={{ opacity: 0, x: 70 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className="w-full"
+            className="w-full order-1 md:order-2 "
           >
             <div className="p-1 rounded-2xl bg-linear-to-r from-cyan-500/40 to-blue-500/40">
               <div className="backdrop-blur-xl bg-black/40 p-8 rounded-2xl">
