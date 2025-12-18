@@ -1,240 +1,268 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiFacebook, FiGithub, FiInstagram } from 'react-icons/fi';
-import { SlSocialLinkedin } from 'react-icons/sl';
-import { BsTwitterX } from 'react-icons/bs';
-import { TfiEmail } from 'react-icons/tfi';
-import { PiPhoneCallLight } from 'react-icons/pi';
+import { FaWhatsapp } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
+/* ===================== CONSTANTS ===================== */
+const WHATSAPP_PHONE = '8801743202274';
 const TYPING_TEXT = "Let's Build Something Amazing Together";
 
+/* ===================== UTILS ===================== */
+const sendWhatsApp = ({ name, project, budget }) => {
+  const msg = `Hello, my name is ${name}.
+
+Project: ${project}
+Estimated Budget: ${budget}
+
+Please guide me further.`;
+
+  window.open(
+    `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`,
+    '_blank',
+    'noopener,noreferrer'
+  );
+};
+
+/* ===================== GLASS CARD ===================== */
+const GlassCard = ({ children, className = '' }) => (
+  <div className="relative p-px rounded-2xl bg-linear-to-br from-cyan-400/50 via-blue-500/40 to-purple-600/50">
+    <div
+      className={`rounded-2xl bg-black/55 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6),0_0_60px_rgba(0,255,255,0.12)] ${className}`}
+    >
+      {children}
+    </div>
+  </div>
+);
+const GlassSelect = ({ value, onChange, options }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      {/* Trigger */}
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="floating-input flex items-center justify-between"
+      >
+        <span>{value}</span>
+        <span className="text-green-500">▾</span>
+      </button>
+
+      {/* Dropdown */}
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            className="absolute z-50 mt-2 w-full rounded-xl overflow-hidden
+                       bg-black/80 backdrop-blur-xl border border-cyan-400/30
+                       shadow-[0_0_30px_rgba(0,255,255,0.2)]"
+          >
+            {options.map(option => (
+              <li
+                key={option}
+                onClick={() => {
+                  onChange(option);
+                  setOpen(false);
+                }}
+                className="px-4 py-3 cursor-pointer text-white
+                           hover:bg-cyan-400/20 transition"
+              >
+                {option}
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+
+/* ===================== FLOATING INPUT ===================== */
+const FloatingInput = ({ label, textarea = false, ...props }) => (
+  <div className="relative">
+    {textarea ? (
+      <textarea
+        {...props}
+        placeholder=" "
+        className="peer floating-input resize-none"
+      />
+    ) : (
+      <input {...props} placeholder=" " className="peer floating-input" />
+    )}
+    <label className="floating-label">{label}</label>
+  </div>
+);
+
+/* ===================== WHATSAPP FORM ===================== */
+const WhatsAppQuickForm = memo(() => {
+  const [data, setData] = useState({
+    name: '',
+    project: 'Website Development',
+    budget: '$100 – $300',
+  });
+
+  return (
+    <GlassCard className="p-5 space-y-4">
+      <h3 className="text-lg font-semibold text-green-400">
+        Quick WhatsApp Inquiry
+      </h3>
+
+      <FloatingInput
+        label="Your Name"
+        value={data.name}
+        onChange={e => setData({ ...data, name: e.target.value })}
+      />
+
+      <GlassSelect
+        value={data.project}
+        onChange={project => setData({ ...data, project })}
+        options={[
+          'Website Development',
+          'Portfolio Website',
+          'Landing Page',
+          'Full Stack App',
+        ]}
+      />
+
+      <GlassSelect
+        value={data.budget}
+        onChange={budget => setData({ ...data, budget })}
+        options={['$100 – $300', '$300 – $700', '$700 – $1500', '$1500+']}
+      />
+
+      <button
+        disabled={!data.name}
+        onClick={() => sendWhatsApp(data)}
+        className="w-full py-3 rounded-lg bg-green-500 text-black font-semibold hover:bg-green-600 transition"
+      >
+        Send via WhatsApp <FaWhatsapp className="inline ml-1" />
+      </button>
+    </GlassCard>
+  );
+});
+
+/* ===================== MAIN ===================== */
 const Contact = () => {
   const navigate = useNavigate();
-
   const [typed, setTyped] = useState('');
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
   const [loading, setLoading] = useState(false);
-  const [popup, setPopup] = useState({ show: false, type: '', message: '' });
+  const [popup, setPopup] = useState(null);
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
 
-  // typing effect
   useEffect(() => {
-    let index = 0;
-    const type = () => {
-      if (index <= TYPING_TEXT.length) {
-        setTyped(TYPING_TEXT.slice(0, index));
-        index++;
-      } else {
-        index = 0;
-        setTyped('');
-      }
-    };
-    const interval = setInterval(type, 100);
-    return () => clearInterval(interval);
+    let i = 0;
+    const t = setInterval(() => {
+      setTyped(TYPING_TEXT.slice(0, i));
+      i = i === TYPING_TEXT.length ? 0 : i + 1;
+    }, 150);
+    return () => clearInterval(t);
   }, []);
 
   const showPopup = (type, message) => {
-    setPopup({ show: true, type, message });
-    setTimeout(() => setPopup({ show: false, type: '', message: '' }), 2500);
+    setPopup({ type, message });
+    setTimeout(() => setPopup(null), 2500);
   };
 
-  const handleChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const handleSubmit = async e => {
+  const submit = async e => {
     e.preventDefault();
     setLoading(true);
-
-    const data = {
-      access_key: 'b3594110-667a-4be1-9940-35893c4b5cc2',
-      ...formData,
-    };
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          ...form,
+        }),
       });
-      const result = await res.json();
-
-      if (result.success) {
-        showPopup('success', 'Message sent successfully!');
-        setFormData({ name: '', email: '', message: '' });
-        setTimeout(() => navigate('/thankyou'), 1400);
-      } else showPopup('error', 'Something went wrong.');
-    } catch (error) {
-      showPopup('error', 'Network error! Try again.');
+      const r = await res.json();
+      if (!r.success) throw new Error();
+      showPopup('success', 'Message sent!');
+      setForm({ name: '', email: '', message: '' });
+      setTimeout(() => navigate('/thankyou'), 1400);
+    } catch {
+      showPopup('error', 'Something went wrong');
     }
-
     setLoading(false);
   };
 
   return (
-    <section
-      id="contact"
-      className="relative py-28 bg-black text-white overflow-hidden scroll-mt-28"
-    >
-      <div className="absolute top-20 left-20 w-80 h-80 bg-cyan-500/10 blur-[150px] rounded-full"></div>
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-purple-500/10 blur-[150px] rounded-full"></div>
+    <section id='contact' className="relative py-24 md:py-32 bg-black text-white overflow-hidden">
+      {/* Neon glow */}
+      <div className="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/30 blur-[200px]" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/30 blur-[200px]" />
 
-      <div className="container mx-auto max-w-6xl px-6 relative z-20">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          {/* LEFT SIDE */}
+      <div className="relative max-w-6xl mx-auto px-5">
+        <div className="grid md:grid-cols-2 gap-12 items-baseline-last">
+          {/* LEFT */}
           <motion.div
-            initial={{ opacity: 0, x: -70 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="space-y-5"
+            viewport={{ once: true }}
+            className="space-y-5 text-center md:text-left"
           >
-            <h3 className="text-sm uppercase tracking-widest text-cyan-300">
+            <h3 className="uppercase tracking-widest text-cyan-300 text-sm">
               Get in touch
             </h3>
-            <motion.h2
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
-              className="text-5xl font-extrabold tracking-wide"
-            >
-              Contact{' '}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600">
-                Me
-              </span>
-            </motion.h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold">
+              Contact <span className="text-cyan-400">Me</span>
+            </h2>
+            <p className="text-lg text-gray-300">{typed}</p>
 
-            <p className="text-gray-300 text-xl">{typed}</p>
-
-            {/* Social Icons Card */}
-            <div className="p-1 rounded-2xl bg-linear-to-r from-cyan-500/40 to-blue-500/40">
-              <div className="order-1 md:order-2 backdrop-blur-xl rounded-2xl px-8 py-6 bg-black/40">
-                <p className="text-gray-300 mb-4">
-                  Connect with me on socials:
-                </p>
-
-                <div className="flex gap-6 text-3xl">
-                  {[
-                    {
-                      icon: <FiFacebook />,
-                      link: 'https://facebook.com/sakerhridoy',
-                    },
-                    {
-                      icon: <FiGithub />,
-                      link: 'https://github.com/sakerhridoy',
-                    },
-                    {
-                      icon: <SlSocialLinkedin />,
-                      link: 'https://linkedin.com/in/sakerhridoy',
-                    },
-                    {
-                      icon: <FiInstagram />,
-                      link: 'https://instagram.com/imsakerhridoy',
-                    },
-                    {
-                      icon: <BsTwitterX />,
-                      link: 'https://x.com/imsakerhridoy',
-                    },
-                  ].map((item, i) => (
-                    <motion.a
-                      key={i}
-                      href={item.link}
-                      target="_blank"
-                      whileHover={{ scale: 1.2, rotate: 6 }}
-                      className="hover:text-cyan-400 transition"
-                    >
-                      {item.icon}
-                    </motion.a>
-                  ))}
-                </div>
-
-                <div className="mt-6 space-y-2 text-gray-300">
-                  <div className="flex items-center gap-3">
-                    <TfiEmail className="text-white text-xl" />
-                    <a
-                      href="mailto:sakerahmedhridoy@gmail.com"
-                      className="text-white underline"
-                    >
-                      sakerahmedhridoy@gmail.com
-                    </a>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <PiPhoneCallLight className="text-white text-2xl" />
-                    <span className="text-white">+880 1743202274</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <WhatsAppQuickForm />
           </motion.div>
 
-          {/* RIGHT SIDE FORM */}
+          {/* RIGHT */}
           <motion.div
-            initial={{ opacity: 0, x: 70 }}
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="w-full order-1 md:order-2 "
+            viewport={{ once: true }}
           >
-            <div className="p-1 rounded-2xl bg-linear-to-r from-cyan-500/40 to-blue-500/40">
-              <div className="backdrop-blur-xl bg-black/40 p-8 rounded-2xl">
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <input
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      placeholder="Your Name"
-                      className="w-full p-3 rounded-lg bg-black/50 border border-white/10 text-white focus:ring-2 focus:ring-cyan-400 outline-none"
-                    />
+            <GlassCard className="p-6">
+              <form onSubmit={submit} className="space-y-4">
+                <FloatingInput
+                  label="Your Name"
+                  value={form.name}
+                  onChange={e => setForm({ ...form, name: e.target.value })}
+                />
+                <FloatingInput
+                  label="Your Email"
+                  type="email"
+                  value={form.email}
+                  onChange={e => setForm({ ...form, email: e.target.value })}
+                />
+                <FloatingInput
+                  textarea
+                  rows={4}
+                  label="Your Message"
+                  value={form.message}
+                  onChange={e => setForm({ ...form, message: e.target.value })}
+                />
 
-                    <input
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      placeholder="Your Email"
-                      className="w-full p-3 rounded-lg bg-black/50 border border-white/10 text-white focus:ring-2 focus:ring-cyan-400 outline-none"
-                    />
-                  </div>
-
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows="5"
-                    placeholder="Your Message"
-                    className="w-full p-3 rounded-lg bg-black/50 border border-white/10 text-white focus:ring-2 focus:ring-cyan-400 outline-none"
-                  ></textarea>
-
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full py-3 bg-cyan-400 hover:bg-cyan-500 text-black font-semibold rounded-lg shadow-xl transition hover:-translate-y-1"
-                  >
-                    {loading ? 'Sending...' : 'Send Message'}
-                  </button>
-                </form>
-              </div>
-            </div>
+                <button
+                  disabled={loading}
+                  className="w-full py-3 rounded-lg bg-cyan-400 text-black font-semibold hover:bg-cyan-300 transition"
+                >
+                  {loading ? 'Sending...' : 'Send Message'}
+                </button>
+              </form>
+            </GlassCard>
           </motion.div>
         </div>
       </div>
 
       {/* POPUP */}
       <AnimatePresence>
-        {popup.show && (
+        {popup && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-8 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl text-white z-50 ${
+            className={`fixed top-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl text-white z-50 ${
               popup.type === 'success' ? 'bg-green-600' : 'bg-red-600'
             }`}
           >

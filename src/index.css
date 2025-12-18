@@ -5,6 +5,24 @@
 .container{
   @apply max-w-[1240px] mx-auto;
 }
+.floating-input {
+  @apply w-full px-4 pt-5 pb-2 rounded-lg bg-white/5 border border-white/10 text-white outline-none
+  backdrop-blur-md transition;
+}
+
+.floating-input:focus {
+  @apply border-cyan-400 ring-2 ring-cyan-400/40;
+}
+
+.floating-label {
+  @apply absolute left-4 top-3 text-gray-400 text-sm transition-all pointer-events-none;
+}
+
+.peer:focus ~ .floating-label,
+.peer:not(:placeholder-shown) ~ .floating-label {
+  @apply text-xs text-cyan-400 -top-2 bg-black/60 px-2 rounded;
+}
+
 @layer utilities {
   .byliner {
     background: linear-gradient(
