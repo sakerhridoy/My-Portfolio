@@ -2,6 +2,9 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import portfolio from '../assets/portfolioProject.png'
 import fulleCommerce from '../assets/fulleComerce.png'
+import library from '../assets/eCommerceProject02.png'
+import realtyBazar from '../assets/realtyBazar.png'
+import fullStore from '../assets/fullStore.png'
 import landingPage from '../assets/landingPage.png';
 
 const projects = [
@@ -18,8 +21,33 @@ const projects = [
     desc: 'React e-commerce platform with cart system, product filtering & JWT authentication.',
     tech: ['React', 'Tailwind', 'Redux'],
     img: fulleCommerce,
-    live: '',
-    github: 'https://github.com/sakerhridoy/Full-E-commerce-Website---React',
+    live: 'https://full-ecommece.netlify.app/',
+    github: 'https://github.com/sakerhridoy/eCommerceReact',
+  },
+  {
+    title: 'E-Commerce Website',
+    desc: 'React e-commerce platform with cart system, product filtering & JWT authentication.',
+    tech: ['React', 'Tailwind', 'Redux'],
+    img: fullStore,
+    live: 'https://fullsroreecommerce.vercel.app/',
+    github: 'https://github.com/sakerhridoy/full-ecommerce-websitet',
+  },
+  {
+    title: 'Landing Page Design',
+    desc: 'A sleek, fully responsive, and professionally crafted landing page for cleaning services. Built using React, Tailwind CSS, and Swiper.js.',
+    tech: ['React', 'Tailwind', 'Swiper'],
+    img: realtyBazar,
+    live: 'https://realty-bazaar-landing-page.vercel.app/',
+    github: 'https://github.com/sakerhridoy/Realty-Bazaar-Landing-Page',
+  },
+  {
+    title: 'Bangla Library',
+    desc: 'A responsive and modern book catalog / e-commerce website built with **HTML** and **CSS**. This project showcases a clean UI, intuitive navigation, and a fully responsive layout for both desktop and mobile devices.',
+    tech: ['HTML', 'CSS'],
+    img: library,
+    live: 'https://bangla-library.vercel.app/',
+    github:
+      'https://github.com/sakerhridoy/Bangla-Library',
   },
   {
     title: 'Landing Page Design',
