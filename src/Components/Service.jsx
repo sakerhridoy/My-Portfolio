@@ -38,19 +38,19 @@ const Service = () => {
 
       <div className="container mx-auto px-6">
         <motion.h2
-                  initial={{ opacity: 0, y: -40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7 }}
-                  viewport={{ once: true }}
-                  className="text-6xl font-extrabold text-center mb-16 tracking-wide"
-                >
-                  My{' '}
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
-                    Services
-                  </span>
-                </motion.h2>
+          initial={{ opacity: 0, y: -40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 sm:mb-16 tracking-wide"
+        >
+          My{' '}
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
+            Services
+          </span>
+        </motion.h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
           {services.map((service, index) => (
             <Tilt
               key={index}
@@ -68,16 +68,16 @@ const Service = () => {
                   bg-[#0f1a2a]/70 border border-white/10 
                   shadow-lg rounded-2xl p-6 backdrop-blur-xl 
                   hover:shadow-cyan-400/30 hover:border-cyan-400/40 
-                  transition-all duration-300
+                  transition-all duration-300 h-full flex flex-col items-center
                 "
               >
-                <div className="flex justify-center mb-4">{service.icon}</div>
+                <div className="flex justify-center mb-4 sm:mb-5">{service.icon}</div>
 
-                <h3 className="text-xl font-semibold text-center mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold text-center mb-2">
                   {service.title}
                 </h3>
 
-                <p className="text-gray-300 text-center text-sm">
+                <p className="text-gray-300 text-center text-sm leading-relaxed">
                   {service.desc}
                 </p>
               </motion.div>

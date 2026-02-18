@@ -197,21 +197,23 @@ const Contact = () => {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/30 blur-[200px]" />
 
       <div className="relative max-w-6xl mx-auto px-5">
-        <div className="grid md:grid-cols-2 gap-12 items-baseline-last">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-baseline-last">
           {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-5 text-center md:text-left"
+            className="space-y-6 text-center md:text-left"
           >
-            <h3 className="uppercase tracking-widest text-cyan-300 text-sm">
-              Get in touch
-            </h3>
-            <h2 className="text-4xl md:text-5xl font-extrabold">
-              Contact <span className="text-cyan-400">Me</span>
-            </h2>
-            <p className="text-lg text-gray-300">{typed}</p>
+            <div className="space-y-2">
+              <h3 className="uppercase tracking-widest text-cyan-300 text-[10px] sm:text-xs font-semibold">
+                Get in touch
+              </h3>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold">
+                Contact <span className="text-cyan-400">Me</span>
+              </h2>
+            </div>
+            <p className="text-base sm:text-lg text-gray-300 min-h-[60px]">{typed}</p>
 
             <WhatsAppQuickForm />
           </motion.div>
@@ -221,19 +223,23 @@ const Contact = () => {
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="mt-8 md:mt-0"
           >
-            <GlassCard className="p-6">
-              <form onSubmit={submit} className="space-y-4">
+            <GlassCard className="p-6 sm:p-8">
+              <h3 className="text-xl font-bold mb-6 text-white text-center md:text-left">Send a Message</h3>
+              <form onSubmit={submit} className="space-y-5">
                 <FloatingInput
                   label="Your Name"
                   value={form.name}
                   onChange={e => setForm({ ...form, name: e.target.value })}
+                  required
                 />
                 <FloatingInput
                   label="Your Email"
                   type="email"
                   value={form.email}
                   onChange={e => setForm({ ...form, email: e.target.value })}
+                  required
                 />
                 <FloatingInput
                   textarea
@@ -241,11 +247,12 @@ const Contact = () => {
                   label="Your Message"
                   value={form.message}
                   onChange={e => setForm({ ...form, message: e.target.value })}
+                  required
                 />
 
                 <button
                   disabled={loading}
-                  className="w-full py-3 rounded-lg bg-cyan-400 text-black font-semibold hover:bg-cyan-300 transition"
+                  className="w-full py-3.5 rounded-lg bg-cyan-400 text-black font-bold hover:bg-cyan-300 transition-all shadow-lg hover:shadow-cyan-400/30 disabled:opacity-50"
                 >
                   {loading ? 'Sending...' : 'Send Message'}
                 </button>

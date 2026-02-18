@@ -60,14 +60,14 @@ const FAQ = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-5xl font-extrabold text-center mb-16"
+          className="text-4xl sm:text-5xl font-extrabold text-center mb-12 sm:mb-16"
         >
           Frequently Asked{' '}
           <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600">
             Questions
           </span>
         </motion.h2>
-        <div className="max-w-3xl mx-auto space-y-6">
+        <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
           {faqData.map((item, index) => (
             <motion.div
               key={index}
@@ -75,52 +75,55 @@ const FAQ = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-lg hover:shadow-cyan-400/20 transition-all duration-300"
+              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-cyan-400/20 transition-all duration-300"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center"
+                className="w-full flex justify-between items-center text-left gap-4"
               >
-                <h3 className="text-lg font-semibold text-gray-200">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-200">
                   {item.q}
                 </h3>
 
                 <motion.div
                   animate={{ rotate: activeIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
+                  className="shrink-0"
                 >
-                  <FaChevronDown className="text-cyan-400 text-lg" />
+                  <FaChevronDown className="text-cyan-400 text-base sm:text-lg" />
                 </motion.div>
               </button>
 
               {/* Answer */}
               <AnimatePresence>
                 {activeIndex === index && (
-                  <motion.p
+                  <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.4 }}
-                    className="text-gray-300 pt-4 leading-7"
+                    className="overflow-hidden"
                   >
-                    {item.a}
-                  </motion.p>
+                    <p className="text-gray-300 pt-4 text-sm sm:text-base leading-relaxed">
+                      {item.a}
+                    </p>
+                  </motion.div>
                 )}
               </AnimatePresence>
             </motion.div>
           ))}
         </div>
-        <div className="text-center mt-14">
+        <div className="text-center mt-12 sm:mt-14">
           <motion.a
             href="#contact"
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="px-8 py-3 bg-linear-to-r from-cyan-500 to-blue-600 text-black font-semibold rounded-xl shadow-lg hover:shadow-cyan-400/40 hover:-translate-y-1 transition-all"
+            className="inline-block px-8 py-3 bg-linear-to-r from-cyan-500 to-blue-600 text-black font-semibold rounded-xl shadow-lg hover:shadow-cyan-400/40 hover:-translate-y-1 transition-all text-sm sm:text-base"
           >
             <span> Still Have a Question?</span>{' '}
             <span>
-              <TbHandClick className='inline-block text-lg'/>
+              <TbHandClick className='inline-block text-lg align-middle ml-1'/>
             </span>
           </motion.a>
         </div>

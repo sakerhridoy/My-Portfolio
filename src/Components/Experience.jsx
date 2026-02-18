@@ -52,7 +52,7 @@ const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-6xl font-extrabold text-center mb-16"
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 sm:mb-16"
         >
           My{' '}
           <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
@@ -60,7 +60,7 @@ const Experience = () => {
           </span>
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-12">
+        <div className="grid sm:grid-cols-2 gap-8 md:gap-12">
           {items.map((exp, index) => (
             <motion.div
               key={index}
@@ -69,27 +69,27 @@ const Experience = () => {
               transition={{ duration: 0.7, delay: index * 0.15 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.03 }}
-              className="p-8 bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl 
+              className="p-6 sm:p-8 bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl 
                 border border-white/10 hover:border-cyan-400 transition duration-300"
             >
-              <div className="text-5xl text-cyan-400 mb-5">{exp.icon}</div>
+              <div className="text-4xl sm:text-5xl text-cyan-400 mb-4 sm:mb-5">{exp.icon}</div>
 
-              <h3 className="text-2xl font-semibold mb-2">{exp.title}</h3>
-              <p className="text-gray-300 leading-7">{exp.desc}</p>
+              <h3 className="text-xl sm:text-2xl font-semibold mb-2">{exp.title}</h3>
+              <p className="text-gray-300 text-sm sm:text-base leading-relaxed">{exp.desc}</p>
 
-              <p className="mt-4 text-sm text-gray-400">
+              <p className="mt-4 text-xs sm:text-sm text-gray-400">
                 <FiStar className="inline-block mr-1 text-yellow-400" />
                 {exp.duration}
               </p>
             </motion.div>
           ))}
         </div>
-        <div className="text-center mt-14">
+        <div className="text-center mt-12 sm:mt-14">
           <motion.a
             whileHover={{ scale: 1.07 }}
             whileTap={{ scale: 0.92 }}
             href="#projects"
-            className="px-10 py-3 bg-cyan-400 hover:bg-cyan-500 text-white 
+            className="inline-block px-8 sm:px-10 py-3 bg-cyan-400 hover:bg-cyan-500 text-white 
             font-semibold rounded-xl shadow-lg transition cursor-pointer"
           >
             View My Work

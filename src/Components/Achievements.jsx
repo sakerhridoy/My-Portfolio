@@ -35,7 +35,7 @@ const Achievements = () => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-white text-center mb-12"
+          className="text-4xl sm:text-5xl font-extrabold text-white text-center mb-12 sm:mb-16"
         >
           Achievements
         </motion.h2>
@@ -46,7 +46,7 @@ const Achievements = () => {
           variants={{
             show: { transition: { staggerChildren: 0.15 } },
           }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
           {achievements.map((item, index) => (
             <motion.div
@@ -56,24 +56,28 @@ const Achievements = () => {
                 show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
               }}
               whileHover={{ scale: 1.05 }}
-              className="p-6 rounded-2xl backdrop-blur-xl bg-white/10 border border-white/20 
-              hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/10 
-              transition-all duration-300 cursor-pointer"
+              className="p-6 sm:p-8 rounded-2xl backdrop-blur-xl bg-white/5 border border-white/10 
+              hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-500/20 
+              transition-all duration-300 cursor-pointer flex flex-col h-full"
             >
-              <div className="mb-4">{item.icon}</div>
+              <div className="mb-4 sm:mb-6 flex justify-center sm:justify-start">{item.icon}</div>
 
-              <h3 className="text-2xl font-semibold text-white">
+              <h3 className="text-xl sm:text-2xl font-bold text-white text-center sm:text-left">
                 {item.title}
               </h3>
 
-              <p className="text-white/80 mt-2 text-lg leading-relaxed">
+              <p className="text-cyan-400 font-semibold mt-2 sm:mt-3 text-sm sm:text-base text-center sm:text-left">
                 {item.inst}
               </p>
-              <p className="text-gray-300 mt-2 text-sm leading-relaxed">
+              
+              <p className="text-gray-300 mt-3 text-sm sm:text-[15px] leading-relaxed flex-1 text-center sm:text-left">
                 {item.desc}
               </p>
 
-              <p className="text-cyan-400 font-semibold mt-4">{item.year}</p>
+              <div className="mt-5 pt-4 border-t border-white/10 flex justify-between items-center">
+                <span className="text-white/40 text-xs uppercase tracking-widest">Year</span>
+                <span className="text-cyan-400 font-bold text-sm sm:text-base">{item.year}</span>
+              </div>
             </motion.div>
           ))}
         </motion.div>

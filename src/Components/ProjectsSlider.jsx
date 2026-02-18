@@ -146,8 +146,8 @@ const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex gap-3 items-center">
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex gap-2 items-center">
           <button
             aria-label="Previous"
             onClick={() => {
@@ -156,7 +156,7 @@ const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
               goTo(prev);
               setAutoplay(false);
             }}
-            className="px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 transition"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition border border-white/5 active:scale-95"
           >
             ‹
           </button>
@@ -168,76 +168,82 @@ const ProjectsSlider = ({ projects = [], onSelectProject = () => {} }) => {
               goTo(next);
               setAutoplay(false);
             }}
-            className="px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 transition"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition border border-white/5 active:scale-95"
           >
             ›
           </button>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <button
             aria-label={autoplay ? 'Pause autoplay' : 'Start autoplay'}
             onClick={() => setAutoplay(a => !a)}
-            className="px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 transition"
+            className="px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition text-xs sm:text-sm font-medium border border-white/5 active:scale-95"
           >
             {autoplay ? 'Pause' : 'Play'}
           </button>
 
-          <div className="text-sm text-gray-400"> {items.length} items</div>
+          <div className="text-[10px] sm:text-xs text-gray-400 font-mono tracking-tighter sm:tracking-normal">
+            <span className="text-cyan-400">{index + 1}</span> / {items.length}
+          </div>
         </div>
       </div>
 
       {/* Track */}
       <div
         ref={trackRef}
-        className="overflow-x-auto no-scrollbar scroll-smooth -mx-4 px-4"
+        className="overflow-x-auto no-scrollbar scroll-smooth -mx-6 px-6 sm:-mx-8 sm:px-8"
         style={{
           WebkitOverflowScrolling: 'touch',
           scrollSnapType: 'x mandatory',
         }}
       >
-        <div className="flex gap-6" style={{ minWidth: 'max-content' }}>
+        <div className="flex gap-5 sm:gap-8" style={{ minWidth: 'max-content' }}>
           {items.map((project, i) => (
             <motion.article
               key={project.id}
               data-card
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.02 }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
-              className="w-[280px] sm:w-[340px] md:w-[360px] lg:w-[380px] shrink-0 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden cursor-grab"
+              className="w-[260px] sm:w-[320px] md:w-[350px] lg:w-[380px] shrink-0 rounded-2xl border border-white/10 bg-[#0f1a2a]/40 backdrop-blur-xl overflow-hidden cursor-grab flex flex-col group shadow-2xl"
               style={{ scrollSnapAlign: 'start' }}
               onClick={() => onSelectProject(project)}
             >
-              <div className="h-44 overflow-hidden">
+              <div className="h-40 sm:h-48 overflow-hidden relative">
                 <img
                   src={project.img}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
 
-              <div className="p-4">
-                <h4 className="text-lg font-semibold text-white">
+              <div className="p-5 flex flex-col flex-1">
+                <span className="text-[10px] sm:text-xs px-3 py-1 rounded-full bg-cyan-400/10 text-cyan-300 border border-cyan-400/20 w-fit mb-3">
+                  {project.category}
+                </span>
+
+                <h4 className="text-lg sm:text-xl font-bold text-white group-hover:text-cyan-400 transition-colors line-clamp-1">
                   {project.title}
                 </h4>
-                <p className="text-sm text-gray-300 mt-2 line-clamp-3">
+                
+                <p className="text-xs sm:text-sm text-gray-400 mt-2 line-clamp-2 leading-relaxed flex-1">
                   {project.title} • {project.category}
                 </p>
 
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-xs px-3 py-1 rounded-full bg-cyan-400/10 text-cyan-300 border border-cyan-400/20">
-                    {project.category}
-                  </span>
+                <div className="mt-5 flex items-center justify-between pt-4 border-t border-white/5">
+                  <span className="text-[10px] text-gray-500 font-mono">ID: {project.id}</span>
 
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={e => e.stopPropagation()}
-                    className="text-cyan-400 text-sm flex items-center gap-2"
+                    className="text-cyan-400 text-sm font-bold flex items-center gap-1.5 hover:gap-2.5 transition-all"
                   >
-                    View <ExternalLink size={14} />
+                    Explore <ExternalLink size={14} />
                   </a>
                 </div>
               </div>

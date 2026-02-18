@@ -28,7 +28,7 @@ const Timeline = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
         viewport={{ once: true }}
-        className="text-5xl font-extrabold text-center mb-16"
+        className="text-4xl sm:text-5xl font-extrabold text-center mb-12 sm:mb-16"
       >
         My{' '}
         <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600">
@@ -36,22 +36,24 @@ const Timeline = () => {
         </span>
       </motion.h2>
 
-      <div className="relative max-w-4xl mx-auto border-l border-white/20 pl-10 space-y-14">
+      <div className="relative max-w-4xl mx-auto border-l-2 border-white/10 pl-6 sm:pl-10 space-y-10 sm:space-y-14">
         {timelineData.map((item, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: i * 0.15 }}
             className="relative"
           >
-            <div className="absolute -left-5 top-1">
-              <FaCircle className="text-cyan-400 text-lg" />
+            <div className="absolute -left-[30px] sm:-left-[47px] top-1">
+              <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-black border-2 border-cyan-400 flex items-center justify-center shadow-[0_0_10px_rgba(34,211,238,0.5)]">
+                <FaCircle className="text-cyan-400 text-[8px] sm:text-[10px]" />
+              </div>
             </div>
 
-            <p className="text-cyan-400 font-semibold">{item.year}</p>
-            <h3 className="text-2xl font-bold mt-1">{item.title}</h3>
-            <p className="text-gray-300 mt-2">{item.desc}</p>
+            <p className="text-cyan-400 font-bold text-sm sm:text-base uppercase tracking-tighter sm:tracking-normal">{item.year}</p>
+            <h3 className="text-xl sm:text-2xl font-bold mt-1 text-white">{item.title}</h3>
+            <p className="text-gray-400 mt-2 text-sm sm:text-base leading-relaxed">{item.desc}</p>
           </motion.div>
         ))}
       </div>

@@ -67,7 +67,7 @@ const Plans = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-6xl font-extrabold text-center mb-16 tracking-wide"
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 sm:mb-16 tracking-wide"
         >
           Pricing{' '}
           <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
@@ -75,7 +75,7 @@ const Plans = () => {
           </span>
         </motion.h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
           {plans.map((plan, index) => (
             <Tilt
               key={index}
@@ -83,14 +83,14 @@ const Plans = () => {
               tiltMaxAngleY={15}
               scale={1.05}
               transitionSpeed={1200}
-              className="w-full"
+              className="w-full h-full"
             >
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 viewport={{ once: true }}
-                className={`relative p-10 rounded-3xl backdrop-blur-xl bg-white/5 border 
+                className={`relative p-8 sm:p-10 rounded-3xl backdrop-blur-xl bg-white/5 border h-full flex flex-col
                   ${
                     plan.highlight
                       ? 'border-cyan-400 shadow-cyan-400/40'
@@ -99,25 +99,25 @@ const Plans = () => {
                   hover:border-cyan-400 hover:shadow-cyan-300/40 transition-all duration-300 shadow-xl`}
               >
                 {plan.highlight && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-cyan-500 text-black px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-cyan-500 text-black px-4 py-1 rounded-full text-xs sm:text-sm font-semibold shadow-lg whitespace-nowrap">
                     Most Popular
                   </div>
                 )}
 
-                <div className="flex justify-center">{plan.icon}</div>
+                <div className="flex justify-center mb-4">{plan.icon}</div>
 
-                <h3 className="text-3xl font-bold text-center">{plan.title}</h3>
-                <p className="text-5xl font-extrabold text-center my-4 text-cyan-400">
+                <h3 className="text-2xl sm:text-3xl font-bold text-center">{plan.title}</h3>
+                <p className="text-4xl sm:text-5xl font-extrabold text-center my-3 sm:my-4 text-cyan-400 font-mono">
                   {plan.price}
                 </p>
 
-                <ul className="space-y-3 my-6">
+                <ul className="space-y-3 my-6 flex-1">
                   {plan.features.map((feature, i) => (
                     <li
                       key={i}
-                      className="flex items-center gap-3 text-gray-300"
+                      className="flex items-center gap-3 text-gray-300 text-sm sm:text-base"
                     >
-                      <FaCheckCircle className="text-cyan-400 text-lg" />
+                      <FaCheckCircle className="text-cyan-400 text-lg shrink-0" />
                       {feature}
                     </li>
                   ))}
@@ -126,7 +126,7 @@ const Plans = () => {
                 <div className="flex justify-center mt-6">
                   <a
                     href="#contact"
-                    className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 rounded-lg shadow-lg font-semibold transition"
+                    className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-black rounded-lg shadow-lg font-bold transition-all text-sm sm:text-base"
                   >
                     Get Started
                   </a>

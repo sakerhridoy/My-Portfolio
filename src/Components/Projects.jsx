@@ -179,58 +179,71 @@ const Projects = () => {
       {/* Modal */}
       {selected && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+          className="fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-md px-4"
           role="dialog"
           aria-modal="true"
+          onClick={() => setSelected(null)}
         >
           <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
+            initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-            className="w-full max-w-3xl bg-[#0b0f14] rounded-2xl p-6 border border-white/10 shadow-xl"
+            exit={{ scale: 0.9, opacity: 0 }}
+            className="w-full max-w-2xl bg-[#0b0f14] rounded-2xl p-5 sm:p-8 border border-white/10 shadow-2xl relative max-h-[90vh] overflow-y-auto"
             onClick={e => e.stopPropagation()}
           >
             <button
               aria-label="Close modal"
-              className="text-gray-300 float-right text-xl"
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
               onClick={() => setSelected(null)}
             >
               ✕
             </button>
 
-            <div className="mt-4 grid md:grid-cols-2 gap-6 items-start">
-              <img
-                src={selected.img}
-                alt={selected.title}
-                className="w-full rounded-lg object-cover"
-              />
-              <div>
-                <h3 className="text-2xl font-bold text-white">
+            <div className="grid md:grid-cols-2 gap-6 items-start mt-4">
+              <div className="rounded-xl overflow-hidden shadow-lg">
+                <img
+                  src={selected.img}
+                  alt={selected.title}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              <div className="flex flex-col h-full">
+                <span className="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
+                  <span className="w-8 h-px bg-cyan-400/30"></span>
+                  {selected.category}
+                </span>
+
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
                   {selected.title}
                 </h3>
-                <p className="text-gray-300 mt-3">
-                  {selected.category} • Project showcase
+                
+                <p className="text-gray-400 mt-4 text-sm sm:text-base leading-relaxed">
+                  A high-performance {selected.category} project focusing on clean code, responsive design, and seamless user experience.
                 </p>
 
-                <p className="text-gray-300 mt-4">
-                  Total GitHub Projects:{' '}
-                  <span className="text-cyan-400 font-semibold">
-                    {profile?.public_repos ?? '—'}
-                  </span>
-                </p>
+                <div className="mt-6 flex flex-wrap items-center gap-4">
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-3 flex-1 min-w-[120px]">
+                    <p className="text-[10px] text-gray-500 uppercase font-mono">GitHub Repos</p>
+                    <p className="text-xl font-bold text-cyan-400">{profile?.public_repos ?? '—'}</p>
+                  </div>
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-3 flex-1 min-w-[120px]">
+                    <p className="text-[10px] text-gray-500 uppercase font-mono">Status</p>
+                    <p className="text-xl font-bold text-green-400 truncate">Vercel Live</p>
+                  </div>
+                </div>
 
-                <div className="mt-6 flex gap-3">
+                <div className="mt-8 flex flex-col sm:flex-row gap-3 pt-6 border-t border-white/5">
                   <a
                     href={selected.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="px-4 py-2 bg-cyan-400 text-black rounded-lg font-semibold"
+                    className="flex-1 px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black rounded-lg font-bold text-center transition-all shadow-lg shadow-cyan-500/20"
                   >
-                    View Repo
+                    View Repository
                   </a>
                   <button
                     onClick={() => setSelected(null)}
-                    className="px-4 py-2 border border-white/10 rounded-lg text-white"
+                    className="px-6 py-3 border border-white/10 hover:bg-white/5 rounded-lg text-white font-semibold transition-colors"
                   >
                     Close
                   </button>
@@ -242,45 +255,53 @@ const Projects = () => {
       )}
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 bg-black text-white">
-        <div className="container mx-auto px-6 max-w-7xl">
+      <section id="projects" className="py-24 bg-black text-white relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        
+        <div className="container mx-auto px-6 max-w-7xl relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-5xl md:text-6xl font-extrabold text-center mb-12"
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12"
           >
-            My{' '}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600">
-              Projects
-            </span>
+            My <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600">Projects</span>
           </motion.h2>
 
           {/* Filters */}
-          <div className="flex justify-center gap-3 mb-8 flex-wrap">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="flex justify-center gap-2 sm:gap-3 mb-10 flex-wrap"
+          >
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-full transition-colors border ${
+                className={`px-4 sm:px-5 py-2 rounded-full transition-all text-xs sm:text-sm font-medium border ${
                   filter === cat
-                    ? 'bg-cyan-400 text-black border-cyan-400'
-                    : 'border-white/10 text-white/60'
+                    ? 'bg-cyan-500 text-black border-cyan-500 shadow-lg shadow-cyan-500/30'
+                    : 'border-white/10 text-white/50 hover:text-white hover:border-white/30 hover:bg-white/5'
                 }`}
                 aria-pressed={filter === cat}
               >
                 {cat}
               </button>
             ))}
-          </div>
+          </motion.div>
 
           {/* Slider */}
           <ProjectsSlider projects={filtered} onSelectProject={setSelected} />
 
-          {/* small note */}
-          <p className="text-center text-gray-400 mt-8 hidden md:block">
-            Tip: drag the slider or use arrow buttons / keyboard ← →
-          </p>
+          {/* interaction hint */}
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-center text-gray-500 mt-10 text-xs sm:text-sm tracking-wide"
+          >
+             Drag side-to-side or use keyboard arrows ← →
+          </motion.p>
         </div>
       </section>
     </>

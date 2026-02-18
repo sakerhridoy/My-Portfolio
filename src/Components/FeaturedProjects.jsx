@@ -71,23 +71,23 @@ const FeaturedProjects = () => {
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
         <motion.h2
-                  initial={{ opacity: 0, y: -40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7 }}
-                  viewport={{ once: true }}
-                  className="text-6xl font-extrabold text-center mb-16 tracking-wide text-white"
-                >
-                  Featured{' '}
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
-                    Projects
-                  </span>
-                </motion.h2>
+          initial={{ opacity: 0, y: -40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 sm:mb-16 tracking-wide text-white"
+        >
+          Featured{' '}
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
+            Projects
+          </span>
+        </motion.h2>
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
           variants={{ show: { transition: { staggerChildren: 0.15 } } }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-10"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
         >
           {projects.map((project, index) => (
             <motion.div
@@ -98,26 +98,26 @@ const FeaturedProjects = () => {
               border border-white/20 hover:border-cyan-400/40 hover:shadow-cyan-500/20 
               hover:shadow-xl transition-all duration-300"
             >
-              <div className="h-52 overflow-hidden">
+              <div className="h-48 sm:h-52 overflow-hidden">
                 <img
                   src={project.img}
                   alt={project.title}
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-white text-2xl font-semibold">
+              <div className="p-5 sm:p-6">
+                <h3 className="text-white text-xl sm:text-2xl font-semibold">
                   {project.title}
                 </h3>
 
-                <p className="text-gray-300 mt-2 text-sm leading-relaxed">
+                <p className="text-gray-300 mt-2 text-xs sm:text-sm leading-relaxed line-clamp-3">
                   {project.desc}
                 </p>
                 <div className="flex flex-wrap gap-2 mt-4">
                   {project.tech.map((t, i) => (
                     <span
                       key={i}
-                      className="px-3 py-1 text-xs rounded-full bg-cyan-400/10 
+                      className="px-3 py-1 text-[10px] sm:text-xs rounded-full bg-cyan-400/10 
                       text-cyan-300 border border-cyan-400/20"
                     >
                       {t}
@@ -128,17 +128,17 @@ const FeaturedProjects = () => {
                   <a
                     href={project.live}
                     target="_blank"
-                    className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition"
+                    className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition text-sm sm:text-base"
                   >
-                    <ExternalLink size={20} /> Live Demo
+                    <ExternalLink size={18} /> Live Demo
                   </a>
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-gray-300 hover:text-white transition"
+                    className="flex items-center gap-2 text-gray-300 hover:text-white transition text-sm sm:text-base"
                   >
-                    <Github size={20} />
+                    <Github size={18} />
                     <span>GitHub</span>
                   </a>
                 </div>

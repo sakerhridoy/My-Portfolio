@@ -53,17 +53,17 @@ const Blog = () => {
       {/* ---------------- MODAL ---------------- */}
       {active && (
         <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center px-4 z-50"
+          className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center px-4 z-[100]"
           onClick={() => setActive(null)}
         >
           <motion.div
             onClick={e => e.stopPropagation()}
-            initial={{ scale: 0.8, opacity: 0 }}
+            initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-[#0d1a2d] max-w-xl w-full p-6 rounded-2xl border border-white/10 relative"
+            className="bg-[#0d1a2d] max-w-xl w-full p-5 sm:p-8 rounded-2xl border border-white/10 relative max-h-[90vh] overflow-y-auto"
           >
             <button
-              className="absolute top-4 right-4 text-gray-300 hover:text-white"
+              className="absolute top-4 right-4 text-gray-300 hover:text-white z-10"
               onClick={() => setActive(null)}
             >
               <FaTimes size={20} />
@@ -71,13 +71,13 @@ const Blog = () => {
 
             <img
               src={active.img}
-              className="rounded-lg mb-5 w-full"
+              className="rounded-lg mb-6 w-full h-48 sm:h-64 object-cover"
               alt={active.title}
             />
 
-            <h2 className="text-2xl font-bold mb-3 text-white/80">{active.title}</h2>
-            <p className="text-gray-400 mb-2">{active.date}</p>
-            <p className="text-gray-300 leading-relaxed">{active.content}</p>
+            <h2 className="text-xl sm:text-2xl font-bold mb-3 text-white">{active.title}</h2>
+            <p className="text-gray-400 text-sm mb-4">{active.date} • {active.category}</p>
+            <p className="text-gray-300 text-sm sm:text-base leading-relaxed">{active.content}</p>
           </motion.div>
         </div>
       )}
@@ -92,7 +92,7 @@ const Blog = () => {
             whileInView="show"
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="text-6xl font-extrabold text-center mb-16"
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 sm:mb-16"
           >
             Featured <span className="text-cyan-400">Blogs</span>
           </motion.h2>
@@ -106,7 +106,7 @@ const Blog = () => {
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-5 py-2 rounded-full transition text-sm border
+                className={`px-5 py-2 rounded-full transition text-[13px] sm:text-sm border
                 ${
                   filter === cat
                     ? 'bg-cyan-500 text-black font-semibold'
@@ -117,7 +117,7 @@ const Blog = () => {
               </button>
             ))}
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {filtered.map((post, i) => (
               <motion.div
                 key={post.id}
@@ -127,26 +127,26 @@ const Blog = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.15 }}
                 whileHover={{ scale: 1.03 }}
-                className="rounded-2xl overflow-hidden bg-[#0f1a2a]/70 backdrop-blur-xl border border-white/10 shadow-xl hover:shadow-cyan-500/20 transition cursor-pointer"
+                className="rounded-2xl overflow-hidden bg-[#0f1a2a]/70 backdrop-blur-xl border border-white/10 shadow-xl hover:shadow-cyan-500/20 transition cursor-pointer flex flex-col"
               >
                 <img
                   src={post.img}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-44 sm:h-48 object-cover"
                   alt=""
                 />
 
-                <div className="p-6">
-                  <span className="text-sm text-cyan-400">{post.category}</span>
+                <div className="p-6 flex flex-col flex-1">
+                  <span className="text-xs sm:text-sm text-cyan-400 font-medium">{post.category}</span>
 
-                  <h3 className="text-xl font-semibold mt-2">{post.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold mt-2 line-clamp-2">{post.title}</h3>
 
-                  <p className="text-gray-400 text-sm mt-2 line-clamp-2">
+                  <p className="text-gray-400 text-xs sm:text-sm mt-3 line-clamp-3 leading-relaxed">
                     {post.content}
                   </p>
 
                   <button
                     onClick={() => setActive(post)}
-                    className="flex items-center gap-2 mt-4 text-cyan-400 hover:gap-3 transition-all"
+                    className="flex items-center gap-2 mt-auto pt-5 text-cyan-400 hover:gap-3 transition-all text-sm sm:text-base font-semibold"
                   >
                     Read More <FaArrowRight size={14} />
                   </button>

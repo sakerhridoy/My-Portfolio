@@ -41,7 +41,7 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-6xl font-extrabold text-center mb-16 tracking-wide"
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 sm:mb-16 tracking-wide"
         >
           About{' '}
           <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-600 animate-pulse">
@@ -49,13 +49,13 @@ const About = () => {
           </span>
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="flex justify-center relative"
+            className="flex justify-center relative order-1"
           >
             <motion.div
               whileHover={{ scale: 1.05, rotate: 1 }}
@@ -67,7 +67,7 @@ const About = () => {
               <img
                 src={profile}
                 alt="Profile"
-                className="relative w-80 h-full rounded-3xl object-cover shadow-2xl border border-white/10"
+                className="relative w-64 sm:w-80 h-auto rounded-3xl object-cover shadow-2xl border border-white/10"
               />
             </motion.div>
           </motion.div>
@@ -78,13 +78,13 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-white/5 backdrop-blur-2xl p-10 rounded-3xl border border-white/10 shadow-xl hover:shadow-cyan-400/30 transition"
+            className="bg-white/5 backdrop-blur-2xl p-6 sm:p-10 rounded-3xl border border-white/10 shadow-xl hover:shadow-cyan-400/30 transition order-2 text-center md:text-left"
           >
-            <h3 className="text-4xl font-semibold mb-4">
+            <h3 className="text-3xl sm:text-4xl font-semibold mb-4">
               I'm <span className="text-cyan-400">Saker Ahmed Hridoy</span>
             </h3>
 
-            <p className="text-gray-300 leading-7">
+            <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
               A passionate{' '}
               <span className="text-cyan-400 font-medium">
                 Frontend Developer
@@ -93,12 +93,12 @@ const About = () => {
               love animation-rich interfaces, smooth UX, and premium dark UI.
             </p>
 
-            <p className="text-gray-300 leading-7 mt-4">
+            <p className="text-gray-300 text-sm sm:text-base leading-relaxed mt-4">
               My goal is to master full-stack development, AI-integrated web
               apps, and build real-world scalable solutions. I always push my
               limits to produce visually stunning and functional products.
             </p>
-            <div className="mt-8 grid grid-cols-3 gap-5 text-center">
+            <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
               {[
                 { count: '1+', title: 'Years Experience' },
                 { count: '20+', title: 'Projects' },
@@ -107,12 +107,14 @@ const About = () => {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.05 }}
-                  className="p-5 bg-black/30 rounded-xl border border-white/10 hover:bg-black/50 transition"
+                  className={`p-4 sm:p-5 bg-black/30 rounded-xl border border-white/10 hover:bg-black/50 transition ${
+                    index === 2 ? 'col-span-2 sm:col-span-1' : ''
+                  }`}
                 >
-                  <h4 className="text-3xl font-bold text-cyan-400">
+                  <h4 className="text-2xl sm:text-3xl font-bold text-cyan-400">
                     {item.count}
                   </h4>
-                  <p className="text-gray-400 text-sm">{item.title}</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">{item.title}</p>
                 </motion.div>
               ))}
             </div>
@@ -121,7 +123,7 @@ const About = () => {
                 whileHover={{ scale: 1.07 }}
                 whileTap={{ scale: 0.92 }}
                 href="#contact"
-                className="px-10 py-3 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold rounded-xl shadow-lg transition cursor-pointer"
+                className="inline-block px-8 sm:px-10 py-3 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold rounded-xl shadow-lg transition cursor-pointer"
               >
                 Contact Me
               </motion.a>

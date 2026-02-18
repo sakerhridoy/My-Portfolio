@@ -144,24 +144,23 @@ const Hero = () => {
           floatDelay="0.9s"
         />
       </div>
-      <div className="container mx-auto px-6 lg:px-12 py-24 md:pt-40 h-full relative z-20">
-        <div className="grid md:grid-cols-2 items-center h-full gap-10 md:gap-0 lg:gap-10">
-          {' '}
+      <div className="container mx-auto px-6 lg:px-12 py-16 md:py-24 md:pt-40 min-h-screen flex items-center relative z-20">
+        <div className="grid md:grid-cols-2 items-center w-full gap-10 md:gap-8 lg:gap-12">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
-            className="text-white space-y-6 z-20 order-2 md:order-1"
+            className="text-white space-y-6 z-20 order-2 md:order-1 text-center md:text-left"
           >
-            <h1 className="text-5xl sm:text-7xl md:text-[50px] lg:text-6xl font-bold leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-7xl font-bold leading-tight">
               Hi, I'm
-              <span className="text-cyan-400">
+              <span className="text-cyan-400 block md:inline-block">
                 {' '}
                 {loading ? 'Loading...' : profile?.name || 'Saker Ahmed Hridoy'}
               </span>
             </h1>
 
-            <p className="text-gray-300 text-lg md:text-xl max-w-md min-h-[90px]">
+            <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-md mx-auto md:mx-0 min-h-[80px]">
               {loading ? (
                 'Loading information...'
               ) : (
@@ -176,30 +175,30 @@ const Hero = () => {
             </p>
 
             {!loading && profile && (
-              <div className="flex gap-5 text-gray-300 pt-2">
-                <p>Followers: {profile.followers}</p>
-                <p>Following: {profile.following}</p>
-                <p>Projects: {profile.public_repos}</p>
+              <div className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6 text-gray-300 pt-2 text-sm sm:text-base">
+                <p><span className="text-cyan-400 font-semibold">{profile.followers}</span> Followers</p>
+                <p><span className="text-cyan-400 font-semibold">{profile.following}</span> Following</p>
+                <p><span className="text-cyan-400 font-semibold">{profile.public_repos}</span> Projects</p>
               </div>
             )}
 
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4 pt-4">
               <a
                 href="#contact"
-                className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 rounded-md font-semibold shadow-lg transition"
+                className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 rounded-lg font-semibold shadow-lg transition text-center"
               >
                 Hire Me
               </a>
 
               <a
                 href="#projects"
-                className="px-6 py-3 border border-cyan-400 hover:bg-cyan-700 rounded-md font-semibold transition"
+                className="px-8 py-3 border border-cyan-400 hover:bg-cyan-700/30 rounded-lg font-semibold transition text-center"
               >
                 My Projects
               </a>
             </div>
 
-            <div className="flex items-center gap-5 pt-6 text-xl">
+            <div className="flex items-center justify-center md:justify-start gap-6 pt-6 text-2xl">
               <a
                 className="hover:text-cyan-400 transition"
                 href="https://www.facebook.com/sakerhridoy/"
@@ -247,27 +246,26 @@ const Hero = () => {
             <div className="relative z-20">
               <div
                 className="
-                  w-[260px] md:w-[330px] lg:w-[400px]
+                  w-[240px] sm:w-[280px] md:w-[330px] lg:w-[420px]
                   aspect-square rounded-full
                   bg-linear-to-br from-cyan-500 via-blue-600 to-purple-700
-                  p-1 shadow-[0_8px_30px_rgba(0,0,0,0.4)]
+                  p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.6)]
                   animate-floating
                 "
               >
                 <div
                   className="
                     w-full h-full rounded-full
-                    bg-[#020617]/70 backdrop-blur-xl
+                    bg-[#020617]/70 backdrop-blur-3xl
                     flex items-center justify-center
                     overflow-hidden relative
                   "
                 >
                   <img
-                    // src={profile?.avatar_url}
                     src={profilePic}
                     alt="profile-photo"
                     className="
-                      w-[90%] h-[90%] object-cover
+                      w-[92%] h-[92%] object-cover
                       rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.5)]
                     "
                   />
@@ -277,7 +275,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 w-full h-20 bg-linear-to-t from-black/40 to-transparent"></div>{' '}
+      <div className="absolute bottom-0 w-full h-24 bg-linear-to-t from-black/60 to-transparent"></div>{' '}
     </section>
   );
 };
