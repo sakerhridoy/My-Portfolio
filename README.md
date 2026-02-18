@@ -3,12 +3,12 @@
 <h3 align="center">Full-Stack Web Developer | React & JavaScript Enthusiast</h3>
 
 ---
-### 🌐 **Portfolio Website**
+###  **Portfolio Website**
 🔗 Live: https://my-portfolio-nine-mauve.vercel.app/
 🔗 Repo: https://github.com/sakerhridoy/My-Portfolio
 
 
-## 🔥 About Me
+##  About Me
 
 Hi! I'm **Saker Ahmed Hridoy**, a passionate **Frontend & Full-Stack Developer** who loves building  
 modern, fast, and user-friendly web applications using **React, JavaScript, and Tailwind CSS**.
