@@ -1,8 +1,108 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, GraduationCap, Award } from 'lucide-react';
+import { Briefcase, GraduationCap, Award, Download } from 'lucide-react';
+import api from '../admin/api';
+import { useSite } from '../site/SiteContext';
+import { triggerResumeDownload } from '../utils/downloadHelper';
+
+const FALLBACK_EXPERIENCE = [
+  {
+    title: 'Frontend Developer',
+    period: '2024 - Present',
+    description:
+      'Building sleek and high-performance web pages with React, Tailwind, Next.js, Framer Motion.',
+  },
+  {
+    title: 'Management Information System',
+    period: '2022 - 2024',
+    description:
+      'Skilled in Excel-based data handling, PowerPoint presentation design, and data analysis for meaningful business insights.',
+  },
+];
+
+const FALLBACK_EDUCATION = [
+  {
+    title: 'BBA in Political Science',
+    period: '2016 - 2021',
+    description:
+      'Developed strong understanding of political systems, public policy, international relations, and governance.',
+  },
+  {
+    title: 'Web Development Course',
+    period: '2025 - Running',
+    description:
+      'Gained hands-on skills in front-end and back-end development, building responsive websites, APIs, and full-stack web applications.',
+  },
+];
+
+const FALLBACK_STATS = [
+  {
+    label: 'Projects',
+    value: '20+',
+    description: 'Delivered high-quality web applications.',
+  },
+  {
+    label: 'Awards',
+    value: '0+',
+    description: 'Recognized for design & frontend innovation.',
+  },
+  {
+    label: 'Clients',
+    value: '2+',
+    description: 'Worked with clients worldwide.',
+  },
+];
 
 const Resume = () => {
+  const { slug, identity } = useSite();
+  const bundled = identity.useBundledContent;
+  const isSumaiya = window.location.pathname.toLowerCase().includes('sumaiya');
+
+  const handleResumeClick = (url) => {
+    if (!url) return;
+    const fileName = isSumaiya ? 'Sumaiya_Tazeen_Resume.pdf' : `${identity.siteName || 'Portfolio'}_Resume.pdf`;
+    const downloadUrl = `${url}?t=${Date.now()}`;
+    triggerResumeDownload(downloadUrl, fileName);
+  };
+
+  const [experience, setExperience] = useState(bundled ? FALLBACK_EXPERIENCE : []);
+  const [education, setEducation] = useState(bundled ? FALLBACK_EDUCATION : []);
+  const [stats, setStats] = useState(bundled ? FALLBACK_STATS : []);
+  const [resumeFile, setResumeFile] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+    setExperience(bundled ? FALLBACK_EXPERIENCE : []);
+    setEducation(bundled ? FALLBACK_EDUCATION : []);
+    setStats(bundled ? FALLBACK_STATS : []);
+    setResumeFile(null);
+    api.resume
+      .get()
+      .then(data => {
+        if (!active || !data) return;
+        if (Array.isArray(data.experience) && data.experience.length) {
+          setExperience(data.experience);
+        }
+        if (Array.isArray(data.education) && data.education.length) {
+          setEducation(data.education);
+        }
+        if (Array.isArray(data.stats) && data.stats.length) {
+          setStats(data.stats);
+        }
+        if (data.resumeFile?.url) {
+          setResumeFile(data.resumeFile);
+        }
+      })
+      .catch(() => {
+        // keep the bundled fallback content
+      });
+    return () => {
+      active = false;
+    };
+  }, [slug, bundled]);
+
+  if (!experience.length && !education.length && !stats.length && !resumeFile?.url) return null;
+
   return (
     <section
       id="resume"
@@ -24,6 +124,15 @@ const Resume = () => {
           <p className="text-gray-400 mt-3 text-base sm:text-lg">
             A quick overview of my experience, education & achievements.
           </p>
+          {resumeFile?.url && (
+            <button
+              onClick={() => handleResumeClick(resumeFile.url)}
+              className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-full bg-linear-to-r from-cyan-400 to-blue-600 text-black font-bold hover:opacity-90 transition-opacity"
+            >
+              <Download size={18} />
+              Download Resume
+            </button>
+          )}
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-10 md:gap-12">
@@ -38,24 +147,18 @@ const Resume = () => {
               Experience
             </h3>
 
-            <div className="glass rounded-2xl p-5 sm:p-6 border border-white/10 shadow-xl">
-              <h4 className="text-lg sm:text-xl font-semibold">Frontend Developer</h4>
-              <p className="text-cyan-400 font-medium text-sm sm:text-base">2024 - Present</p>
-              <p className="text-gray-300 mt-2 text-sm sm:text-base">
-                Building sleek and high-performance web pages with React,
-                Tailwind, Next.js, Framer Motion.
-              </p>
-            </div>
-            <div className="glass rounded-2xl p-5 sm:p-6 border border-white/10 shadow-xl">
-              <h4 className="text-lg sm:text-xl font-semibold">
-                Management Information System
-              </h4>
-              <p className="text-cyan-400 font-medium text-sm sm:text-base">2022 - 2024</p>
-              <p className="text-gray-300 mt-2 text-sm sm:text-base">
-                Skilled in Excel-based data handling, PowerPoint presentation
-                design, and data analysis for meaningful business insights.
-              </p>
-            </div>
+            {experience.map((item, index) => (
+              <div
+                key={index}
+                className="glass rounded-2xl p-5 sm:p-6 border border-white/10 shadow-xl"
+              >
+                <h4 className="text-lg sm:text-xl font-semibold">{item.title}</h4>
+                <p className="text-cyan-400 font-medium text-sm sm:text-base">{item.period}</p>
+                <p className="text-gray-300 mt-2 text-sm sm:text-base">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </motion.div>
 
           <motion.div
@@ -69,26 +172,18 @@ const Resume = () => {
               Education
             </h3>
 
-            <div className="glass rounded-2xl p-5 sm:p-6 border border-white/10 shadow-xl">
-              <h4 className="text-lg sm:text-xl font-semibold">
-                BBA in Political Science
-              </h4>
-              <p className="text-cyan-400 font-medium text-sm sm:text-base">2016 - 2021</p>
-              <p className="text-gray-300 mt-2 text-sm sm:text-base">
-                Developed strong understanding of political systems, public
-                policy, international relations, and governance.
-              </p>
-            </div>
-
-            <div className="glass rounded-2xl p-5 sm:p-6 border border-white/10 shadow-xl">
-              <h4 className="text-lg sm:text-xl font-semibold">Web Development Course</h4>
-              <p className="text-cyan-400 font-medium text-sm sm:text-base">2025 - Running</p>
-              <p className="text-gray-300 mt-2 text-sm sm:text-base">
-                Gained hands-on skills in front-end and back-end development,
-                building responsive websites, APIs, and full-stack web
-                applications.
-              </p>
-            </div>
+            {education.map((item, index) => (
+              <div
+                key={index}
+                className="glass rounded-2xl p-5 sm:p-6 border border-white/10 shadow-xl"
+              >
+                <h4 className="text-lg sm:text-xl font-semibold">{item.title}</h4>
+                <p className="text-cyan-400 font-medium text-sm sm:text-base">{item.period}</p>
+                <p className="text-gray-300 mt-2 text-sm sm:text-base">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </motion.div>
         </div>
 
@@ -104,26 +199,19 @@ const Resume = () => {
           </h3>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="glass p-5 sm:p-6 rounded-2xl text-center border border-white/10">
-              <h4 className="text-lg sm:text-xl font-semibold">20+ Projects</h4>
-              <p className="text-gray-300 mt-2 text-sm">
-                Delivered high-quality web applications.
-              </p>
-            </div>
-
-            <div className="glass p-5 sm:p-6 rounded-2xl text-center border border-white/10">
-              <h4 className="text-lg sm:text-xl font-semibold">0+ Awards</h4>
-              <p className="text-gray-300 mt-2 text-sm">
-                Recognized for design & frontend innovation.
-              </p>
-            </div>
-
-            <div className="glass p-5 sm:p-6 rounded-2xl text-center border border-white/10 sm:col-span-2 lg:col-span-1">
-              <h4 className="text-lg sm:text-xl font-semibold">2+ Clients</h4>
-              <p className="text-gray-300 mt-2 text-sm">
-                Worked with clients worldwide.
-              </p>
-            </div>
+            {stats.map((stat, index) => (
+              <div
+                key={index}
+                className={`glass p-5 sm:p-6 rounded-2xl text-center border border-white/10${
+                  index === stats.length - 1 ? ' sm:col-span-2 lg:col-span-1' : ''
+                }`}
+              >
+                <h4 className="text-lg sm:text-xl font-semibold">
+                  {[stat.value, stat.label].filter(Boolean).join(' ')}
+                </h4>
+                <p className="text-gray-300 mt-2 text-sm">{stat.description}</p>
+              </div>
+            ))}
           </div>
         </motion.div>
       </div>

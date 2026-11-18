@@ -1,0 +1,182 @@
+const STATUS_OPTIONS = [
+  { value: 'published', label: 'Published' },
+  { value: 'draft', label: 'Draft' },
+];
+
+const iconOptions = (values) => values.map((value) => ({ value, label: value }));
+
+const statusField = {
+  name: 'status',
+  label: 'Status',
+  type: 'select',
+  default: 'published',
+  options: STATUS_OPTIONS,
+};
+
+const orderField = {
+  name: 'order',
+  label: 'Order',
+  type: 'number',
+  default: 0,
+};
+
+export const resources = [
+  {
+    key: 'services',
+    label: 'Services',
+    resource: 'services',
+    titleField: 'title',
+    subtitleField: 'desc',
+    columns: ['title', 'desc', 'status'],
+    fields: [
+      { name: 'title', label: 'Title', type: 'text', required: true, placeholder: 'Frontend Development' },
+      { name: 'desc', label: 'Description', type: 'textarea', placeholder: 'Services description...' },
+      {
+        name: 'icon',
+        label: 'Icon',
+        type: 'iconSelect',
+        default: 'code',
+        options: iconOptions(['code', 'mobile', 'palette', 'pen', 'react', 'tailwind']),
+      },
+      orderField,
+      statusField,
+    ],
+  },
+  {
+    key: 'plans',
+    label: 'Plans',
+    resource: 'plans',
+    titleField: 'title',
+    subtitleField: 'price',
+    columns: ['title', 'price', 'highlight', 'status'],
+    fields: [
+      { name: 'title', label: 'Title', type: 'text', required: true, placeholder: 'Starter' },
+      {
+        name: 'icon',
+        label: 'Icon',
+        type: 'iconSelect',
+        default: 'bolt',
+        options: iconOptions(['bolt', 'star', 'crown', 'rocket', 'gem', 'shield']),
+      },
+      { name: 'price', label: 'Price', type: 'text', placeholder: '$29' },
+      { name: 'period', label: 'Period', type: 'text', placeholder: 'per month' },
+      { name: 'highlight', label: 'Highlight', type: 'boolean' },
+      { name: 'features', label: 'Features', type: 'stringList' },
+      { name: 'ctaLabel', label: 'CTA label', type: 'text', default: 'Get Started', placeholder: 'Get Started' },
+      { name: 'ctaHref', label: 'CTA link', type: 'text', default: '#contact', placeholder: '#contact' },
+      orderField,
+      statusField,
+    ],
+  },
+  {
+    key: 'testimonials',
+    label: 'Testimonials',
+    resource: 'testimonials',
+    titleField: 'name',
+    subtitleField: 'role',
+    columns: ['name', 'role', 'rating', 'status'],
+    fields: [
+      { name: 'name', label: 'Name', type: 'text', required: true, placeholder: 'Jane Cooper' },
+      { name: 'role', label: 'Role', type: 'text', placeholder: 'Product Manager' },
+      { name: 'review', label: 'Review', type: 'textarea', required: true, placeholder: 'What the client said...' },
+      { name: 'avatar', label: 'Avatar', type: 'image' },
+      { name: 'rating', label: 'Rating', type: 'number', default: 5, help: '1–5' },
+      orderField,
+      statusField,
+    ],
+  },
+  {
+    key: 'faqs',
+    label: 'FAQs',
+    resource: 'faqs',
+    titleField: 'question',
+    columns: ['question', 'status'],
+    fields: [
+      { name: 'question', label: 'Question', type: 'text', required: true, placeholder: 'What services do you offer?' },
+      { name: 'answer', label: 'Answer', type: 'textarea', required: true, placeholder: 'The answer...' },
+      orderField,
+      statusField,
+    ],
+  },
+  {
+    key: 'blog',
+    label: 'Blog',
+    resource: 'blog',
+    titleField: 'title',
+    subtitleField: 'category',
+    columns: ['title', 'category', 'publishedAt', 'status'],
+    fields: [
+      { name: 'title', label: 'Title', type: 'text', required: true, placeholder: 'My first post' },
+      { name: 'category', label: 'Category', type: 'text', placeholder: 'Engineering' },
+      { name: 'excerpt', label: 'Excerpt', type: 'textarea', placeholder: 'A short summary...' },
+      { name: 'content', label: 'Content', type: 'textarea', required: true, placeholder: 'Write the post...' },
+      { name: 'coverImage', label: 'Cover image', type: 'image' },
+      { name: 'publishedAt', label: 'Published at', type: 'date' },
+      orderField,
+      statusField,
+    ],
+  },
+  {
+    key: 'experience',
+    label: 'Experience',
+    resource: 'experience',
+    titleField: 'title',
+    subtitleField: 'duration',
+    columns: ['title', 'duration', 'status'],
+    fields: [
+      { name: 'title', label: 'Title', type: 'text', required: true, placeholder: 'Frontend Developer' },
+      { name: 'description', label: 'Description', type: 'textarea', placeholder: 'What you did...' },
+      { name: 'duration', label: 'Duration', type: 'text', placeholder: '2022 — Present' },
+      {
+        name: 'icon',
+        label: 'Icon',
+        type: 'iconSelect',
+        default: 'briefcase',
+        options: iconOptions(['briefcase', 'code', 'cpu', 'table', 'layout', 'star']),
+      },
+      orderField,
+      statusField,
+    ],
+  },
+  {
+    key: 'achievements',
+    label: 'Achievements',
+    resource: 'achievements',
+    titleField: 'title',
+    subtitleField: 'institution',
+    columns: ['title', 'institution', 'year', 'status'],
+    fields: [
+      { name: 'title', label: 'Title', type: 'text', required: true, placeholder: 'Best Design Award' },
+      { name: 'institution', label: 'Institution', type: 'text', placeholder: 'Awwwards' },
+      { name: 'description', label: 'Description', type: 'textarea', placeholder: 'Details...' },
+      { name: 'year', label: 'Year', type: 'text', placeholder: '2024' },
+      {
+        name: 'icon',
+        label: 'Icon',
+        type: 'iconSelect',
+        default: 'certificate',
+        options: iconOptions(['certificate', 'trophy', 'globe', 'medal', 'award']),
+      },
+      { name: 'certificate', label: 'Certificate image (optional)', type: 'image' },
+      orderField,
+      statusField,
+    ],
+  },
+  {
+    key: 'timeline',
+    label: 'Timeline',
+    resource: 'timeline',
+    titleField: 'year',
+    subtitleField: 'title',
+    columns: ['year', 'title', 'status'],
+    fields: [
+      { name: 'year', label: 'Year', type: 'text', required: true, placeholder: '2024' },
+      { name: 'title', label: 'Title', type: 'text', required: true, placeholder: 'Joined the team' },
+      { name: 'description', label: 'Description', type: 'textarea', placeholder: 'What happened...' },
+      orderField,
+      statusField,
+    ],
+  },
+];
+
+export const getResource = (key) => resources.find((resource) => resource.key === key);

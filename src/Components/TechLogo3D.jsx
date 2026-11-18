@@ -1,3 +1,6 @@
+// Create/Update global CSS for smooth floating animation if not already present
+// I will rely on inline styles + existing animation definitions in the project
+// Let's first modify the component for the requested design.
 const TechLogo3D = ({
   icon,
   size,
@@ -5,6 +8,7 @@ const TechLogo3D = ({
   initialX,
   initialY,
   floatDelay,
+  animationDuration = '6s',
 }) => {
   return (
     <div
@@ -15,13 +19,16 @@ const TechLogo3D = ({
         width: size,
         height: size,
         opacity: opacity,
-        animation: `floatAnim 6s ease-in-out ${floatDelay} infinite`,
+        animation: `floatAnim ${animationDuration} ease-in-out ${floatDelay} infinite`,
       }}
+      className="pointer-events-none"
     >
-      <div className="w-full h-full text-white text-4xl flex items-center justify-center">
-        {icon}
+      <div className="w-full h-full rounded-full border border-white/20 bg-white/10 backdrop-blur-md shadow-lg shadow-cyan-500/10 flex items-center justify-center p-2">
+        <div className="w-full h-full flex items-center justify-center text-white scale-75">
+          {icon}
+        </div>
       </div>
     </div>
   );
 };
-export default TechLogo3D
+export default TechLogo3D;

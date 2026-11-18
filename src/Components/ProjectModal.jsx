@@ -30,16 +30,83 @@ const ProjectModal = ({ project, onClose }) => {
               {project.description || 'No description provided.'}
             </p>
 
-            <div className="mt-4 flex gap-3">
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                className="px-4 py-2 bg-blue-600 rounded"
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              {(project.liveLink || project.liveUrl) && (
+                <a
+                  href={project.liveLink || project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded text-sm transition-colors"
+                >
+                  Live Preview
+                </a>
+              )}
+              {(project.githubLink || project.repoUrl) && (
+                <a
+                  href={project.githubLink || project.repoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded text-sm transition-colors"
+                >
+                  GitHub Code
+                </a>
+              )}
+              {(project.youtubeLink || project.videoUrl) && (
+                <a
+                  href={project.youtubeLink || project.videoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded text-sm transition-colors"
+                >
+                  YouTube Demo
+                </a>
+              )}
+              {project.facebookLink && (
+                <a
+                  href={project.facebookLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded text-sm transition-colors"
+                >
+                  Facebook
+                </a>
+              )}
+              {Array.isArray(project.customLinks) &&
+                project.customLinks.map((cl, idx) =>
+                  cl.url ? (
+                    <a
+                      key={idx}
+                      href={cl.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded text-sm transition-colors"
+                    >
+                      {cl.label || 'Link'}
+                    </a>
+                  ) : null
+                )}
+              {!project.liveLink &&
+                !project.liveUrl &&
+                !project.githubLink &&
+                !project.repoUrl &&
+                !project.youtubeLink &&
+                !project.videoUrl &&
+                !project.facebookLink &&
+                (!project.customLinks || project.customLinks.length === 0) &&
+                project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-4 py-2 bg-blue-600 rounded text-sm"
+                  >
+                    Open Repo / Live
+                  </a>
+                )}
+              <button
+                onClick={onClose}
+                className="px-4 py-2 border border-white/20 text-gray-300 hover:text-white rounded text-sm"
               >
-                Open Repo / Live
-              </a>
-              <button onClick={onClose} className="px-4 py-2 border rounded">
                 Close
               </button>
             </div>

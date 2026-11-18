@@ -6,6 +6,7 @@ import library from '../assets/eCommerceProject02.png'
 import realtyBazar from '../assets/realtyBazar.png'
 import fullStore from '../assets/fullStore.png'
 import landingPage from '../assets/landingPage.png';
+import { useSite } from '../site/SiteContext';
 
 const projects = [
   {
@@ -66,6 +67,9 @@ const cardVariants = {
 };
 
 const FeaturedProjects = () => {
+  const { identity } = useSite();
+  if (!identity.useBundledContent) return null;
+
   return (
     <section id="Featuredprojects" className="py-24 bg-black">
       <div className="max-w-7xl mx-auto px-6">

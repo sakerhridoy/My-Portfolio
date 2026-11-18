@@ -1,14 +1,40 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import profile from '../assets/about2.png';
+import { useSite } from '../site/SiteContext';
+import SocialLinks from './SocialLinks';
+import AboutScene from './Three/Scenes/AboutScene';
 
 const About = () => {
+  const { identity, profileData, settings } = useSite();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const socials =
+    settings?.socials || identity?.socials || profileData?.socials || {};
+  const hasSocials = Object.values(socials).some(
+    v => typeof v === 'string' && v.trim(),
+  );
+
+  const socialLinks =
+    settings?.socialLinks?.length > 0
+      ? settings.socialLinks
+      : identity?.socialLinks?.length > 0
+        ? identity.socialLinks
+        : profileData?.socialLinks || [];
+  const hasSocialLinks = socialLinks.some(s => s?.url?.trim());
+
+  const aboutCards =
+    settings?.aboutCards?.length > 0
+      ? settings.aboutCards
+      : identity?.aboutCards?.length > 0
+        ? identity.aboutCards
+        : identity?.settings?.aboutCards?.length > 0
+          ? identity.settings.aboutCards
+          : identity?.stats || [];
 
   return (
     <section
       id="about"
-      className="relative py-28 bg-linear-to-b from-black via-gray-900 to-black text-white overflow-hidden"
+      className="relative py-14 md:py-20 bg-linear-to-b from-black via-gray-800 to-black text-white overflow-hidden"
       onMouseMove={e => {
         setMousePos({
           x: e.clientX,
@@ -16,31 +42,17 @@ const About = () => {
         });
       }}
     >
-      {/* Cursor Follow Light Glow */}
-      <div
-        className="pointer-events-none fixed inset-0 z-10"
-        style={{
-          background: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, rgba(0,255,255,0.12), transparent 70%)`,
-        }}
-      ></div>
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ repeat: Infinity, duration: 6 }}
-        className="absolute top-20 left-10 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl"
-      ></motion.div>
-
-      <motion.div
-        animate={{ y: [0, 25, 0] }}
-        transition={{ repeat: Infinity, duration: 7 }}
-        className="absolute bottom-10 right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"
-      ></motion.div>
+      {/* 3D Scene Wrapper */}
+      <div className="absolute inset-0 w-full h-full opacity-60 pointer-events-none">
+        <AboutScene />
+      </div>
 
       <div className="container mx-auto px-6 lg:px-16 relative z-20">
         <motion.h2
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.05 }}
           className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 sm:mb-16 tracking-wide"
         >
           About{' '}
@@ -49,87 +61,84 @@ const About = () => {
           </span>
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex justify-center relative order-1"
-          >
-            <motion.div
-              whileHover={{ scale: 1.05, rotate: 1 }}
-              transition={{ type: 'spring', stiffness: 150 }}
-              className="relative group"
-            >
-              <div className="absolute -inset-1 bg-linear-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-3xl blur-xl opacity-60 group-hover:opacity-100 transition duration-500"></div>
+        {/* Full-Width Text Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.05 }}
+          className="max-w-full mx-auto border border-white/10 hover:border-cyan-400/40 rounded-2xl backdrop-blur-sm p-6 sm:p-10 md:p-12 text-center"
+        >
+          <h3 className="text-3xl sm:text-4xl font-semibold mb-5">
+            I'm <span className="text-cyan-400">{identity?.heroTitle}</span>
+          </h3>
 
-              <img
-                src={profile}
-                alt="Profile"
-                className="relative w-64 sm:w-80 h-auto rounded-3xl object-cover shadow-2xl border border-white/10"
-              />
-            </motion.div>
-          </motion.div>
+          <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+            {identity?.aboutShort ? (
+              identity.aboutShort
+            ) : (
+              <>
+                A passionate{' '}
+                <span className="text-cyan-400 font-medium">
+                  {identity?.roleLabel}
+                </span>{' '}
+                {identity?.aboutBody}
+              </>
+            )}
+          </p>
 
-          {/* Right Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-white/5 backdrop-blur-2xl p-6 sm:p-10 rounded-3xl border border-white/10 shadow-xl hover:shadow-cyan-400/30 transition order-2 text-center md:text-left"
-          >
-            <h3 className="text-3xl sm:text-4xl font-semibold mb-4">
-              I'm <span className="text-cyan-400">Saker Ahmed Hridoy</span>
-            </h3>
-
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-              A passionate{' '}
-              <span className="text-cyan-400 font-medium">
-                Frontend Developer
-              </span>{' '}
-              crafting modern, clean & visually immersive digital experiences. I
-              love animation-rich interfaces, smooth UX, and premium dark UI.
+          {identity?.aboutExtra && !identity?.aboutShort && (
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed mt-4 max-w-3xl mx-auto">
+              {identity.aboutExtra}
             </p>
+          )}
 
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed mt-4">
-              My goal is to master full-stack development, AI-integrated web
-              apps, and build real-world scalable solutions. I always push my
-              limits to produce visually stunning and functional products.
-            </p>
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
-              {[
-                { count: '1+', title: 'Years Experience' },
-                { count: '20+', title: 'Projects' },
-                { count: '2+', title: 'Clients' },
-              ].map((item, index) => (
+          {/* Highlight Cards Grid */}
+          {aboutCards.length > 0 && (
+            <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+              {aboutCards.map((item, index) => (
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.05 }}
-                  className={`p-4 sm:p-5 bg-black/30 rounded-xl border border-white/10 hover:bg-black/50 transition ${
-                    index === 2 ? 'col-span-2 sm:col-span-1' : ''
+                  className={`p-4 sm:p-6 bg-[#0d1324]/80 rounded-xl border border-white/10 hover:bg-black/50 transition ${
+                    index === 2 && aboutCards.length === 3
+                      ? 'col-span-2 sm:col-span-1'
+                      : ''
                   }`}
                 >
                   <h4 className="text-2xl sm:text-3xl font-bold text-cyan-400">
-                    {item.count}
+                    {item.count || item.title}
                   </h4>
-                  <p className="text-gray-400 text-xs sm:text-sm">{item.title}</p>
+                  <p className="text-gray-400 text-xs sm:text-sm mt-1">
+                    {item.subtitle || item.title}
+                  </p>
                 </motion.div>
               ))}
             </div>
-            <div className="mt-10">
-              <motion.a
-                whileHover={{ scale: 1.07 }}
-                whileTap={{ scale: 0.92 }}
-                href="#contact"
-                className="inline-block px-8 sm:px-10 py-3 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold rounded-xl shadow-lg transition cursor-pointer"
-              >
-                Contact Me
-              </motion.a>
-            </div>
-          </motion.div>
-        </div>
+          )}
+
+          {/* Contact Me Button & Social Links */}
+          <div className="mt-8 flex flex-col items-center gap-6">
+            <motion.a
+              whileHover={{ scale: 1.07 }}
+              whileTap={{ scale: 0.92 }}
+              href="#contact"
+              className="inline-block px-8 sm:px-10 py-3 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold rounded-xl shadow-lg transition cursor-pointer"
+            >
+              Contact Me
+            </motion.a>
+
+            {(hasSocials || hasSocialLinks) && (
+              <div className="w-full pt-5 border-t border-white/10">
+                <SocialLinks
+                  socials={socials}
+                  socialLinks={socialLinks}
+                  className="flex items-center justify-center gap-5 text-xl text-gray-400"
+                />
+              </div>
+            )}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

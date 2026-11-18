@@ -1,49 +1,74 @@
 import React from 'react';
 import Tilt from 'react-parallax-tilt';
 import { motion } from 'framer-motion';
-import { FaCheckCircle, FaStar, FaBolt, FaCrown } from 'react-icons/fa';
+import {
+  FaCheckCircle,
+  FaStar,
+  FaBolt,
+  FaCrown,
+  FaRocket,
+  FaGem,
+  FaShieldAlt,
+} from 'react-icons/fa';
+import api from '../admin/api';
+import { useOwnedList } from '../site/useOwnedList';
+
+const PLAN_ICONS = {
+  bolt: FaBolt,
+  star: FaStar,
+  crown: FaCrown,
+  rocket: FaRocket,
+  gem: FaGem,
+  shield: FaShieldAlt,
+};
+
+const FALLBACK_PLANS = [
+  {
+    title: 'Basic',
+    icon: 'bolt',
+    price: '$50',
+    highlight: false,
+    features: [
+      '1 Page Website',
+      'Responsive Design',
+      'Basic Animations',
+      'Fast Delivery',
+    ],
+  },
+  {
+    title: 'Standard',
+    icon: 'star',
+    price: '$120',
+    highlight: true,
+    features: [
+      '3 Pages Website',
+      'Full Responsiveness',
+      'Premium Animations',
+      'Contact Form Integration',
+      'Performance Optimization',
+    ],
+  },
+  {
+    title: 'Premium',
+    icon: 'crown',
+    price: '$250',
+    highlight: false,
+    features: [
+      'Full Website + Dashboard',
+      'Advanced Animations + Effects',
+      'API Integration',
+      'SEO Optimization',
+      'Admin Panel / CMS',
+    ],
+  },
+];
 
 const Plans = () => {
-  const plans = [
-    {
-      title: 'Basic',
-      icon: <FaBolt className="text-cyan-400 text-4xl mb-3" />,
-      price: '$50',
-      highlight: false,
-      features: [
-        '1 Page Website',
-        'Responsive Design',
-        'Basic Animations',
-        'Fast Delivery',
-      ],
-    },
-    {
-      title: 'Standard',
-      icon: <FaStar className="text-yellow-400 text-4xl mb-3" />,
-      price: '$120',
-      highlight: true,
-      features: [
-        '3 Pages Website',
-        'Full Responsiveness',
-        'Premium Animations',
-        'Contact Form Integration',
-        'Performance Optimization',
-      ],
-    },
-    {
-      title: 'Premium',
-      icon: <FaCrown className="text-purple-400 text-4xl mb-3" />,
-      price: '$250',
-      highlight: false,
-      features: [
-        'Full Website + Dashboard',
-        'Advanced Animations + Effects',
-        'API Integration',
-        'SEO Optimization',
-        'Admin Panel / CMS',
-      ],
-    },
-  ];
+  const plans = useOwnedList(FALLBACK_PLANS, () =>
+    api.plans.list({ limit: 100, sort: 'order' }).then(({ items: fetched }) => fetched)
+  );
+
+  if (!plans.length) return null;
 
   return (
     <section
@@ -76,64 +101,69 @@ const Plans = () => {
         </motion.h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-          {plans.map((plan, index) => (
-            <Tilt
-              key={index}
-              tiltMaxAngleX={15}
-              tiltMaxAngleY={15}
-              scale={1.05}
-              transitionSpeed={1200}
-              className="w-full h-full"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                viewport={{ once: true }}
-                className={`relative p-8 sm:p-10 rounded-3xl backdrop-blur-xl bg-white/5 border h-full flex flex-col
+          {plans.map((plan, index) => {
+            const Icon = PLAN_ICONS[plan.icon] || FaBolt;
+            return (
+              <Tilt
+                key={index}
+                tiltMaxAngleX={15}
+                tiltMaxAngleY={15}
+                scale={1.05}
+                transitionSpeed={1200}
+                className="w-full h-full"
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  viewport={{ once: true }}
+                  className={`relative p-8 sm:p-10 rounded-3xl backdrop-blur-xl bg-white/5 border h-full flex flex-col
                   ${
                     plan.highlight
                       ? 'border-cyan-400 shadow-cyan-400/40'
                       : 'border-white/10'
                   }
                   hover:border-cyan-400 hover:shadow-cyan-300/40 transition-all duration-300 shadow-xl`}
-              >
-                {plan.highlight && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-cyan-500 text-black px-4 py-1 rounded-full text-xs sm:text-sm font-semibold shadow-lg whitespace-nowrap">
-                    Most Popular
+                >
+                  {plan.highlight && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-cyan-500 text-black px-4 py-1 rounded-full text-xs sm:text-sm font-semibold shadow-lg whitespace-nowrap">
+                      Most Popular
+                    </div>
+                  )}
+
+                  <div className="flex justify-center mb-4">
+                    <Icon className="text-cyan-400 text-4xl mb-3" />
                   </div>
-                )}
 
-                <div className="flex justify-center mb-4">{plan.icon}</div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-center">{plan.title}</h3>
+                  <p className="text-4xl sm:text-5xl font-extrabold text-center my-3 sm:my-4 text-cyan-400 font-mono">
+                    {plan.price}
+                  </p>
 
-                <h3 className="text-2xl sm:text-3xl font-bold text-center">{plan.title}</h3>
-                <p className="text-4xl sm:text-5xl font-extrabold text-center my-3 sm:my-4 text-cyan-400 font-mono">
-                  {plan.price}
-                </p>
+                  <ul className="space-y-3 my-6 flex-1">
+                    {plan.features.map((feature, i) => (
+                      <li
+                        key={i}
+                        className="flex items-center gap-3 text-gray-300 text-sm sm:text-base"
+                      >
+                        <FaCheckCircle className="text-cyan-400 text-lg shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
 
-                <ul className="space-y-3 my-6 flex-1">
-                  {plan.features.map((feature, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center gap-3 text-gray-300 text-sm sm:text-base"
+                  <div className="flex justify-center mt-6">
+                    <a
+                      href={plan.ctaHref || '#contact'}
+                      className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-black rounded-lg shadow-lg font-bold transition-all text-sm sm:text-base"
                     >
-                      <FaCheckCircle className="text-cyan-400 text-lg shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex justify-center mt-6">
-                  <a
-                    href="#contact"
-                    className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-black rounded-lg shadow-lg font-bold transition-all text-sm sm:text-base"
-                  >
-                    Get Started
-                  </a>
-                </div>
-              </motion.div>
-            </Tilt>
-          ))}
+                      {plan.ctaLabel || 'Get Started'}
+                    </a>
+                  </div>
+                </motion.div>
+              </Tilt>
+            );
+          })}
         </div>
       </div>
     </section>

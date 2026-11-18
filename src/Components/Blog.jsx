@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaTimes } from 'react-icons/fa';
 import react from '../assets/react.webp'
 import uiux from '../assets/uiux.png'
 import tailwind from '../assets/tailwind.webp'
+import api from '../admin/api';
+import { useSite } from '../site/SiteContext';
 
-const blogData = [
+const FALLBACK_BLOG = [
   {
     id: 1,
     title: 'How I Build Modern React Websites',
@@ -35,10 +37,52 @@ const blogData = [
   },
 ];
 
+const formatDate = value => {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+};
+
+const toCard = (post, index) => {
+  const fallback = FALLBACK_BLOG[index % FALLBACK_BLOG.length];
+  return {
+    ...post,
+    img: post.coverImage?.url || fallback.img,
+    date: post.publishedAt ? formatDate(post.publishedAt) || fallback.date : post.date,
+  };
+};
+
 const Blog = () => {
+  const { slug, identity } = useSite();
+  const [posts, setPosts] = useState(() =>
+    identity.useBundledContent ? FALLBACK_BLOG.map(toCard) : []
+  );
   const [active, setActive] = useState(null);
-  const categories = ['All', ...new Set(blogData.map(b => b.category))];
   const [filter, setFilter] = useState('All');
+  const categories = ['All', ...new Set(posts.map(b => b.category).filter(Boolean))];
+
+  useEffect(() => {
+    let active2 = true;
+    setPosts(identity.useBundledContent ? FALLBACK_BLOG.map(toCard) : []);
+    setFilter('All');
+    api.blog
+      .list({ limit: 100, sort: 'order' })
+      .then(({ items: fetched }) => {
+        if (active2 && Array.isArray(fetched) && fetched.length) {
+          const next = fetched.map(toCard);
+          setPosts(next);
+          setFilter(f => (next.some(b => b.category === f) ? f : 'All'));
+        }
+      })
+      .catch(() => {
+        // keep the bundled fallback content
+      });
+    return () => {
+      active2 = false;
+    };
+  }, [slug, identity.useBundledContent]);
+
+  if (!posts.length) return null;
 
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -46,7 +90,7 @@ const Blog = () => {
   };
 
   const filtered =
-    filter === 'All' ? blogData : blogData.filter(b => b.category === filter);
+    filter === 'All' ? posts : posts.filter(b => b.category === filter);
 
   return (
     <>
@@ -83,16 +127,16 @@ const Blog = () => {
       )}
 
       {/* ---------------- BLOG SECTION ---------------- */}
-      <section className="py-24 bg-black text-white" id="blog">
+      <section className="py-24 bg-[--bg-main] text-[--text-body]" id="blog">
         <div className="container mx-auto px-6">
           {/* Title */}
           <motion.h2
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.05 }}
             transition={{ duration: 0.7 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 sm:mb-16"
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 sm:mb-16 text-[--text-heading]"
           >
             Featured <span className="text-cyan-400">Blogs</span>
           </motion.h2>
@@ -109,8 +153,8 @@ const Blog = () => {
                 className={`px-5 py-2 rounded-full transition text-[13px] sm:text-sm border
                 ${
                   filter === cat
-                    ? 'bg-cyan-500 text-black font-semibold'
-                    : 'border-gray-600 text-gray-300 hover:bg-gray-800'
+                    ? 'bg-cyan-400 text-[--bg-main] font-semibold'
+                    : 'border-[--border-glass] text-[--text-muted] hover:bg-white/5'
                 }`}
               >
                 {cat}
@@ -124,10 +168,10 @@ const Blog = () => {
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.05 }}
                 transition={{ duration: 0.5, delay: i * 0.15 }}
                 whileHover={{ scale: 1.03 }}
-                className="rounded-2xl overflow-hidden bg-[#0f1a2a]/70 backdrop-blur-xl border border-white/10 shadow-xl hover:shadow-cyan-500/20 transition cursor-pointer flex flex-col"
+                className="rounded-2xl overflow-hidden bg-[--bg-surface] backdrop-blur-xl border border-[--border-glass] shadow-xl hover:shadow-[--accent-glow] transition cursor-pointer flex flex-col"
               >
                 <img
                   src={post.img}
@@ -138,9 +182,9 @@ const Blog = () => {
                 <div className="p-6 flex flex-col flex-1">
                   <span className="text-xs sm:text-sm text-cyan-400 font-medium">{post.category}</span>
 
-                  <h3 className="text-lg sm:text-xl font-semibold mt-2 line-clamp-2">{post.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold mt-2 line-clamp-2 text-[--text-heading]">{post.title}</h3>
 
-                  <p className="text-gray-400 text-xs sm:text-sm mt-3 line-clamp-3 leading-relaxed">
+                  <p className="text-[--text-muted] text-xs sm:text-sm mt-3 line-clamp-3 leading-relaxed">
                     {post.content}
                   </p>
 

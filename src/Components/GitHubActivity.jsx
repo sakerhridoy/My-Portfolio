@@ -2,10 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaStar, FaCodeBranch, FaBook, FaGitAlt } from 'react-icons/fa';
 import { FiGithub } from 'react-icons/fi';
-import useGithubData from './useGithubData';
+import useGithubData from './UseGithubData';
+import { useSite } from '../site/SiteContext';
 
 const GitHubActivity = () => {
-  const { profile, repos, loading, error } = useGithubData('sakerhridoy');
+  const { identity } = useSite();
+  const { profile, repos, loading, error } = useGithubData(identity.githubUser);
+
+  if (!identity.githubUser) return null;
 
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -13,16 +17,6 @@ const GitHubActivity = () => {
   };
 
   const recentRepos = repos.slice(0, 6);
-
-  const grid = React.useMemo(
-    () =>
-      Array.from({ length: 7 }).map(() =>
-        Array.from({ length: 20 }).map(
-          () => `bg-[rgba(0,255,200,${Math.random().toFixed(2)})]`
-        )
-      ),
-    []
-  );
 
   return (
     <section className="py-24 bg-black text-white" id="github">

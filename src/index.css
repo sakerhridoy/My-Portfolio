@@ -2,25 +2,188 @@
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
+
+:root {
+  --bg-main: #030712;
+  --bg-surface: rgba(13, 19, 36, 0.78);
+  --border-glass: rgba(56, 189, 248, 0.22);
+  --text-heading: #F8FAFC;
+  --text-body: #CBD5E1;
+  --text-muted: #94A3B8;
+  --accent-primary: #22D3EE;
+  --accent-secondary: #3B82F6;
+  --accent-glow: rgba(34, 211, 238, 0.25);
+}
+
+[data-theme='violet'] {
+  --bg-main: #090514;
+  --bg-surface: rgba(25, 18, 40, 0.85);
+  --border-glass: rgba(232, 121, 249, 0.22);
+  --text-heading: #FFFFFF;
+  --text-body: #E2E8F0;
+  --text-muted: #A5B4FC;
+  --accent-primary: #E879F9;
+  --accent-secondary: #8B5CF6;
+  --accent-glow: rgba(232, 121, 249, 0.25);
+}
+
+[data-theme='gold'] {
+  --bg-main: #0A0A0C;
+  --bg-surface: rgba(24, 24, 27, 0.85);
+  --border-glass: rgba(250, 204, 21, 0.22);
+  --text-heading: #FAFAFA;
+  --text-body: #D4D4D8;
+  --text-muted: #A1A1AA;
+  --accent-primary: #FACC15;
+  --accent-secondary: #F59E0B;
+  --accent-glow: rgba(250, 204, 21, 0.25);
+}
+
+/* Backgrounds & Text Mappings */
+[data-mode="light"] {
+  --bg-main: #F8FAFC !important;
+  --bg-surface: rgba(255, 255, 255, 0.85) !important;
+  --text-heading: #0F172A !important;
+  --text-body: #334155 !important;
+  --text-muted: #475569 !important;
+  --border-glass: rgba(15, 23, 42, 0.1) !important;
+  
+  /* Section Backgrounds & Gradients */
+  background: linear-gradient(180deg, #F8FAFC 0%, #EEF2FF 50%, #F8FAFC 100%) !important;
+}
+
+[data-mode="light"] #hero-canvas-container {
+  opacity: 0.45 !important;
+}
+
+/* Force Light Mode Overrides for Dark Elements */
+[data-mode="light"] .bg-black,
+[data-mode="light"] [class*="bg-[#0"] { background-color: #F8FAFC !important; }
+[data-mode="light"] .bg-slate-900, [data-mode="light"] .bg-slate-950, 
+[data-mode="light"] .bg-gray-900, [data-mode="light"] .bg-gray-950 { background-color: #F8FAFC !important; }
+
+/* Gradients to Light */
+[data-mode="light"] [class*="from-[#0"], 
+[data-mode="light"] [class*="via-[#0"], 
+[data-mode="light"] [class*="to-[#0"],
+[data-mode="light"] .from-black,
+[data-mode="light"] .via-black,
+[data-mode="light"] .to-black {
+  --tw-gradient-from: #F8FAFC !important;
+  --tw-gradient-via: #EEF2FF !important;
+  --tw-gradient-to: #F8FAFC !important;
+}
+
+/* Glass Cards & Surfaces */
+[data-mode="light"] [class*="bg-white/"],
+[data-mode="light"] [class*="bg-slate-"],
+[data-mode="light"] [class*="bg-[#0d1324]"],
+[data-mode="light"] [class*="bg-[#0b1120]"] {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Text Contrast */
+[data-mode="light"] h1, [data-mode="light"] h2, [data-mode="light"] h3, [data-mode="light"] h4,
+[data-mode="light"] .text-white, [data-mode="light"] .text-gray-100, 
+[data-mode="light"] .text-gray-200, [data-mode="light"] .text-slate-100, 
+[data-mode="light"] .text-slate-200 { color: #0F172A !important; }
+
+[data-mode="light"] .text-gray-300, [data-mode="light"] .text-gray-400, 
+[data-mode="light"] .text-gray-500, [data-mode="light"] .text-slate-300, 
+[data-mode="light"] .text-slate-400 { color: #475569 !important; }
+
+/* Form Elements */
+[data-mode="light"] input, 
+[data-mode="light"] textarea, 
+[data-mode="light"] select {
+  background-color: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+}
+[data-mode="light"] ::placeholder { color: #64748B !important; }
+
+/* Hero Badge */
+[data-mode="light"] .hero-badge {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  border: 1px solid rgba(15, 23, 42, 0.25) !important;
+  color: #0F172A !important;
+  box-shadow: 0 0 22px rgba(15, 23, 42, 0.28), 0 4px 12px rgba(0, 0, 0, 0.16) !important;
+}
+[data-mode="light"] .hero-badge span {
+  color: #0F172A !important;
+}
+
+/* Button Text Color Contrast for Light Mode */
+[data-mode="light"] .bg-gradient-to-r, 
+[data-mode="light"] .bg-cyan-400,
+[data-mode="light"] .bg-cyan-500,
+[data-mode="light"] button[type="submit"] {
+  color: #FFFFFF !important;
+}
+
+[data-mode="light"] .navbar-resume-btn {
+  color: #0F172A !important;
+  background: #E2E8F0 !important;
+}
+
+/* GitHub Section */
+[data-mode="light"] #github {
+  background: linear-gradient(180deg, #F8FAFC 0%, #EEF2FF 100%) !important;
+}
+[data-mode="light"] #github .glassmorphism {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border: 1px solid rgba(15, 23, 42, 0.14) !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+}
+[data-mode="light"] #github h2, [data-mode="light"] #github h3, [data-mode="light"] #github h4,
+[data-mode="light"] #github p {
+  color: #0F172A !important;
+}
+[data-mode="light"] #github .text-gray-300, [data-mode="light"] #github .text-gray-400 {
+  color: #475569 !important;
+}
+
+html, body {
+  @apply overflow-x-hidden antialiased;
+  background-color: var(--bg-main);
+  color: var(--text-body);
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  max-width: 100%;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-heading);
+  letter-spacing: -0.02em;
+}
+
+code, .badge, .price, .stat, .counter {
+  font-family: 'JetBrains Mono', monospace;
+}
+
 .container{
   @apply max-w-[1240px] mx-auto;
 }
+
 .floating-input {
-  @apply w-full px-4 pt-5 pb-2 rounded-lg bg-white/5 border border-white/10 text-white outline-none
+  @apply w-full px-4 pt-5 pb-2 rounded-lg bg-white/5 border border-[--border-glass] text-[--text-body] outline-none
   backdrop-blur-md transition;
 }
 
 .floating-input:focus {
-  @apply border-cyan-400 ring-2 ring-cyan-400/40;
+  @apply border-[--accent-primary] ring-2 ring-[--accent-glow];
 }
 
 .floating-label {
-  @apply absolute left-4 top-3 text-gray-400 text-sm transition-all pointer-events-none;
+  @apply absolute left-4 top-3 text-[--text-muted] text-sm transition-all pointer-events-none;
 }
 
 .peer:focus ~ .floating-label,
 .peer:not(:placeholder-shown) ~ .floating-label {
-  @apply text-xs text-cyan-400 -top-2 bg-black/60 px-2 rounded;
+  @apply text-xs text-[--accent-primary] -top-2 bg-[--bg-main] px-2 rounded;
 }
 
 @layer utilities {
@@ -44,7 +207,7 @@
   }
 
   .nav-active a {
-    color: #22d3ee;
+    color: var(--accent-primary);
     font-weight: 600;
   }
 

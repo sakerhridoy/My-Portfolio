@@ -2,32 +2,39 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 import { TbHandClick } from 'react-icons/tb';
+import api from '../admin/api';
+import { useOwnedList } from '../site/useOwnedList';
 
-const faqData = [
+const FALLBACK_FAQS = [
   {
-    q: 'What services do you offer?',
-    a: 'I specialize in modern Frontend Development, UI/UX Design, Responsive Web Apps, Framer Motion animations, API integrations and premium dark-themed interfaces.',
+    question: 'What services do you offer?',
+    answer: 'I specialize in modern Frontend Development, UI/UX Design, Responsive Web Apps, Framer Motion animations, API integrations and premium dark-themed interfaces.',
   },
   {
-    q: 'Which technologies do you work with?',
-    a: 'React.js, Next.js, Tailwind CSS, Framer Motion, Firebase, Node.js basics, and modern frontend tools.',
+    question: 'Which technologies do you work with?',
+    answer: 'React.js, Next.js, Tailwind CSS, Framer Motion, Firebase, Node.js basics, and modern frontend tools.',
   },
   {
-    q: 'Do you work with international clients?',
-    a: 'Yes! I work with clients worldwide and maintain smooth communication through email, messages, and video calls.',
+    question: 'Do you work with international clients?',
+    answer: 'Yes! I work with clients worldwide and maintain smooth communication through email, messages, and video calls.',
   },
   {
-    q: 'How long does a project usually take?',
-    a: 'It depends on complexity. Simple websites take 3–7 days, medium projects 1–3 weeks, and advanced systems vary based on requirements.',
+    question: 'How long does a project usually take?',
+    answer: 'It depends on complexity. Simple websites take 3–7 days, medium projects 1–3 weeks, and advanced systems vary based on requirements.',
   },
   {
-    q: 'Do you provide ongoing support?',
-    a: 'Absolutely! I offer maintenance, updates, UI improvements, and future feature additions after project delivery.',
+    question: 'Do you provide ongoing support?',
+    answer: 'Absolutely! I offer maintenance, updates, UI improvements, and future feature additions after project delivery.',
   },
 ];
 
 const FAQ = () => {
+  const faqData = useOwnedList(FALLBACK_FAQS, () =>
+    api.faqs.list({ limit: 100, sort: 'order' }).then(({ items: fetched }) => fetched)
+  );
   const [activeIndex, setActiveIndex] = useState(null);
+
+  if (!faqData.length) return null;
 
   const toggleFAQ = index => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -59,7 +66,7 @@ const FAQ = () => {
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.05 }}
           className="text-4xl sm:text-5xl font-extrabold text-center mb-12 sm:mb-16"
         >
           Frequently Asked{' '}
@@ -74,7 +81,7 @@ const FAQ = () => {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.05 }}
               className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-cyan-400/20 transition-all duration-300"
             >
               <button
@@ -82,7 +89,7 @@ const FAQ = () => {
                 className="w-full flex justify-between items-center text-left gap-4"
               >
                 <h3 className="text-base sm:text-lg font-semibold text-gray-200">
-                  {item.q}
+                  {item.question}
                 </h3>
 
                 <motion.div
@@ -105,7 +112,7 @@ const FAQ = () => {
                     className="overflow-hidden"
                   >
                     <p className="text-gray-300 pt-4 text-sm sm:text-base leading-relaxed">
-                      {item.a}
+                      {item.answer}
                     </p>
                   </motion.div>
                 )}

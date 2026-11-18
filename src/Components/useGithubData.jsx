@@ -7,7 +7,13 @@ const useGithubData = username => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!username) return;
+    if (!username) {
+      setProfile(null);
+      setRepos([]);
+      setLoading(false);
+      setError(null);
+      return undefined;
+    }
 
     const controller = new AbortController();
     const signal = controller.signal;
