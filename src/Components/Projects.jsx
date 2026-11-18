@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import ProjectsSlider from './ProjectsSlider';
-import useGithubData from './UseGithubData';
+import useGithubData from './useGithubData';
 import api from '../admin/api';
 import { useSite } from '../site/SiteContext';
 

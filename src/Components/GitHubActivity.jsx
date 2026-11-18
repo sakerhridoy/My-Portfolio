@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaStar, FaCodeBranch, FaBook, FaGitAlt } from 'react-icons/fa';
 import { FiGithub } from 'react-icons/fi';
-import useGithubData from './UseGithubData';
+import useGithubData from './useGithubData';
 import { useSite } from '../site/SiteContext';
 
 const GitHubActivity = () => {

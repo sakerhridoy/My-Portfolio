@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useGithubData from './UseGithubData';
+import useGithubData from './useGithubData';
 import HeroBackground from './HeroBackground';
 import PremiumSmall3D from './PremiumSmall3D';
 import GlowBall from './GlowBall';
